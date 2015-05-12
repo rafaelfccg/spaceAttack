@@ -18,20 +18,22 @@
     NSTimeInterval _deltaTime;
     float _pointsPerSecondSpeed;
     BOOL _randomizeDuringRollover;
+    CGSize _framesize;
     
 }
 
 
-- (instancetype)initWithBackground:(NSString *)file size:(CGSize)size pointsPerSecondSpeed:(float)pointsPerSecondSpeed
+- (instancetype)initWithBackground:(NSString *)file size:(CGSize)size pointsPerSecondSpeed:(float)pointsPerSecondSpeed frameSize:(CGSize) csz;
 {
     // we add the file 3 times to avoid image flickering
     return [self initWithBackgrounds:@[file, file, file]
                                 size:size
-                pointsPerSecondSpeed:pointsPerSecondSpeed];
+                pointsPerSecondSpeed:pointsPerSecondSpeed
+                                frameSize:csz];
     
 }
 
-- (instancetype)initWithBackgrounds:(NSArray *)files size:(CGSize)size pointsPerSecondSpeed:(float)pointsPerSecondSpeed
+- (instancetype)initWithBackgrounds:(NSArray *)files size:(CGSize)size pointsPerSecondSpeed:(float)pointsPerSecondSpeed frameSize:(CGSize) csz
 {
     if (self = [super init])
     {
@@ -43,9 +45,10 @@
             SKSpriteNode *node = [SKSpriteNode spriteNodeWithImageNamed:obj];
             node.size = size;
             node.anchorPoint = CGPointZero;
-            node.position = CGPointMake(size.width * idx, 0.0);
+            node.position = CGPointMake(0.0,size.height*idx);
             node.name = @"background";
             //NSLog(@"node.position = x=%f,y=%f",node.position.x,node.position.y);
+            _framesize = csz;
             [_backgrounds addObject:node];
             [self addChild:node];
         }];
@@ -82,10 +85,17 @@
 //    node.position = CGPointMake(node.position.x,node.position.y+randomOffset);
     
     //I liked this look better for randomizing the placement of the nodes!
-    CGFloat randomYPosition = [self randomValueBetween:node.size.height/2.0
-                                              andValue:(self.frame.size.height-node.size.height/2.0)];
-    node.position = CGPointMake(node.position.x,randomYPosition);
+    CGFloat randomXPosition = [self randomValueBetween:(-_framesize.width/2)
+                                              andValue:(_framesize.width/2)];
+   
     
+    node.position = CGPointMake(randomXPosition, node.position.y +_framesize.height/2 +node.size.height/2);
+    NSLog(@"NODE x: %f /y: %f",node.position.x,node.position.y);
+    
+}
+
+-(CGSize)getSize{
+    return _framesize;
 }
 
 - (void)update:(NSTimeInterval)currentTime
@@ -98,7 +108,7 @@
     }
     _lastUpdateTime = currentTime;
     
-    CGPoint bgVelocity = CGPointMake(-_pointsPerSecondSpeed, 0.0);
+    CGPoint bgVelocity = CGPointMake(0.0,-_pointsPerSecondSpeed);
     CGPoint amtToMove = CGPointMake(bgVelocity.x * _deltaTime, bgVelocity.y * _deltaTime);
     self.position = CGPointMake(self.position.x+amtToMove.x, self.position.y+amtToMove.y);
     SKNode *backgroundScreen = self.parent;
@@ -107,12 +117,14 @@
         SKSpriteNode *bg = (SKSpriteNode *)obj;
         CGPoint bgScreenPos = [self convertPoint:bg.position
                                           toNode:backgroundScreen];
-        if (bgScreenPos.x <= -bg.size.width)
+        if (bgScreenPos.y <= -bg.size.height)
         {
-            bg.position = CGPointMake(bg.position.x + (bg.size.width * _numberOfImagesForBackground), bg.position.y);
+            bg.position = CGPointMake(bg.position.x, (bg.size.height * _numberOfImagesForBackground)+ bg.position.y);
+           
             if (_randomizeDuringRollover) {
                 [self randomizeNodePosition:bg];
             }
+            // NSLog(@" x: %f /y: %f",bg.position.y,bg.position.x);
         }
         
     }];

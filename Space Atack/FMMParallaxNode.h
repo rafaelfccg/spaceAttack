@@ -10,10 +10,11 @@
 
 @interface FMMParallaxNode : SKNode
 
-- (instancetype)initWithBackground:(NSString *)file size:(CGSize)size pointsPerSecondSpeed:(float)pointsPerSecondSpeed;
-- (instancetype)initWithBackgrounds:(NSArray *)files size:(CGSize)size pointsPerSecondSpeed:(float)pointsPerSecondSpeed;
+- (instancetype)initWithBackground:(NSString *)file size:(CGSize)size pointsPerSecondSpeed:(float)pointsPerSecondSpeed frameSize:(CGSize) csz;;
+- (instancetype)initWithBackgrounds:(NSArray *)files size:(CGSize)size pointsPerSecondSpeed:(float)pointsPerSecondSpeed frameSize:(CGSize) csz;
 - (void)randomizeNodesPositions;
 - (void)update:(NSTimeInterval)currentTime;
+-(CGSize)getSize;
 
 
 @end

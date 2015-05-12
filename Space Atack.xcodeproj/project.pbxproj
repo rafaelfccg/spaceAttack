@@ -17,6 +17,12 @@
 		004D6D541B01409300893E8B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D521B01409300893E8B /* LaunchScreen.xib */; };
 		004D6D601B01409300893E8B /* Space_AtackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 004D6D5F1B01409300893E8B /* Space_AtackTests.m */; };
 		004D6D6B1B0140D400893E8B /* FMMParallaxNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 004D6D6A1B0140D400893E8B /* FMMParallaxNode.m */; };
+		004D6D8A1B0273A600893E8B /* star1.png in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D841B0273A600893E8B /* star1.png */; };
+		004D6D8B1B0273A600893E8B /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D851B0273A600893E8B /* star2.png */; };
+		004D6D8C1B0273A600893E8B /* star3.png in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D861B0273A600893E8B /* star3.png */; };
+		004D6D8D1B0273A600893E8B /* stars1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D871B0273A600893E8B /* stars1.sks */; };
+		004D6D8E1B0273A600893E8B /* stars2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D881B0273A600893E8B /* stars2.sks */; };
+		004D6D8F1B0273A600893E8B /* stars3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D891B0273A600893E8B /* stars3.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +54,12 @@
 		004D6D5F1B01409300893E8B /* Space_AtackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Space_AtackTests.m; sourceTree = "<group>"; };
 		004D6D691B0140D400893E8B /* FMMParallaxNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMMParallaxNode.h; sourceTree = "<group>"; };
 		004D6D6A1B0140D400893E8B /* FMMParallaxNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMMParallaxNode.m; sourceTree = "<group>"; };
+		004D6D841B0273A600893E8B /* star1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star1.png; sourceTree = "<group>"; };
+		004D6D851B0273A600893E8B /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
+		004D6D861B0273A600893E8B /* star3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star3.png; sourceTree = "<group>"; };
+		004D6D871B0273A600893E8B /* stars1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars1.sks; sourceTree = "<group>"; };
+		004D6D881B0273A600893E8B /* stars2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars2.sks; sourceTree = "<group>"; };
+		004D6D891B0273A600893E8B /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars3.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +110,12 @@
 				004D6D481B01409300893E8B /* GameScene.sks */,
 				004D6D4A1B01409300893E8B /* GameViewController.h */,
 				004D6D4B1B01409300893E8B /* GameViewController.m */,
+				004D6D841B0273A600893E8B /* star1.png */,
+				004D6D851B0273A600893E8B /* star2.png */,
+				004D6D861B0273A600893E8B /* star3.png */,
+				004D6D871B0273A600893E8B /* stars1.sks */,
+				004D6D881B0273A600893E8B /* stars2.sks */,
+				004D6D891B0273A600893E8B /* stars3.sks */,
 				004D6D4D1B01409300893E8B /* Main.storyboard */,
 				004D6D501B01409300893E8B /* Images.xcassets */,
 				004D6D521B01409300893E8B /* LaunchScreen.xib */,
@@ -213,9 +231,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				004D6D541B01409300893E8B /* LaunchScreen.xib in Resources */,
+				004D6D8A1B0273A600893E8B /* star1.png in Resources */,
+				004D6D8E1B0273A600893E8B /* stars2.sks in Resources */,
 				004D6D511B01409300893E8B /* Images.xcassets in Resources */,
 				004D6D491B01409300893E8B /* GameScene.sks in Resources */,
+				004D6D8B1B0273A600893E8B /* star2.png in Resources */,
+				004D6D8C1B0273A600893E8B /* star3.png in Resources */,
 				004D6D4F1B01409300893E8B /* Main.storyboard in Resources */,
+				004D6D8D1B0273A600893E8B /* stars1.sks in Resources */,
+				004D6D8F1B0273A600893E8B /* stars3.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +456,7 @@
 				004D6D651B01409300893E8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		004D6D661B01409300893E8B /* Build configuration list for PBXNativeTarget "Space AtackTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +465,7 @@
 				004D6D681B01409300893E8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -47,7 +47,6 @@
     
     // Present the scene.
     [skView presentScene:scene];*/
-
 }
 
 - (void)viewWillLayoutSubviews
@@ -59,7 +58,7 @@
     if (!skView.scene) {
         skView.showsFPS = YES;
         skView.showsNodeCount = YES;
-        
+        //skView.showsPhysics = YES;
         // Create and configure the scene.
         GameScene *theScene = [GameScene sceneWithSize:skView.bounds.size];
         theScene.scaleMode = SKSceneScaleModeAspectFill;

@@ -23,6 +23,8 @@
 		004D6D8D1B0273A600893E8B /* stars1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D871B0273A600893E8B /* stars1.sks */; };
 		004D6D8E1B0273A600893E8B /* stars2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D881B0273A600893E8B /* stars2.sks */; };
 		004D6D8F1B0273A600893E8B /* stars3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D891B0273A600893E8B /* stars3.sks */; };
+		008640D01B03E8D10089D2BD /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 008640CF1B03E8D10089D2BD /* Explosion.sks */; };
+		008640D21B04E1170089D2BD /* Game-SPaceAttack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 008640D11B04E1170089D2BD /* Game-SPaceAttack.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		004D6D871B0273A600893E8B /* stars1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars1.sks; sourceTree = "<group>"; };
 		004D6D881B0273A600893E8B /* stars2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars2.sks; sourceTree = "<group>"; };
 		004D6D891B0273A600893E8B /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars3.sks; sourceTree = "<group>"; };
+		008640CF1B03E8D10089D2BD /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
+		008640D11B04E1170089D2BD /* Game-SPaceAttack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Game-SPaceAttack.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,11 +109,13 @@
 				004D6D431B01409300893E8B /* AppDelegate.m */,
 				004D6D451B01409300893E8B /* GameScene.h */,
 				004D6D461B01409300893E8B /* GameScene.m */,
+				008640CF1B03E8D10089D2BD /* Explosion.sks */,
 				004D6D691B0140D400893E8B /* FMMParallaxNode.h */,
 				004D6D6A1B0140D400893E8B /* FMMParallaxNode.m */,
 				004D6D481B01409300893E8B /* GameScene.sks */,
 				004D6D4A1B01409300893E8B /* GameViewController.h */,
 				004D6D4B1B01409300893E8B /* GameViewController.m */,
+				008640D11B04E1170089D2BD /* Game-SPaceAttack.mp3 */,
 				004D6D841B0273A600893E8B /* star1.png */,
 				004D6D851B0273A600893E8B /* star2.png */,
 				004D6D861B0273A600893E8B /* star3.png */,
@@ -234,7 +240,9 @@
 				004D6D8A1B0273A600893E8B /* star1.png in Resources */,
 				004D6D8E1B0273A600893E8B /* stars2.sks in Resources */,
 				004D6D511B01409300893E8B /* Images.xcassets in Resources */,
+				008640D21B04E1170089D2BD /* Game-SPaceAttack.mp3 in Resources */,
 				004D6D491B01409300893E8B /* GameScene.sks in Resources */,
+				008640D01B03E8D10089D2BD /* Explosion.sks in Resources */,
 				004D6D8B1B0273A600893E8B /* star2.png in Resources */,
 				004D6D8C1B0273A600893E8B /* star3.png in Resources */,
 				004D6D4F1B01409300893E8B /* Main.storyboard in Resources */,

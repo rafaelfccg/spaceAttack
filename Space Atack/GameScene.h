@@ -9,6 +9,6 @@
 #import <SpriteKit/SpriteKit.h>
 #import "FMMParallaxNode.h"
 
-@interface GameScene : SKScene <UIGestureRecognizerDelegate>
+@interface GameScene : SKScene <SKPhysicsContactDelegate>
 -(CGFloat)normX:(CGFloat)X YVal:(CGFloat)Y;
 @end

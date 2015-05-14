@@ -7,8 +7,17 @@
 //
 
 #import "GameScene.h"
+@import AVFoundation;
+
+//Add the following variable underneath the bool _gameOver; declaration
+
 #define kNumAsteroids   10
-#define kNumLasers      10
+#define kNumLasers      25
+#define distTOP         250
+typedef enum {
+    kEndReasonWin,
+    kEndReasonLose
+} EndReason;
 
 
 
@@ -21,14 +30,29 @@
     NSMutableArray *_asteroids;
     int _nextAsteroid;
     double _nextAsteroidSpawn;
-    
+    int _lives;
     int _nextShipLaser;
     NSMutableArray *_shipLasers;
+    double _nextItemSpawn;
     double  _nextLaserSpawn;
-    
+    double _gameOverTime;
+    BOOL _gameOver;
+    SKAction * _animaAst;
+    SKLabelNode *restartLabel;
+    double last_hit;
+    int score;
+    SKLabelNode* _LabelScore;
+    AVAudioPlayer *_backgroundAudioPlayer;
+    bool OnTrilaser;
+    double trilaserTime;
 }
 
-static  CGFloat thrust = 0.12;
+static const uint32_t shipCategory = 0x1<<1;
+static const uint32_t asteroidCategory = 0x1<<2;
+static const uint32_t laserCategory = 0x1<<3;
+static const uint32_t itemTrilaser = 0x1<<5;
+static const uint32_t eshipCategory = 0x1<<4;
+
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
    
@@ -43,70 +67,75 @@ static  CGFloat thrust = 0.12;
         /* Setup your scene here */
         //2
         NSLog(@"SKScene:initWithSize %f x %f",size.width,size.height);
-        
+        self.physicsWorld.gravity = CGVectorMake(0, 0);
+        self.physicsWorld.contactDelegate = self;
         //3
         self.backgroundColor = [SKColor blackColor];
         
+        //_LabelScore = [SKLabelNode]
+        _LabelScore = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+        _LabelScore.name = @"scoreLabel";
+        _LabelScore.text = [NSString stringWithFormat:@"Score: %d",score ];
+        //_LabelScore.scale = 0.1;
+        _LabelScore.position = CGPointMake(CGRectGetMaxX(self.frame)*0.9-15,
+                                           CGRectGetMaxY(self.frame)*0.95);
+        _LabelScore.fontColor = [SKColor whiteColor];
+        _LabelScore.zPosition = 100;
+        //[self addChild:_LabelScore];
+        
 #pragma mark - TBD - Game Backgrounds
         
-       /* NSArray *parallaxBackgroundNames = @[@"P1",@"P2",@"P4",@"P1"];
-        CGSize planetSizes = CGSizeMake(100.0, 100.0);
-        //2
-        _parallaxNodeBackgrounds = [[FMMParallaxNode alloc] initWithBackgrounds:parallaxBackgroundNames
-                                                                           size:planetSizes
-                                                           pointsPerSecondSpeed:70.0
-                                                                      frameSize:size];
-        //3
-        _parallaxNodeBackgrounds.position = CGPointMake(size.width/2.0, size.height/2.0);
-        //4
-        [_parallaxNodeBackgrounds randomizeNodesPositions];*/
-        
-        //5
-       // parallaxBackgroundNames.
-        
-        
-        //6
+               //6
         NSArray *parallaxBackground2Names = @[@"SpaceBack",@"SpaceBack"];
         _parallaxSpaceDust = [[FMMParallaxNode alloc] initWithBackgrounds:parallaxBackground2Names
                                                                      size:size
-                                                     pointsPerSecondSpeed:25.0
+                                                     pointsPerSecondSpeed:30.0
                                                                 frameSize:size];
         _parallaxSpaceDust.position = CGPointMake(0, 0);
-        /*_parallaxSpaceDust.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.frame.size];
-        _parallaxSpaceDust.physicsBody.affectedByGravity = NO;
-        _parallaxSpaceDust.physicsBody.dynamic = NO;
-        _parallaxSpaceDust.physicsBody .mass = 0.02;*/
+                [self addChild:_parallaxSpaceDust];
         
-        //_parallaxSpaceDust.physicsBody.
-        [self addChild:_parallaxSpaceDust];
-        //[self addChild:_parallaxNodeBackgrounds];
+        float randSecs = [self randomValueBetween:25 andValue:45];
+        _nextItemSpawn = randSecs;
         
 #pragma mark - Setup Sprite for the ship
         //Create space sprite, setup position on left edge centered on the screen, and add to Scene
         //4
         _ship = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
         _ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        _ship.xScale = 0.2;
-        _ship.yScale =0.2;
-        _ship.physicsBody = [SKPhysicsBody bodyWithTexture:_ship.texture  size:_ship.texture.size];
+        _ship.xScale = 0.8;
+        _ship.yScale =0.8;
+        
+        CGSize a  = _ship.texture.size;
+        a.height = a.height*0.2;
+        a.width =a.width *0.2;
+        _ship.physicsBody = [SKPhysicsBody bodyWithTexture:_ship.texture  size:_ship.size];
+        
         _ship.physicsBody.affectedByGravity = NO;
         _ship.physicsBody.allowsRotation = NO;
-        _ship.physicsBody.friction = 0.05;
+        _ship.physicsBody.categoryBitMask = shipCategory;
+        _ship.physicsBody.collisionBitMask = 0x0;
+        _ship.physicsBody.contactTestBitMask = shipCategory|eshipCategory|asteroidCategory| itemTrilaser;
+        //_ship.physicsBody.usesPreciseCollisionDetection;
+        [_ship.physicsBody setMass:0.366144];
         [self addChild:_ship];
         _ship_Speed = 0;
+        NSLog(@"ship mass %f",_ship.physicsBody.mass);
         
 #pragma mark - TBD - Setup the asteroids
 
-        _asteroids = [[NSMutableArray alloc] initWithCapacity:kNumAsteroids];
-        for (int i = 0; i < kNumAsteroids; ++i) {
-            SKSpriteNode *asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"Asteroid1"];
-            asteroid.hidden = YES;
-            [asteroid setXScale:0.5];
-            [asteroid setYScale:0.5];
-            [_asteroids addObject:asteroid];
-            [self addChild:asteroid];
-        }
-#pragma mark - TBD - Setup the lasers
+        //_asteroids = [[NSMutableArray alloc] initWithCapacity:kNumAsteroids];
+        //[SKTexture textureWithImageNamed:<#(NSString *)#>]
+        NSArray *animaAst= @[([SKTexture textureWithImageNamed:@"A1"]),([SKTexture textureWithImageNamed:@"A2"]),
+                            ([SKTexture textureWithImageNamed:@"A3"]),([SKTexture textureWithImageNamed:@"A4"]),
+                            ([SKTexture textureWithImageNamed:@"A5"]),([SKTexture textureWithImageNamed:@"A6"]),
+                            ([SKTexture textureWithImageNamed:@"A7"]),([SKTexture textureWithImageNamed:@"A8"]),
+                             ([SKTexture textureWithImageNamed:@"A9"]),([SKTexture textureWithImageNamed:@"A10"]),
+                             ([SKTexture textureWithImageNamed:@"A11"]),([SKTexture textureWithImageNamed:@"A12"]),
+                             ([SKTexture textureWithImageNamed:@"A13"]),([SKTexture textureWithImageNamed:@"A14"]),
+                             ([SKTexture textureWithImageNamed:@"A15"]),([SKTexture textureWithImageNamed:@"A0"])];
+        SKAction *anima  =[SKAction animateWithTextures:animaAst timePerFrame:0.025];
+        _animaAst = [SKAction repeatActionForever:anima];
+        #pragma mark - TBD - Setup the lasers
         _shipLasers = [[NSMutableArray alloc] initWithCapacity:kNumLasers];
         for (int i = 0; i < kNumLasers; ++i) {
             SKSpriteNode *shipLaser = [SKSpriteNode spriteNodeWithImageNamed:@"SBlueShot"];
@@ -114,8 +143,6 @@ static  CGFloat thrust = 0.12;
             [_shipLasers addObject:shipLaser];
             [self addChild:shipLaser];
         }
-#pragma mark - TBD - Setup the Accelerometer to move the ship
-        
 #pragma mark - TBD - Setup the stars to appear as particles
         [self addChild:[self loadEmitterNode:@"stars1"]];
         //[self addChild:[self loadEmitterNode:@"P2"]];
@@ -129,6 +156,77 @@ static  CGFloat thrust = 0.12;
 - (float)randomValueBetween:(float)low andValue:(float)high {
     return (((float) arc4random() / 0xFFFFFFFFu) * (high - low)) + low;
 }
+#pragma  mark music
+- (void)startBackgroundMusic
+{
+    NSError *err;
+    NSURL *file = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Game-SPaceAttack.mp3" ofType:nil]];
+    _backgroundAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:file error:&err];
+    if (err) {
+        NSLog(@"error in audio play %@",[err userInfo]);
+        return;
+    }
+    [_backgroundAudioPlayer prepareToPlay];
+    
+    // this will play the music infinitely
+    _backgroundAudioPlayer.numberOfLoops = -1;
+    [_backgroundAudioPlayer setVolume:1.0];
+    [_backgroundAudioPlayer play];
+}
+
+#pragma  mark contact
+- (void)didBeginContact:(SKPhysicsContact *)contact
+{
+    SKPhysicsBody *firstBody, *secondBody;
+    
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
+    {
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    }
+    else
+    {
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
+   // NSLog(@"%ud %ud",firstBody.categoryBitMask,secondBody.categoryBitMask);
+    double cur = CACurrentMediaTime();
+    if ( (secondBody.categoryBitMask & asteroidCategory) && (firstBody.categoryBitMask & shipCategory)&& !secondBody.node.hidden && last_hit+1.0 <= cur)
+    {
+        last_hit = cur;
+        secondBody.node.hidden = YES;
+        NSLog(@"You have been HIT Contact!!");
+        SKAction *blink = [SKAction sequence:@[[SKAction fadeOutWithDuration:0.1],
+                                               [SKAction fadeInWithDuration:0.1]]];
+        SKAction *blinkForTime = [SKAction repeatAction:blink count:4];
+        [_ship runAction:blinkForTime];
+        
+        _lives--;
+    }else if (((secondBody.categoryBitMask & laserCategory) && (firstBody.categoryBitMask & asteroidCategory)) && !secondBody.node.hidden && !firstBody.node.hidden)
+    {
+        //last_hit = cur;
+        secondBody.node.hidden = YES;
+        secondBody.collisionBitMask = 0x0;
+        firstBody.node.hidden = YES;
+        firstBody.collisionBitMask = 0x0;
+        score+= 50;
+        [self setScore];
+        NSString *emitterPath = [[NSBundle mainBundle] pathForResource:@"Explosion" ofType:@"sks"];
+        SKEmitterNode *emitterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath];
+        emitterNode.position = firstBody.node.position;
+        
+        [self addChild:emitterNode];
+        
+    } else if ( (secondBody.categoryBitMask & itemTrilaser) && (firstBody.categoryBitMask & shipCategory)&& !secondBody.node.hidden && last_hit+1.0 <= cur)
+    {
+        secondBody.node.hidden = YES;
+        OnTrilaser = YES;
+        trilaserTime = cur;
+        
+    }
+    
+}
+
 - (SKEmitterNode *)loadEmitterNode:(NSString *)emitterFileName
 {
     NSString *emitterPath = [[NSBundle mainBundle] pathForResource:emitterFileName ofType:@"sks"];
@@ -143,14 +241,21 @@ static  CGFloat thrust = 0.12;
 - (void)startTheGame
 {
     _nextAsteroidSpawn = 0;
+    _lives = 3;
+    double  cur = CACurrentMediaTime();
+    _gameOverTime = cur+300;
+    _gameOver = NO;
+    restartLabel.hidden = YES;
+    score = 0;
+    OnTrilaser = NO;
+    float randSecs = [self randomValueBetween:25 andValue:45];
+    _nextItemSpawn = cur + randSecs;
+    [self setScore];
+    _ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    _ship.hidden = NO;
     
-    for (SKSpriteNode *asteroid in _asteroids) {
-        asteroid.hidden = YES;
-    }
-    _ship.hidden = NO;_ship_Speed = 0;
-    for (SKSpriteNode *laser in _shipLasers) {
-        laser.hidden = YES;
-    }
+    [self addChild:_LabelScore];
+    [self startBackgroundMusic];
     //reset ship position for new game
     //_ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMinY(self.frame)+_ship.size.height);
     
@@ -158,58 +263,88 @@ static  CGFloat thrust = 0.12;
     
 }
 
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins */
+    //check if they touched your Restart Label
+    if(!restartLabel.hidden){
+        for (UITouch *touch in touches) {
+            SKNode *n = [self nodeAtPoint:[touch locationInNode:self]];
+            NSLog(@"%@",n.name);
+            
+           
+          if (n != self && [n.name isEqual: @"restartLabel"]) {
+                [[self childNodeWithName:@"restartLabel"] removeFromParent];
+                [[self childNodeWithName:@"winLoseLabel"] removeFromParent];
+                [_LabelScore removeFromParent];
+                //NSLog(@"RESTART GAME");
+                [self startTheGame];
+                
+                return;
+            }
+        }
+    }
+    
+    //do not process anymore touches since it's game over
+    if (_gameOver) {
+        return;
+    }    /* Called when a touch begins */
     for (UITouch *touch in touches) {
         CGPoint pos = [touch locationInNode:self];
         initMove = pos;
-        //thrust = [self normX:fabs(pos.x - _ship.position.x) YVal:fabs(pos.y - _ship.position.y)];
+        CGFloat x =(pos.x - _ship.position.x);
+        CGFloat y =(pos.y - _ship.position.y);
         
-       // CGVector thrustVector = CGVectorMake(10*(pos.x - _ship.position.x),
-                                            // 10*(pos.y - _ship.position.y));
-        //[_ship.physicsBody applyForce:thrustVector];
-        /*
-         //SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-         //[sprite runAction:[SKAction repeatActionForever:action]];
-         
-         [self addChild:sprite];*/
+        
+        CGFloat norm = [self normX:x YVal:y];
+        CGVector thrustVector = CGVectorMake(40*x/norm,
+                                             40*y/norm);
+        [_ship.physicsBody applyImpulse:thrustVector];
     }
+    
 }
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    for (UITouch *touch in touches) {
-        CGPoint pos = [touch locationInNode:self];
-        thrust = [self normX:fabs(pos.x -initMove.x) YVal:fabs(pos.y - initMove.y)];
-        
-        CGVector thrustVector = CGVectorMake((pos.x - _ship.position.x),
-                                             (pos.y - _ship.position.y));
-        [_ship.physicsBody applyForce:thrustVector];
-        
-    }
-
-}
+//-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+//    for (UITouch *touch in touches) {
+//        CGPoint pos = [touch locationInNode:self];
+//        thrust = [self normX:fabs(pos.x -initMove.x) YVal:fabs(pos.y - initMove.y)];
+//        
+//        CGVector thrustVector = CGVectorMake(0.5*(pos.x - _ship.position.x),
+//                                             0.5*(pos.y - _ship.position.y));
+//        [_ship.physicsBody applyForce:thrustVector];
+//        
+//    }
+//
+//}
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    for (UITouch *touch in touches) {
-        
-       // _ship.physicsBody.velocity = CGVectorMake(0, 0);
-    }
-
+  
+    
 }
+#pragma <#arguments#>
+-(void)setScore{
+    int aux  = score;
+    int count = 1;
+    while(aux>9){
+        aux/=10;
+        count++;
+    }
+    _LabelScore.position = CGPointMake(CGRectGetMaxX(self.frame)*0.9-count*9 +5,
+                                       CGRectGetMaxY(self.frame)*0.95);
+    _LabelScore.text = [NSString stringWithFormat:@"Score: %d",score];
+}
+
 -(CGFloat)normX:(CGFloat)x YVal:(CGFloat)Y
 {
     return sqrt(x*x +Y*Y);
 }
-
+#pragma mark checkShip
 -(void)checkShip{
-    if(_ship.position.x >= CGRectGetMaxX(self.frame)){
-        _ship.position = CGPointMake(CGRectGetMaxX(self.frame) , _ship.position.y);
-    }else if( _ship.position.x  <= CGRectGetMinX(self.frame)){
-        _ship.position = CGPointMake(CGRectGetMinX(self.frame) ,_ship.position.y);
+    if(_ship.position.x >= CGRectGetMaxX(self.frame)-30){
+        _ship.position = CGPointMake(CGRectGetMaxX(self.frame)-30 , _ship.position.y);
+    }else if( _ship.position.x  <= CGRectGetMinX(self.frame)+30){
+        _ship.position = CGPointMake(CGRectGetMinX(self.frame)+30 ,_ship.position.y);
     }
-    if(_ship.position.y >= CGRectGetMaxY(self.frame)){
-        _ship.position = CGPointMake( _ship.position.x, CGRectGetMaxY(self.frame));
-    }else if( _ship.position.y  <= CGRectGetMinY(self.frame)){
-        _ship.position = CGPointMake(_ship.position.x ,CGRectGetMinY(self.frame));
+    if(_ship.position.y >= CGRectGetMaxY(self.frame)-distTOP){
+        _ship.position = CGPointMake( _ship.position.x, CGRectGetMaxY(self.frame)-distTOP);
+    }else if( _ship.position.y  <= CGRectGetMinY(self.frame)+10){
+        _ship.position = CGPointMake(_ship.position.x ,CGRectGetMinY(self.frame)+10);
     }
     
     
@@ -217,85 +352,192 @@ static  CGFloat thrust = 0.12;
 
 
 -(void) doAsteroids{
+    
+
     double curTime = CACurrentMediaTime();
+    if (curTime>_nextItemSpawn) {
+        float randSecs = [self randomValueBetween:40 andValue:60];
+        _nextItemSpawn = randSecs + curTime;
+        
+        float randX = [self randomValueBetween:0.0 andValue:self.frame.size.width];
+        SKSpriteNode *trilaserItem = [SKSpriteNode spriteNodeWithImageNamed:@"redShot"];
+      
+        trilaserItem.position = CGPointMake(randX,CGRectGetMaxY(self.frame));
+        trilaserItem.hidden = NO;
+        
+        trilaserItem.physicsBody = [SKPhysicsBody bodyWithTexture:trilaserItem.texture size:trilaserItem.texture.size];
+        trilaserItem.physicsBody.categoryBitMask = itemTrilaser;
+        trilaserItem.physicsBody.contactTestBitMask = shipCategory;
+        trilaserItem.physicsBody.collisionBitMask = 0x0;
+        trilaserItem.physicsBody.allowsRotation =NO;
+        SKAction* remove = [SKAction removeFromParent];
+        SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:15],remove]];
+        [self addChild:trilaserItem];
+        // CGPoint location = CGPointMake(randX, -self.frame.size.height-asteroid.size.height);
+        [trilaserItem runAction:seq];
+        [trilaserItem.physicsBody applyImpulse:CGVectorMake(0, -5)];
+    }
+    
     if (curTime > _nextAsteroidSpawn) {
         //NSLog(@"spawning new asteroid");
-        float randSecs = [self randomValueBetween:0.20 andValue:1.0];
+        float randSecs = [self randomValueBetween:0.10 andValue:0.80];
         _nextAsteroidSpawn = randSecs + curTime;
         
         float randX = [self randomValueBetween:0.0 andValue:self.frame.size.width];
         float randDuration = [self randomValueBetween:4.0 andValue:10.0];
         
-        SKSpriteNode *asteroid = [_asteroids objectAtIndex:_nextAsteroid];
-        _nextAsteroid++;
-        
-        if (_nextAsteroid >= _asteroids.count) {
-            _nextAsteroid = 0;
-        }
-        
-        [asteroid removeAllActions];
-        asteroid.position = CGPointMake(randX,self.frame.size.height+asteroid.size.height/2);
+        SKSpriteNode *asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"A1"];
+        [asteroid setXScale:0.8];
+        [asteroid setYScale:0.8];
+        asteroid.position = CGPointMake(randX,CGRectGetMaxY(self.frame));
         asteroid.hidden = NO;
         
-        CGPoint location = CGPointMake(randX, -self.frame.size.height-asteroid.size.height);
+        asteroid.physicsBody = [SKPhysicsBody bodyWithTexture:asteroid.texture size:asteroid.texture.size];
+        asteroid.physicsBody.categoryBitMask = asteroidCategory;
+        asteroid.physicsBody.contactTestBitMask = shipCategory| laserCategory;
+        asteroid.physicsBody.collisionBitMask = shipCategory;
+        asteroid.physicsBody.allowsRotation =NO;
+        SKAction* remove = [SKAction removeFromParent];
+        SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:15],remove]];
+        [self addChild:asteroid];
+       // CGPoint location = CGPointMake(randX, -self.frame.size.height-asteroid.size.height);
+        [asteroid runAction:seq];
+        [asteroid runAction:_animaAst withKey:@"asteroidAnima"];
+        [asteroid.physicsBody applyImpulse:CGVectorMake(0, -randDuration)];
         
-        SKAction *moveAction = [SKAction moveTo:location duration:randDuration];
-        SKAction *doneAction = [SKAction runBlock:(dispatch_block_t)^() {
-            //NSLog(@"Animation Completed");
-            asteroid.hidden = YES;
-        }];
         
-        SKAction *moveAsteroidActionWithDone = [SKAction sequence:@[moveAction, doneAction ]];
-        [asteroid runAction:moveAsteroidActionWithDone withKey:@"asteroidMoving"];
-    }
-
-
-}
-
--(void) doLasers{
-    double curTime = CACurrentMediaTime();
-    if (curTime > _nextLaserSpawn) {
-        _nextLaserSpawn = 0.1+curTime;
         
-        SKSpriteNode *shipLaser = [_shipLasers objectAtIndex:_nextShipLaser];
-        _nextShipLaser++;
-        if (_nextShipLaser >= _shipLasers.count) {
-            _nextShipLaser = 0;
-        }
+           }
     
+}
+#pragma mark doLaser
+-(void) doLasers{
+    
+    double curTime = CACurrentMediaTime();
+    if(curTime> trilaserTime+15)OnTrilaser = NO;
+    if (!OnTrilaser && curTime > _nextLaserSpawn) {
+        _nextLaserSpawn = 0.2+curTime;
+        
+        SKSpriteNode *shipLaser  = [SKSpriteNode spriteNodeWithImageNamed:@"SBlueShot"];;
     //2
         shipLaser.position = CGPointMake(_ship.position.x, shipLaser.size.height/2+_ship.position.y);
         shipLaser.hidden = NO;
         [shipLaser removeAllActions];
     
-    //3
-        CGPoint location = CGPointMake( _ship.position.x, CGRectGetMaxY(self.frame));
-        CGFloat dura = fmin((CGRectGetMaxY(self.frame) -_ship.position.y)/CGRectGetMaxY(self.frame), 1.0);
-        NSLog(@"dura %f, px %f, max %f",dura,_ship.position.y, CGRectGetMaxY(self.frame));
+        shipLaser.physicsBody = [SKPhysicsBody bodyWithTexture:shipLaser.texture size:shipLaser.texture.size];
+        shipLaser.physicsBody.categoryBitMask = laserCategory;
+        shipLaser.physicsBody.contactTestBitMask = asteroidCategory;
+        shipLaser.physicsBody.collisionBitMask = 0x0;
+        shipLaser.physicsBody.allowsRotation =NO;
+        SKAction* remove = [SKAction removeFromParent];
+        SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:15],remove]];
+        [self addChild:shipLaser];
+        // CGPoint location = CGPointMake(randX, -self.frame.size.height-asteroid.size.height);
+        [shipLaser runAction:seq];
+        [shipLaser.physicsBody applyImpulse:CGVectorMake(0, 10)];
+    }else if(curTime> _nextLaserSpawn){
+        _nextLaserSpawn = 0.15+curTime;
         
-        SKAction *laserMoveAction = [SKAction moveTo:location duration:dura];
-    //4
-        SKAction *laserDoneAction = [SKAction runBlock:(dispatch_block_t)^() {
-        //NSLog(@"Animation Completed");
-                            shipLaser.hidden = YES;
-        }];
+        NSArray *shots = @[[SKSpriteNode spriteNodeWithImageNamed:@"redShot"],
+                          [SKSpriteNode spriteNodeWithImageNamed:@"redShot"],
+                          [SKSpriteNode spriteNodeWithImageNamed:@"redShot"]];
+        
+        //SKSpriteNode *shipLaser  = [SKSpriteNode spriteNodeWithImageNamed:@"redShot"];
+        //2
+        for (SKSpriteNode* shipLaser in shots) {
+        
+            shipLaser.position = CGPointMake(_ship.position.x, shipLaser.size.height/2+_ship.position.y);
+            shipLaser.hidden = NO;
+            [shipLaser removeAllActions];
+        
+            shipLaser.physicsBody = [SKPhysicsBody bodyWithTexture:shipLaser.texture size:shipLaser.texture.size];
+            shipLaser.physicsBody.categoryBitMask = laserCategory;
+            shipLaser.physicsBody.contactTestBitMask = asteroidCategory;
+            shipLaser.physicsBody.collisionBitMask = 0x0;
+            shipLaser.physicsBody.allowsRotation =NO;
+            SKAction* remove = [SKAction removeFromParent];
+            SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:15],remove]];
+            [self addChild:shipLaser];
+            [shipLaser runAction:seq];
+        }
+        // CGPoint location = CGPointMake(randX, -self.frame.size.height-asteroid.size.height);
+        
+        [((SKSpriteNode * )[shots objectAtIndex:0]).physicsBody applyImpulse:CGVectorMake(1, 10)];
+        [((SKSpriteNode * )[shots objectAtIndex:1]).physicsBody applyImpulse:CGVectorMake(0, 10)];
+        [((SKSpriteNode * )[shots objectAtIndex:2]).physicsBody applyImpulse:CGVectorMake(-1, 10)];
     
-    //5
-        SKAction *moveLaserActionWithDone = [SKAction sequence:@[laserMoveAction,laserDoneAction]];
-    //6
-        [shipLaser runAction:moveLaserActionWithDone withKey:@"laserFired"];
     }
 
 }
 
-
+#pragma mark ENDSCNE
+- (void)endTheScene:(EndReason)endReason {
+    if (_gameOver) {
+        return;
+    }
+    
+    [self removeAllActions];
+    //[self stopMonitoringAcceleration];
+    _ship.hidden = YES;
+    _gameOver = YES;
+    //NSLog(@"DSSDFSDFSFSFDFSDFSD");
+    NSString *message;
+    if (endReason == kEndReasonWin) {
+        message = @"You win!";
+    } else if (endReason == kEndReasonLose) {
+        message = @"You lost!";
+    }
+    
+    SKLabelNode *label;
+    label = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    label.name = @"winLoseLabel";
+    label.text = message;
+    label.scale = 0.1;
+    label.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.6);
+    label.fontColor = [SKColor yellowColor];
+    [self addChild:label];
+    
+    
+    restartLabel = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    restartLabel.name = @"restartLabel";
+    restartLabel.text = @"Play Again?";
+    restartLabel.scale = 0.5;
+    restartLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.4);
+    restartLabel.fontColor = [SKColor yellowColor];
+    restartLabel.zPosition = 100;
+    [self addChild:restartLabel];
+    
+    SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:0.5];
+    
+    [restartLabel runAction:labelScaleAction];
+    [label runAction:labelScaleAction];
+    
+}
+-(void)checkEndgame{
+    double cur = CACurrentMediaTime();
+    if(_lives<=0){
+        NSLog(@"YOU LOSE!! HAHA");
+        [self endTheScene:kEndReasonLose];
+        
+    }else if(cur>= _gameOverTime){
+        NSLog(@"YOU WON, but that was easy");
+        [self endTheScene:kEndReasonWin];
+        
+    
+    }
+}
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     [self checkShip];
     [_parallaxSpaceDust update:currentTime];
     [_parallaxNodeBackgrounds update:currentTime];
-    [self doAsteroids];
-    [self doLasers];
+    if (!_gameOver) {
+        [self doAsteroids];
+        [self doLasers];
+        //[self checkLaserAsteroidColision];
+        [self checkEndgame];
+    }
+    
 }
 
 @end

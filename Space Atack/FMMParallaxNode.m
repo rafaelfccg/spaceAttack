@@ -1,10 +1,4 @@
-//
-//  FMMParallaxNode.m
-//  SpaceShooter
-//
-//  Created by Tony Dahbura on 9/9/13.
-//  Copyright (c) 2013 fullmoonmanor. All rights reserved.
-//
+
 
 #import "FMMParallaxNode.h"
 

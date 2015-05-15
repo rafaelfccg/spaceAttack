@@ -42,6 +42,7 @@ typedef enum {
     double last_hit;
     int score;
     SKLabelNode* _LabelScore;
+    //SKLabelNode* _Life;
     AVAudioPlayer *_backgroundAudioPlayer;
     bool OnTrilaser;
     double trilaserTime;
@@ -72,16 +73,24 @@ static const uint32_t eshipCategory = 0x1<<4;
         //3
         self.backgroundColor = [SKColor blackColor];
         
-        //_LabelScore = [SKLabelNode]
         _LabelScore = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
         _LabelScore.name = @"scoreLabel";
         _LabelScore.text = [NSString stringWithFormat:@"Score: %d",score ];
         //_LabelScore.scale = 0.1;
         _LabelScore.position = CGPointMake(CGRectGetMaxX(self.frame)*0.9-15,
-                                           CGRectGetMaxY(self.frame)*0.95);
+                                           CGRectGetMaxY(self.frame)*0.95-5);
         _LabelScore.fontColor = [SKColor whiteColor];
         _LabelScore.zPosition = 100;
-        //[self addChild:_LabelScore];
+        
+        /*_Life = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+        _Life.name = @"lifeLabel";
+        _Life.text = @"Lifes:";
+        _Life.position = CGPointMake(CGRectGetMinX(self.frame)+30,
+                                           CGRectGetMaxY(self.frame)*0.95);
+        _Life.fontColor = [SKColor whiteColor];
+        _Life.zPosition = 100;*/
+        
+        
         
 #pragma mark - TBD - Game Backgrounds
         
@@ -101,7 +110,7 @@ static const uint32_t eshipCategory = 0x1<<4;
         //Create space sprite, setup position on left edge centered on the screen, and add to Scene
         //4
         _ship = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        _ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        _ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)*0.2);
         _ship.xScale = 0.8;
         _ship.yScale =0.8;
         
@@ -198,8 +207,9 @@ static const uint32_t eshipCategory = 0x1<<4;
         NSLog(@"You have been HIT Contact!!");
         SKAction *blink = [SKAction sequence:@[[SKAction fadeOutWithDuration:0.1],
                                                [SKAction fadeInWithDuration:0.1]]];
-        SKAction *blinkForTime = [SKAction repeatAction:blink count:4];
+        SKAction *blinkForTime = [SKAction repeatAction:blink count:5];
         [_ship runAction:blinkForTime];
+        [[self childNodeWithName:[NSString stringWithFormat:@"L%d",(_lives-1)]]removeFromParent];
         
         _lives--;
     }else if (((secondBody.categoryBitMask & laserCategory) && (firstBody.categoryBitMask & asteroidCategory)) && !secondBody.node.hidden && !firstBody.node.hidden)
@@ -243,18 +253,36 @@ static const uint32_t eshipCategory = 0x1<<4;
     _nextAsteroidSpawn = 0;
     _lives = 3;
     double  cur = CACurrentMediaTime();
-    _gameOverTime = cur+300;
+    _gameOverTime = cur+180;
     _gameOver = NO;
     restartLabel.hidden = YES;
     score = 0;
     OnTrilaser = NO;
-    float randSecs = [self randomValueBetween:25 andValue:45];
+    float randSecs = [self randomValueBetween:10 andValue:40];
     _nextItemSpawn = cur + randSecs;
+    _nextAsteroidSpawn = cur+2.5;
     [self setScore];
-    _ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    _ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)*0.2);
     _ship.hidden = NO;
+    NSArray *lives = @[[SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"],
+                      [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"],
+                      [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"]];
+    int count = 0;
+    CGFloat x = CGRectGetMinX(self.frame);
+    CGFloat y = CGRectGetMaxY(self.frame);
+    for (SKSpriteNode * livei in lives) {
+        livei.xScale = 0.25;
+        livei.yScale = 0.25;
+        livei.position = CGPointMake(x + (2*count+1)*livei.size.width/2 +5, y-livei.size.height/2 -7);
+        livei.name = [NSString stringWithFormat:@"L%d",count];
+        [self addChild:livei];
+        count++;
+        
+    }
+    
     
     [self addChild:_LabelScore];
+    //[self addChild:_Life];
     [self startBackgroundMusic];
     //reset ship position for new game
     //_ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMinY(self.frame)+_ship.size.height);
@@ -356,7 +384,7 @@ static const uint32_t eshipCategory = 0x1<<4;
 
     double curTime = CACurrentMediaTime();
     if (curTime>_nextItemSpawn) {
-        float randSecs = [self randomValueBetween:40 andValue:60];
+        float randSecs = [self randomValueBetween:15 andValue:45];
         _nextItemSpawn = randSecs + curTime;
         
         float randX = [self randomValueBetween:0.0 andValue:self.frame.size.width];
@@ -364,6 +392,8 @@ static const uint32_t eshipCategory = 0x1<<4;
       
         trilaserItem.position = CGPointMake(randX,CGRectGetMaxY(self.frame));
         trilaserItem.hidden = NO;
+        trilaserItem.xScale = 1.4;
+        trilaserItem.yScale = 1.4;
         
         trilaserItem.physicsBody = [SKPhysicsBody bodyWithTexture:trilaserItem.texture size:trilaserItem.texture.size];
         trilaserItem.physicsBody.categoryBitMask = itemTrilaser;
@@ -375,6 +405,13 @@ static const uint32_t eshipCategory = 0x1<<4;
         [self addChild:trilaserItem];
         // CGPoint location = CGPointMake(randX, -self.frame.size.height-asteroid.size.height);
         [trilaserItem runAction:seq];
+        SKAction *blink = [SKAction sequence:@[[SKAction fadeOutWithDuration:0.2],
+                                               [SKAction fadeInWithDuration:0.2]]];
+        SKAction *blinkForTime = [SKAction repeatAction:blink count:30];
+        [trilaserItem runAction:blinkForTime];
+        
+        [[self childNodeWithName:[NSString stringWithFormat:@"L%d",(_lives-1)]]removeFromParent];
+        
         [trilaserItem.physicsBody applyImpulse:CGVectorMake(0, -5)];
     }
     
@@ -478,7 +515,9 @@ static const uint32_t eshipCategory = 0x1<<4;
     
     [self removeAllActions];
     //[self stopMonitoringAcceleration];
-    _ship.hidden = YES;
+    //_ship.hidden = YES;
+    _ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)*0.2);
+    _ship.physicsBody.velocity = CGVectorMake(0, 0);
     _gameOver = YES;
     //NSLog(@"DSSDFSDFSFSFDFSDFSD");
     NSString *message;
@@ -494,7 +533,8 @@ static const uint32_t eshipCategory = 0x1<<4;
     label.text = message;
     label.scale = 0.1;
     label.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.6);
-    label.fontColor = [SKColor yellowColor];
+    SKColor *color =[SKColor colorWithRed:0.807 green:0.717 blue:0.439 alpha:1];
+    label.fontColor = color;
     [self addChild:label];
     
     
@@ -503,7 +543,7 @@ static const uint32_t eshipCategory = 0x1<<4;
     restartLabel.text = @"Play Again?";
     restartLabel.scale = 0.5;
     restartLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.4);
-    restartLabel.fontColor = [SKColor yellowColor];
+    restartLabel.fontColor = color;
     restartLabel.zPosition = 100;
     [self addChild:restartLabel];
     

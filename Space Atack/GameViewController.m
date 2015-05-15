@@ -56,8 +56,8 @@
     // Configure the view after it has been sized for the correct orientation.
     SKView *skView = (SKView *)self.view;
     if (!skView.scene) {
-        skView.showsFPS = YES;
-        skView.showsNodeCount = YES;
+        //skView.showsFPS = YES;
+        //skView.showsNodeCount = YES;
         //skView.showsPhysics = YES;
         // Create and configure the scene.
         GameScene *theScene = [GameScene sceneWithSize:skView.bounds.size];

@@ -7,6 +7,8 @@
 //
 
 #import "GameScene.h"
+#import "Constants.h"
+#import "ShipNode.h"
 @import AVFoundation;
 
 //Add the following variable underneath the bool _gameOver; declaration
@@ -22,7 +24,7 @@ typedef enum {
 
 
 @implementation GameScene{
-    SKSpriteNode * _ship;
+    ShipNode* _ship;
     FMMParallaxNode *_parallaxNodeBackgrounds;
     FMMParallaxNode *_parallaxSpaceDust;
     CGFloat _ship_Speed;
@@ -48,15 +50,8 @@ typedef enum {
     double trilaserTime;
 }
 
-static const uint32_t shipCategory = 0x1<<1;
-static const uint32_t asteroidCategory = 0x1<<2;
-static const uint32_t laserCategory = 0x1<<3;
-static const uint32_t itemTrilaser = 0x1<<5;
-static const uint32_t eshipCategory = 0x1<<4;
-
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
-   
 }
 
 
@@ -77,7 +72,7 @@ static const uint32_t eshipCategory = 0x1<<4;
         _LabelScore.name = @"scoreLabel";
         _LabelScore.text = [NSString stringWithFormat:@"Score: %d",score ];
         //_LabelScore.scale = 0.1;
-        _LabelScore.position = CGPointMake(CGRectGetMaxX(self.frame)*0.9-15,
+        _LabelScore.position = CGPointMake(CGRectGetMaxX(self.frame)*0.9-25,
                                            CGRectGetMaxY(self.frame)*0.95-5);
         _LabelScore.fontColor = [SKColor whiteColor];
         _LabelScore.zPosition = 100;
@@ -109,23 +104,9 @@ static const uint32_t eshipCategory = 0x1<<4;
 #pragma mark - Setup Sprite for the ship
         //Create space sprite, setup position on left edge centered on the screen, and add to Scene
         //4
-        _ship = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
+        _ship = [[ShipNode alloc] init];
         _ship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)*0.2);
-        _ship.xScale = 0.8;
-        _ship.yScale =0.8;
-        
-        CGSize a  = _ship.texture.size;
-        a.height = a.height*0.2;
-        a.width =a.width *0.2;
-        _ship.physicsBody = [SKPhysicsBody bodyWithTexture:_ship.texture  size:_ship.size];
-        
-        _ship.physicsBody.affectedByGravity = NO;
-        _ship.physicsBody.allowsRotation = NO;
-        _ship.physicsBody.categoryBitMask = shipCategory;
-        _ship.physicsBody.collisionBitMask = 0x0;
-        _ship.physicsBody.contactTestBitMask = shipCategory|eshipCategory|asteroidCategory| itemTrilaser;
-        //_ship.physicsBody.usesPreciseCollisionDetection;
-        [_ship.physicsBody setMass:0.366144];
+
         [self addChild:_ship];
         _ship_Speed = 0;
         NSLog(@"ship mass %f",_ship.physicsBody.mass);
@@ -154,8 +135,6 @@ static const uint32_t eshipCategory = 0x1<<4;
         }
 #pragma mark - TBD - Setup the stars to appear as particles
         [self addChild:[self loadEmitterNode:@"stars1"]];
-        //[self addChild:[self loadEmitterNode:@"P2"]];
-        //[self addChild:[self loadEmitterNode:@"P4"]];
         
 #pragma mark - TBD - Start the actual game
         [self startTheGame];
@@ -200,11 +179,10 @@ static const uint32_t eshipCategory = 0x1<<4;
     }
    // NSLog(@"%ud %ud",firstBody.categoryBitMask,secondBody.categoryBitMask);
     double cur = CACurrentMediaTime();
-    if ( (secondBody.categoryBitMask & asteroidCategory) && (firstBody.categoryBitMask & shipCategory)&& !secondBody.node.hidden && last_hit+1.0 <= cur)
+    if ( (secondBody.categoryBitMask & asteroidCategory) && (firstBody.categoryBitMask & shipCategory)&& !secondBody.node.hidden && last_hit+1.0 < cur)
     {
         last_hit = cur;
         secondBody.node.hidden = YES;
-        NSLog(@"You have been HIT Contact!!");
         SKAction *blink = [SKAction sequence:@[[SKAction fadeOutWithDuration:0.1],
                                                [SKAction fadeInWithDuration:0.1]]];
         SKAction *blinkForTime = [SKAction repeatAction:blink count:5];
@@ -227,7 +205,7 @@ static const uint32_t eshipCategory = 0x1<<4;
         
         [self addChild:emitterNode];
         
-    } else if ( (secondBody.categoryBitMask & itemTrilaser) && (firstBody.categoryBitMask & shipCategory)&& !secondBody.node.hidden && last_hit+1.0 <= cur)
+    } else if ( (secondBody.categoryBitMask & itemTrilaser) && (firstBody.categoryBitMask & shipCategory)&& !secondBody.node.hidden)
     {
         secondBody.node.hidden = YES;
         OnTrilaser = YES;
@@ -296,12 +274,13 @@ static const uint32_t eshipCategory = 0x1<<4;
     if(!restartLabel.hidden){
         for (UITouch *touch in touches) {
             SKNode *n = [self nodeAtPoint:[touch locationInNode:self]];
-            NSLog(@"%@",n.name);
+           // NSLog(@"%@",n.name);
             
            
           if (n != self && [n.name isEqual: @"restartLabel"]) {
                 [[self childNodeWithName:@"restartLabel"] removeFromParent];
                 [[self childNodeWithName:@"winLoseLabel"] removeFromParent];
+                [[self childNodeWithName:@"HSlabel"] removeFromParent];
                 [_LabelScore removeFromParent];
                 //NSLog(@"RESTART GAME");
                 [self startTheGame];
@@ -345,7 +324,7 @@ static const uint32_t eshipCategory = 0x1<<4;
   
     
 }
-#pragma <#arguments#>
+#pragma mark score
 -(void)setScore{
     int aux  = score;
     int count = 1;
@@ -353,7 +332,7 @@ static const uint32_t eshipCategory = 0x1<<4;
         aux/=10;
         count++;
     }
-    _LabelScore.position = CGPointMake(CGRectGetMaxX(self.frame)*0.9-count*9 +5,
+    _LabelScore.position = CGPointMake(CGRectGetMaxX(self.frame)*0.9-count*9 ,
                                        CGRectGetMaxY(self.frame)*0.95);
     _LabelScore.text = [NSString stringWithFormat:@"Score: %d",score];
 }
@@ -365,14 +344,18 @@ static const uint32_t eshipCategory = 0x1<<4;
 #pragma mark checkShip
 -(void)checkShip{
     if(_ship.position.x >= CGRectGetMaxX(self.frame)-30){
-        _ship.position = CGPointMake(CGRectGetMaxX(self.frame)-30 , _ship.position.y);
+        _ship.position = CGPointMake(CGRectGetMaxX(self.frame)-31 , _ship.position.y);
+        _ship.physicsBody.velocity = CGVectorMake(0, _ship.physicsBody.velocity.dy);
     }else if( _ship.position.x  <= CGRectGetMinX(self.frame)+30){
-        _ship.position = CGPointMake(CGRectGetMinX(self.frame)+30 ,_ship.position.y);
+        _ship.position = CGPointMake(CGRectGetMinX(self.frame)+31 ,_ship.position.y);
+        _ship.physicsBody.velocity = CGVectorMake(0, _ship.physicsBody.velocity.dy);
     }
     if(_ship.position.y >= CGRectGetMaxY(self.frame)-distTOP){
-        _ship.position = CGPointMake( _ship.position.x, CGRectGetMaxY(self.frame)-distTOP);
+        _ship.position = CGPointMake( _ship.position.x, CGRectGetMaxY(self.frame)-distTOP-1);
+        _ship.physicsBody.velocity = CGVectorMake(_ship.physicsBody.velocity.dx,0);
     }else if( _ship.position.y  <= CGRectGetMinY(self.frame)+10){
-        _ship.position = CGPointMake(_ship.position.x ,CGRectGetMinY(self.frame)+10);
+        _ship.position = CGPointMake(_ship.position.x ,CGRectGetMinY(self.frame)+11);
+        _ship.physicsBody.velocity = CGVectorMake(_ship.physicsBody.velocity.dx,0);
     }
     
     
@@ -409,8 +392,6 @@ static const uint32_t eshipCategory = 0x1<<4;
                                                [SKAction fadeInWithDuration:0.2]]];
         SKAction *blinkForTime = [SKAction repeatAction:blink count:30];
         [trilaserItem runAction:blinkForTime];
-        
-        [[self childNodeWithName:[NSString stringWithFormat:@"L%d",(_lives-1)]]removeFromParent];
         
         [trilaserItem.physicsBody applyImpulse:CGVectorMake(0, -5)];
     }
@@ -467,7 +448,7 @@ static const uint32_t eshipCategory = 0x1<<4;
         shipLaser.physicsBody.collisionBitMask = 0x0;
         shipLaser.physicsBody.allowsRotation =NO;
         SKAction* remove = [SKAction removeFromParent];
-        SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:15],remove]];
+        SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:5],remove]];
         [self addChild:shipLaser];
         // CGPoint location = CGPointMake(randX, -self.frame.size.height-asteroid.size.height);
         [shipLaser runAction:seq];
@@ -493,7 +474,7 @@ static const uint32_t eshipCategory = 0x1<<4;
             shipLaser.physicsBody.collisionBitMask = 0x0;
             shipLaser.physicsBody.allowsRotation =NO;
             SKAction* remove = [SKAction removeFromParent];
-            SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:15],remove]];
+            SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:5],remove]];
             [self addChild:shipLaser];
             [shipLaser runAction:seq];
         }
@@ -527,13 +508,29 @@ static const uint32_t eshipCategory = 0x1<<4;
         message = @"You lost!";
     }
     
+    SKLabelNode *labelH;
+    labelH = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    labelH.name = @"HSlabel";
+    NSUserDefaults *n = [NSUserDefaults standardUserDefaults];
+    int val = [n integerForKey:@"HS"];
+    if (score >val) {
+        [n setInteger:score forKey:@"HS"];
+        val = score;
+    }
+    labelH.text = [NSString stringWithFormat:@"High Score: %d",val];
+    //labelH.scale = 0.1;
+    labelH.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.8);
+    SKColor *color =[SKColor colorWithRed:0.807 green:0.717 blue:0.439 alpha:1];
+    labelH.fontColor = color;
+    [self addChild:labelH];
+    
     SKLabelNode *label;
     label = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     label.name = @"winLoseLabel";
     label.text = message;
     label.scale = 0.1;
     label.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.6);
-    SKColor *color =[SKColor colorWithRed:0.807 green:0.717 blue:0.439 alpha:1];
+    //SKColor *color =[SKColor colorWithRed:0.807 green:0.717 blue:0.439 alpha:1];
     label.fontColor = color;
     [self addChild:label];
     
@@ -551,6 +548,7 @@ static const uint32_t eshipCategory = 0x1<<4;
     
     [restartLabel runAction:labelScaleAction];
     [label runAction:labelScaleAction];
+    [labelH runAction:labelScaleAction];
     
 }
 -(void)checkEndgame{

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00413E491B723BDD005848B9 /* ShipNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 00413E481B723BDD005848B9 /* ShipNode.m */; };
 		004D6D411B01409300893E8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 004D6D401B01409300893E8B /* main.m */; };
 		004D6D441B01409300893E8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 004D6D431B01409300893E8B /* AppDelegate.m */; };
 		004D6D471B01409300893E8B /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 004D6D461B01409300893E8B /* GameScene.m */; };
@@ -41,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00413E471B723BDD005848B9 /* ShipNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipNode.h; sourceTree = "<group>"; };
+		00413E481B723BDD005848B9 /* ShipNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipNode.m; sourceTree = "<group>"; };
+		00413E4A1B723EAD005848B9 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		004D6D3B1B01409300893E8B /* Space Atack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Atack.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		004D6D3F1B01409300893E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		004D6D401B01409300893E8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -135,6 +139,9 @@
 				004D6D501B01409300893E8B /* Images.xcassets */,
 				004D6D521B01409300893E8B /* LaunchScreen.xib */,
 				004D6D3E1B01409300893E8B /* Supporting Files */,
+				00413E471B723BDD005848B9 /* ShipNode.h */,
+				00413E481B723BDD005848B9 /* ShipNode.m */,
+				00413E4A1B723EAD005848B9 /* Constants.h */,
 			);
 			path = "Space Atack";
 			sourceTree = "<group>";
@@ -280,6 +287,7 @@
 				004D6D4C1B01409300893E8B /* GameViewController.m in Sources */,
 				004D6D441B01409300893E8B /* AppDelegate.m in Sources */,
 				004D6D471B01409300893E8B /* GameScene.m in Sources */,
+				00413E491B723BDD005848B9 /* ShipNode.m in Sources */,
 				004D6D6B1B0140D400893E8B /* FMMParallaxNode.m in Sources */,
 				004D6D411B01409300893E8B /* main.m in Sources */,
 			);

@@ -208,8 +208,10 @@ typedef enum {
     } else if ( (secondBody.categoryBitMask & itemTrilaser) && (firstBody.categoryBitMask & shipCategory)&& !secondBody.node.hidden)
     {
         secondBody.node.hidden = YES;
-        OnTrilaser = YES;
-        trilaserTime = cur;
+       // OnTrilaser = YES;
+        _ship.OnTrilaser = YES;
+        _ship.trilaserTime = cur;
+//        trilaserTime = cur;
         
     }
     
@@ -571,7 +573,8 @@ typedef enum {
     [_parallaxNodeBackgrounds update:currentTime];
     if (!_gameOver) {
         [self doAsteroids];
-        [self doLasers];
+        [_ship doLaser:self];
+        //[ doLasers];
         //[self checkLaserAsteroidColision];
         [self checkEndgame];
     }

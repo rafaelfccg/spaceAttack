@@ -46,7 +46,7 @@
 		00413E471B723BDD005848B9 /* ShipNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipNode.h; sourceTree = "<group>"; };
 		00413E481B723BDD005848B9 /* ShipNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipNode.m; sourceTree = "<group>"; };
 		00413E4A1B723EAD005848B9 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		00413E4B1B7B9EAF005848B9 /* jump.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jump.png; sourceTree = "<group>"; };
+		00413E4B1B7B9EAF005848B9 /* jump.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = jump.png; path = "Space Atack/jump.png"; sourceTree = "<group>"; };
 		004D6D3B1B01409300893E8B /* Space Atack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Atack.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		004D6D3F1B01409300893E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		004D6D401B01409300893E8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		004D6D431B01409300893E8B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		004D6D451B01409300893E8B /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		004D6D461B01409300893E8B /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		004D6D481B01409300893E8B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		004D6D481B01409300893E8B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = "Space Atack/GameScene.sks"; sourceTree = "<group>"; };
 		004D6D4A1B01409300893E8B /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		004D6D4B1B01409300893E8B /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		004D6D4E1B01409300893E8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,17 +65,17 @@
 		004D6D5F1B01409300893E8B /* Space_AtackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Space_AtackTests.m; sourceTree = "<group>"; };
 		004D6D691B0140D400893E8B /* FMMParallaxNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMMParallaxNode.h; sourceTree = "<group>"; };
 		004D6D6A1B0140D400893E8B /* FMMParallaxNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMMParallaxNode.m; sourceTree = "<group>"; };
-		004D6D841B0273A600893E8B /* star1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star1.png; sourceTree = "<group>"; };
-		004D6D851B0273A600893E8B /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
-		004D6D861B0273A600893E8B /* star3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star3.png; sourceTree = "<group>"; };
-		004D6D871B0273A600893E8B /* stars1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars1.sks; sourceTree = "<group>"; };
-		004D6D881B0273A600893E8B /* stars2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars2.sks; sourceTree = "<group>"; };
-		004D6D891B0273A600893E8B /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars3.sks; sourceTree = "<group>"; };
-		008640CF1B03E8D10089D2BD /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
-		008640D11B04E1170089D2BD /* Game-SPaceAttack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Game-SPaceAttack.mp3"; sourceTree = "<group>"; };
-		008640D51B050F560089D2BD /* INITIALSCREEN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = INITIALSCREEN.png; sourceTree = "<group>"; };
-		008640D91B0514390089D2BD /* TITLE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TITLE.png; sourceTree = "<group>"; };
-		008640DB1B0526550089D2BD /* PLAYBUT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PLAYBUT.png; sourceTree = "<group>"; };
+		004D6D841B0273A600893E8B /* star1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star1.png; path = "Space Atack/star1.png"; sourceTree = "<group>"; };
+		004D6D851B0273A600893E8B /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star2.png; path = "Space Atack/star2.png"; sourceTree = "<group>"; };
+		004D6D861B0273A600893E8B /* star3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star3.png; path = "Space Atack/star3.png"; sourceTree = "<group>"; };
+		004D6D871B0273A600893E8B /* stars1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = stars1.sks; path = "Space Atack/stars1.sks"; sourceTree = "<group>"; };
+		004D6D881B0273A600893E8B /* stars2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = stars2.sks; path = "Space Atack/stars2.sks"; sourceTree = "<group>"; };
+		004D6D891B0273A600893E8B /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = stars3.sks; path = "Space Atack/stars3.sks"; sourceTree = "<group>"; };
+		008640CF1B03E8D10089D2BD /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Explosion.sks; path = "Space Atack/Explosion.sks"; sourceTree = "<group>"; };
+		008640D11B04E1170089D2BD /* Game-SPaceAttack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Game-SPaceAttack.mp3"; path = "Space Atack/Game-SPaceAttack.mp3"; sourceTree = "<group>"; };
+		008640D51B050F560089D2BD /* INITIALSCREEN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = INITIALSCREEN.png; path = "Space Atack/INITIALSCREEN.png"; sourceTree = "<group>"; };
+		008640D91B0514390089D2BD /* TITLE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TITLE.png; path = "Space Atack/TITLE.png"; sourceTree = "<group>"; };
+		008640DB1B0526550089D2BD /* PLAYBUT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PLAYBUT.png; path = "Space Atack/PLAYBUT.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +96,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		004771881D63D6350067994E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0047718A1D63D6810067994E /* sks */,
+				004771891D63D66A0067994E /* stars */,
+				008640CF1B03E8D10089D2BD /* Explosion.sks */,
+				004D6D481B01409300893E8B /* GameScene.sks */,
+				008640D11B04E1170089D2BD /* Game-SPaceAttack.mp3 */,
+				008640D51B050F560089D2BD /* INITIALSCREEN.png */,
+				008640D91B0514390089D2BD /* TITLE.png */,
+				008640DB1B0526550089D2BD /* PLAYBUT.png */,
+				00413E4B1B7B9EAF005848B9 /* jump.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		004771891D63D66A0067994E /* stars */ = {
+			isa = PBXGroup;
+			children = (
+				004D6D841B0273A600893E8B /* star1.png */,
+				004D6D851B0273A600893E8B /* star2.png */,
+				004D6D861B0273A600893E8B /* star3.png */,
+			);
+			name = stars;
+			sourceTree = "<group>";
+		};
+		0047718A1D63D6810067994E /* sks */ = {
+			isa = PBXGroup;
+			children = (
+				004D6D891B0273A600893E8B /* stars3.sks */,
+				004D6D871B0273A600893E8B /* stars1.sks */,
+				004D6D881B0273A600893E8B /* stars2.sks */,
+			);
+			name = sks;
+			sourceTree = "<group>";
+		};
+		0047718B1D63D6B20067994E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				004D6D4A1B01409300893E8B /* GameViewController.h */,
+				004D6D4B1B01409300893E8B /* GameViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0047718C1D63D6D50067994E /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				00413E471B723BDD005848B9 /* ShipNode.h */,
+				00413E481B723BDD005848B9 /* ShipNode.m */,
+				004D6D691B0140D400893E8B /* FMMParallaxNode.h */,
+				004D6D6A1B0140D400893E8B /* FMMParallaxNode.m */,
+			);
+			name = Nodes;
+			sourceTree = "<group>";
+		};
+		0047718D1D63D6F90067994E /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				004D6D451B01409300893E8B /* GameScene.h */,
+				004D6D461B01409300893E8B /* GameScene.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
 		004D6D321B01409300893E8B = {
 			isa = PBXGroup;
 			children = (
+				004771881D63D6350067994E /* Assets */,
 				004D6D3D1B01409300893E8B /* Space Atack */,
 				004D6D5C1B01409300893E8B /* Space AtackTests */,
 				004D6D3C1B01409300893E8B /* Products */,
@@ -117,33 +183,15 @@
 		004D6D3D1B01409300893E8B /* Space Atack */ = {
 			isa = PBXGroup;
 			children = (
+				0047718D1D63D6F90067994E /* Scenes */,
+				0047718C1D63D6D50067994E /* Nodes */,
+				0047718B1D63D6B20067994E /* Controllers */,
 				004D6D421B01409300893E8B /* AppDelegate.h */,
 				004D6D431B01409300893E8B /* AppDelegate.m */,
-				004D6D451B01409300893E8B /* GameScene.h */,
-				004D6D461B01409300893E8B /* GameScene.m */,
-				008640CF1B03E8D10089D2BD /* Explosion.sks */,
-				004D6D691B0140D400893E8B /* FMMParallaxNode.h */,
-				004D6D6A1B0140D400893E8B /* FMMParallaxNode.m */,
-				004D6D481B01409300893E8B /* GameScene.sks */,
-				004D6D4A1B01409300893E8B /* GameViewController.h */,
-				004D6D4B1B01409300893E8B /* GameViewController.m */,
-				008640D11B04E1170089D2BD /* Game-SPaceAttack.mp3 */,
-				004D6D841B0273A600893E8B /* star1.png */,
-				004D6D851B0273A600893E8B /* star2.png */,
-				004D6D861B0273A600893E8B /* star3.png */,
-				008640D51B050F560089D2BD /* INITIALSCREEN.png */,
-				004D6D871B0273A600893E8B /* stars1.sks */,
-				004D6D881B0273A600893E8B /* stars2.sks */,
-				008640D91B0514390089D2BD /* TITLE.png */,
-				004D6D891B0273A600893E8B /* stars3.sks */,
 				004D6D4D1B01409300893E8B /* Main.storyboard */,
-				008640DB1B0526550089D2BD /* PLAYBUT.png */,
 				004D6D501B01409300893E8B /* Images.xcassets */,
-				00413E4B1B7B9EAF005848B9 /* jump.png */,
 				004D6D521B01409300893E8B /* LaunchScreen.xib */,
 				004D6D3E1B01409300893E8B /* Supporting Files */,
-				00413E471B723BDD005848B9 /* ShipNode.h */,
-				00413E481B723BDD005848B9 /* ShipNode.m */,
 				00413E4A1B723EAD005848B9 /* Constants.h */,
 			);
 			path = "Space Atack";

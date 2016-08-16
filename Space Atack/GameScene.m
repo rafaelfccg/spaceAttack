@@ -9,6 +9,8 @@
 #import "GameScene.h"
 #import "Constants.h"
 #import "ShipNode.h"
+#import "Utils.h"
+#import "AsteroidNode.h"
 @import AVFoundation;
 
 //Add the following variable underneath the bool _gameOver; declaration
@@ -98,7 +100,7 @@ typedef enum {
         _parallaxSpaceDust.position = CGPointMake(0, 0);
                 [self addChild:_parallaxSpaceDust];
         
-        float randSecs = [self randomValueBetween:25 andValue:45];
+        float randSecs = [Utils randomValueBetween:25 andValue:45];
         _nextItemSpawn = randSecs;
         
 #pragma mark - Setup Sprite for the ship
@@ -141,9 +143,7 @@ typedef enum {
     }
     return self;
 }
-- (float)randomValueBetween:(float)low andValue:(float)high {
-    return (((float) arc4random() / 0xFFFFFFFFu) * (high - low)) + low;
-}
+
 #pragma  mark music
 - (void)startBackgroundMusic
 {
@@ -238,7 +238,7 @@ typedef enum {
     restartLabel.hidden = YES;
     score = 0;
     OnTrilaser = NO;
-    float randSecs = [self randomValueBetween:10 andValue:40];
+    float randSecs = [Utils randomValueBetween:10 andValue:40];
     _nextItemSpawn = cur + randSecs;
     _nextAsteroidSpawn = cur+2.5;
     [self setScore];
@@ -369,10 +369,10 @@ typedef enum {
 
     double curTime = CACurrentMediaTime();
     if (curTime>_nextItemSpawn) {
-        float randSecs = [self randomValueBetween:15 andValue:45];
+        float randSecs = [Utils randomValueBetween:15 andValue:45];
         _nextItemSpawn = randSecs + curTime;
         
-        float randX = [self randomValueBetween:0.0 andValue:self.frame.size.width];
+        float randX = [Utils randomValueBetween:0.0 andValue:self.frame.size.width];
         SKSpriteNode *trilaserItem = [SKSpriteNode spriteNodeWithImageNamed:@"redShot"];
       
         trilaserItem.position = CGPointMake(randX,CGRectGetMaxY(self.frame));
@@ -399,35 +399,8 @@ typedef enum {
     }
     
     if (curTime > _nextAsteroidSpawn) {
-        //NSLog(@"spawning new asteroid");
-        float randSecs = [self randomValueBetween:0.10 andValue:0.80];
-        _nextAsteroidSpawn = randSecs + curTime;
-        
-        float randX = [self randomValueBetween:0.0 andValue:self.frame.size.width];
-        float randDuration = [self randomValueBetween:4.0 andValue:10.0];
-        
-        SKSpriteNode *asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"A1"];
-        [asteroid setXScale:0.8];
-        [asteroid setYScale:0.8];
-        asteroid.position = CGPointMake(randX,CGRectGetMaxY(self.frame));
-        asteroid.hidden = NO;
-        
-        asteroid.physicsBody = [SKPhysicsBody bodyWithTexture:asteroid.texture size:asteroid.texture.size];
-        asteroid.physicsBody.categoryBitMask = asteroidCategory;
-        asteroid.physicsBody.contactTestBitMask = shipCategory| laserCategory;
-        asteroid.physicsBody.collisionBitMask = shipCategory;
-        asteroid.physicsBody.allowsRotation =NO;
-        SKAction* remove = [SKAction removeFromParent];
-        SKAction* seq = [SKAction sequence:@[[SKAction waitForDuration:15],remove]];
-        [self addChild:asteroid];
-       // CGPoint location = CGPointMake(randX, -self.frame.size.height-asteroid.size.height);
-        [asteroid runAction:seq];
-        [asteroid runAction:_animaAst withKey:@"asteroidAnima"];
-        [asteroid.physicsBody applyImpulse:CGVectorMake(0, -randDuration)];
-        
-        
-        
-           }
+        [AsteroidNode spawnAsteroid:self animation:_animaAst];
+    }
     
 }
 #pragma mark doLaser

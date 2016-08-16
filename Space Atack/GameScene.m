@@ -514,12 +514,12 @@ typedef enum {
     labelH = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     labelH.name = @"HSlabel";
     NSUserDefaults *n = [NSUserDefaults standardUserDefaults];
-    int val = [n integerForKey:@"HS"];
+    long val = [n integerForKey:@"HS"];
     if (score >val) {
         [n setInteger:score forKey:@"HS"];
         val = score;
     }
-    labelH.text = [NSString stringWithFormat:@"High Score: %d",val];
+    labelH.text = [NSString stringWithFormat:@"High Score: %ld",val];
     //labelH.scale = 0.1;
     labelH.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.8);
     SKColor *color =[SKColor colorWithRed:0.807 green:0.717 blue:0.439 alpha:1];

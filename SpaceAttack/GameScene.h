@@ -1,13 +1,14 @@
 //
 //  GameScene.h
-//  SpaceAttack
+//  Space Atack
 //
 
-//  Copyright (c) 2016 Miguel Araújo. All rights reserved.
+//  Copyright (c) 2015 Mini Challenge 2. All rights reserved.
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "FMMParallaxNode.h"
 
-@interface GameScene : SKScene
-
+@interface GameScene : SKScene <SKPhysicsContactDelegate>
+-(CGFloat)normX:(CGFloat)X YVal:(CGFloat)Y;
 @end

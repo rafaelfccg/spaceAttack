@@ -1,9 +1,9 @@
 //
 //  GameViewController.h
-//  SpaceAttack
+//  Space Atack
 //
 
-//  Copyright (c) 2016 Miguel Araújo. All rights reserved.
+//  Copyright (c) 2015 Mini Challenge 2. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

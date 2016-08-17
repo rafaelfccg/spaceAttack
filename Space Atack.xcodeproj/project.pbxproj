@@ -19,7 +19,6 @@
 		004D6D4F1B01409300893E8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D4D1B01409300893E8B /* Main.storyboard */; };
 		004D6D511B01409300893E8B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D501B01409300893E8B /* Images.xcassets */; };
 		004D6D541B01409300893E8B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D521B01409300893E8B /* LaunchScreen.xib */; };
-		004D6D601B01409300893E8B /* Space_AtackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 004D6D5F1B01409300893E8B /* Space_AtackTests.m */; };
 		004D6D6B1B0140D400893E8B /* FMMParallaxNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 004D6D6A1B0140D400893E8B /* FMMParallaxNode.m */; };
 		004D6D8A1B0273A600893E8B /* star1.png in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D841B0273A600893E8B /* star1.png */; };
 		004D6D8B1B0273A600893E8B /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 004D6D851B0273A600893E8B /* star2.png */; };
@@ -33,16 +32,6 @@
 		008640DA1B0514390089D2BD /* TITLE.png in Resources */ = {isa = PBXBuildFile; fileRef = 008640D91B0514390089D2BD /* TITLE.png */; };
 		008640DC1B0526550089D2BD /* PLAYBUT.png in Resources */ = {isa = PBXBuildFile; fileRef = 008640DB1B0526550089D2BD /* PLAYBUT.png */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		004D6D5A1B01409300893E8B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 004D6D331B01409300893E8B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 004D6D3A1B01409300893E8B;
-			remoteInfo = "Space Atack";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		00413E471B723BDD005848B9 /* ShipNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipNode.h; sourceTree = "<group>"; };
@@ -66,7 +55,6 @@
 		004D6D4E1B01409300893E8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		004D6D501B01409300893E8B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		004D6D531B01409300893E8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		004D6D591B01409300893E8B /* Space AtackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Space AtackTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		004D6D5E1B01409300893E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		004D6D5F1B01409300893E8B /* Space_AtackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Space_AtackTests.m; sourceTree = "<group>"; };
 		004D6D691B0140D400893E8B /* FMMParallaxNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMMParallaxNode.h; sourceTree = "<group>"; };
@@ -86,13 +74,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		004D6D381B01409300893E8B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		004D6D561B01409300893E8B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -183,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				004D6D3B1B01409300893E8B /* Space Atack.app */,
-				004D6D591B01409300893E8B /* Space AtackTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -253,24 +233,6 @@
 			productReference = 004D6D3B1B01409300893E8B /* Space Atack.app */;
 			productType = "com.apple.product-type.application";
 		};
-		004D6D581B01409300893E8B /* Space AtackTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 004D6D661B01409300893E8B /* Build configuration list for PBXNativeTarget "Space AtackTests" */;
-			buildPhases = (
-				004D6D551B01409300893E8B /* Sources */,
-				004D6D561B01409300893E8B /* Frameworks */,
-				004D6D571B01409300893E8B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				004D6D5B1B01409300893E8B /* PBXTargetDependency */,
-			);
-			name = "Space AtackTests";
-			productName = "Space AtackTests";
-			productReference = 004D6D591B01409300893E8B /* Space AtackTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -282,10 +244,7 @@
 				TargetAttributes = {
 					004D6D3A1B01409300893E8B = {
 						CreatedOnToolsVersion = 6.3.1;
-					};
-					004D6D581B01409300893E8B = {
-						CreatedOnToolsVersion = 6.3.1;
-						TestTargetID = 004D6D3A1B01409300893E8B;
+						DevelopmentTeam = 46HQV8ZA5C;
 					};
 				};
 			};
@@ -303,7 +262,6 @@
 			projectRoot = "";
 			targets = (
 				004D6D3A1B01409300893E8B /* Space Atack */,
-				004D6D581B01409300893E8B /* Space AtackTests */,
 			);
 		};
 /* End PBXProject section */
@@ -332,13 +290,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		004D6D571B01409300893E8B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -357,23 +308,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		004D6D551B01409300893E8B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				004D6D601B01409300893E8B /* Space_AtackTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		004D6D5B1B01409300893E8B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 004D6D3A1B01409300893E8B /* Space Atack */;
-			targetProxy = 004D6D5A1B01409300893E8B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		004D6D4D1B01409300893E8B /* Main.storyboard */ = {
@@ -480,10 +415,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Space Atack/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "br.ufpe.cin.bepid.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -491,46 +429,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Space Atack/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "br.ufpe.cin.bepid.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		004D6D671B01409300893E8B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Space AtackTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "br.ufpe.cin.bepid.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Space Atack.app/Space Atack";
-			};
-			name = Debug;
-		};
-		004D6D681B01409300893E8B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Space AtackTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "br.ufpe.cin.bepid.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Space Atack.app/Space Atack";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -551,15 +456,6 @@
 			buildConfigurations = (
 				004D6D641B01409300893E8B /* Debug */,
 				004D6D651B01409300893E8B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		004D6D661B01409300893E8B /* Build configuration list for PBXNativeTarget "Space AtackTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				004D6D671B01409300893E8B /* Debug */,
-				004D6D681B01409300893E8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

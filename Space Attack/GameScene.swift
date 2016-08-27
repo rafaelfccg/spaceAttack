@@ -20,7 +20,7 @@ class BackgroundMusicSingleton {
     var backgroundAudioPlayer = AVAudioPlayer()
     
     init() {
-        let path = NSURL.init(fileURLWithPath: Assets.backgroundMusic)
+        let path = NSURL.init(fileURLWithPath: Resources.gameplayMusic)
         
         do {
             self.backgroundAudioPlayer = try AVAudioPlayer.init(contentsOfURL: path)
@@ -38,7 +38,7 @@ class BackgroundMusicSingleton {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let kNumAsteroids = 10
     let kNumLasers = 25
-    let distTOP = 250
+    let distTOP = CGFloat(250)
     
     var OnTrilaser = Bool()
     var gameOver = Bool()
@@ -54,7 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var trilaserTime = Double()
     var ship_Speed = CGFloat()
     var initMove = CGPoint()
-    var shipLasers = []
+    var shipLasers = [SKSpriteNode]()
     var asteroids = []
     
     var spaceship = Spaceship()
@@ -62,16 +62,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var animaAst = SKAction()
     var LabelScore = SKLabelNode()
     var restartLabel = SKLabelNode()
-    var parallaxNodeBackgrounds = ParallaxNode()
-    var parallaxSpaceDust = ParallaxNode()
+    var parallaxNodeBackgrounds = Parallax()
+    var parallaxSpaceDust = Parallax()
     
-    
-    override func didMoveToView(view: SKView) {
-        // setup background
-        self.backgroundColor = UIColor.blackColor()
+    override init(size: CGSize) {
+        // setup background color
+        self.backgroundColor = SKColor.blackColor()
         
-        // setup physics
-        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        // setup physics world
+        self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
         
         // setup label
@@ -82,28 +81,98 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.LabelScore.fontColor = UIColor.whiteColor()
         self.LabelScore.zPosition = 100
         
-        setupGameBackground()
-        setupSpaceshipSprites()
-        setupAsteroids()
-        setupStars()
+        // game backgorund
+        var parallaxBackground2Names = [Assets.space, Assets.space]
+        // self.parallaxSpaceDust = initWithBackgrounds(parallaxBackground2Names, size, 30.0, size)
+        parallaxSpaceDust.position = CGPointMake(0, 0)
+        self.addChild(parallaxSpaceDust)
+        let randSecs = Utils.random(25, max: 45)
+        nextItemSpawn = randSecs
         
-        start()
+        // setup spaceship sprite
+        spaceship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) * 0.2)
+        self.addChild(spaceship)
+        ship_Speed = 0
+        
+        // setup asteroids
+        var animaAst = [
+            SKTexture.init(imageNamed: Assets.rock1),
+            SKTexture.init(imageNamed: Assets.rock2),
+            SKTexture.init(imageNamed: Assets.rock3),
+            SKTexture.init(imageNamed: Assets.rock4),
+            SKTexture.init(imageNamed: Assets.rock5),
+            SKTexture.init(imageNamed: Assets.rock6),
+            SKTexture.init(imageNamed: Assets.rock7),
+            SKTexture.init(imageNamed: Assets.rock8),
+            SKTexture.init(imageNamed: Assets.rock9),
+            SKTexture.init(imageNamed: Assets.rock10),
+            SKTexture.init(imageNamed: Assets.rock11),
+            SKTexture.init(imageNamed: Assets.rock12),
+            SKTexture.init(imageNamed: Assets.rock13),
+            SKTexture.init(imageNamed: Assets.rock14),
+            SKTexture.init(imageNamed: Assets.rock15)
+        ]
+        let anima = SKAction.animateWithTextures(animaAst, timePerFrame: 0.025)
+        animaAst = SKAction.repeatActionForever(anima)
+        
+        // setup lasers
+        for _ in 1...kNumLasers {
+            let shipLaser = SKSpriteNode.init(imageNamed: Assets.shotBlue)
+            shipLaser.hidden = true
+            shipLasers.append(shipLaser)
+            self.addChild(shipLaser)
+        }
+        
+        // setup stars
+        self.addChild(loadEmitterNode(Assets.star1))
+        
+        startTheGame()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       /* Called when a touch begins */
+        /* Called when a touch begins */
+        if !restartLabel.hidden {
+            for touch in touches {
+                let n = SKNode.nodeAtPoint(self)
+                
+                
+            }
+        }
+        
+        if gameOver {
+            return
+        }
         
         for touch in touches {
-            
+            var pos = touch.locationInNode(self)
+            initMove = pos
+            var x = pos.x - spaceship.position.x
+            var y = pos.y - spaceship.position.y
+            var norm = norm(x, y)
+            var thrustVector = CGVectorMake(40 * x / norm, 40 * y / norm)
+            spaceship.physicsBody?.applyImpulse(thrustVector)
         }
     }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        self.checkShip()
+        // parallaxSpaceDust.update(currentTime)
+        // parallaxNodeBackgrounds.update(currentTime)
+        if !gameOver {
+            self.doAsteroids()
+            spaceship.doLasers(self)
+            self.checkEndGame()
+        }
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
-        var cur = CACurrentMediaTime()
+        let cur = CACurrentMediaTime()
+        
         var firstBody = SKPhysicsBody()
         var secondBody = SKPhysicsBody()
         
@@ -115,63 +184,207 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondBody = contact.bodyA
         }
         
-        if ((secondBody.categoryBitMask & Physics.asteroidCategory) && (firstBody.categoryBitMask & Physics.shipCategory)
-            && (!secondBody.node?.hidden) && (last_hit + 1.0 < cur)) {
+        if ((secondBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid) &&
+            (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.asteroid) &&
+            (!secondBody.node?.hidden == true) && (last_hit + 1.0 < cur)) {
             last_hit = cur
             secondBody.node?.hidden = true
             var blink = SKAction.sequence([SKAction.fadeInWithDuration(0.1), SKAction.fadeOutWithDuration(0.1)])
             var blinkForTime = SKAction.repeatAction(blink, count: 5)
-            
             self.spaceship.runAction(blinkForTime)
             self.childNodeWithName(String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
-            self.lives -= 1
-        } else if (((secondBody.categoryBitMask & Physics.laserCategory) && (firstBody.categoryBitMask & Physics.asteroidCategory))
-            && !secondBody.node.hidden && !firstBody.node.hidden) {
+            lives -= 1
+        } else if (((secondBody.categoryBitMask & PhysicsCategory.laser == PhysicsCategory.laser) &&
+            (firstBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid))
+            && (!secondBody.node!.hidden == true) && !firstBody.node!.hidden) {
             firstBody.node?.hidden = true
-            secondBody.node?.hidden = true
             firstBody.collisionBitMask = 0
+            secondBody.node?.hidden = true
             secondBody.collisionBitMask = 0
             self.score += 50
             setScore()
             
-            //var emitterPath = NSBundle()
-            // GUARD!
-            var emitterPath = NSBundle.mainBundle().pathForResource("explosion", ofType: nil) // explosion to constants
+            var emitterPath = NSBundle.mainBundle().pathForResource("explosion", ofType: nil)
             var emitterNode = SKEmitterNode.unarchiveFromFile(emitterPath!)
             emitterNode?.position = (firstBody.node?.position)!
             self.addChild(emitterNode!)
-        } else if ((secondBody.categoryBitMask & Physics.itemTrilaser) && (firstBody.categoryBitMask & Physics.shipCategory)
-            && !secondBody.node.hidden) {
+        } else if ((secondBody.categoryBitMask & PhysicsCategory.trilaser == 1) &&
+            (firstBody.categoryBitMask & PhysicsCategory.spaceship == 1) &&
+            secondBody.node!.hidden == true) {
             secondBody.node?.hidden = true
             self.spaceship.OnTrilaser = true
             self.spaceship.trilaserTime = cur
         }
-        
-        
     }
     
-    func setupGameBackground() {
+    func loadEmitterNode(emitterFileName: String) -> SKEmitterNode {
+        let emitterPath = NSBundle.mainBundle().pathForResource(emitterFileName, ofType: "sks")
+        let emitterNode = SKEmitterNode.unarchiveFromFile(emitterPath!)
         
+        // emitterNode?.particlePosition = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
+        // emitterNode?.particlePositionRange = CGVectorMake(self.size.width, self.size.height + 150);
+        // return emitterNode
     }
     
-    func setupSpaceshipSprites() {
+    func startTheGame() {
+        let cur = CACurrentMediaTime()
         
+        nextAsteroidSpawn = 0
+        lives = 3
+        score = 0
+        gameOverTime = 180 + cur
+        gameOver = false
+        OnTrilaser = false
+        
+        restartLabel.hidden = false
+        let randSecs = Utils.random(10, max: 40)
+        nextItemSpawn = cur + randSecs
+        nextAsteroidSpawn = cur + 2.5
+        setScore()
+        
+        spaceship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) * 0.2)
+        spaceship.hidden = false
+        
+        let arr = [
+            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
+            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
+            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed)
+        ]
+        var count = 0
+        let x = CGRectGetMinX(self.frame)
+        let y = CGRectGetMinY(self.frame)
+        
+        for i in arr {
+            i.xScale = 0.25
+            i.yScale = 0.25
+            let fir = CGFloat((x + CGFloat(2 * count + 1) * i.size.width) / 7)
+            let sec = CGFloat(y - i.size.height / -5)
+            i.position = CGPointMake(fir, sec)
+            i.name = String(format: "L%d", arguments: [count])
+            self.addChild(i)
+            count += 1
+        }
+        
+        self.addChild(LabelScore)
+        self.backgroundMusic = BackgroundMusicSingleton()
     }
     
-    func setupAsteroids() {
+    func doAsteroids() {
+        let curTime = CACurrentMediaTime()
         
+        if curTime > nextItemSpawn {
+            let randSecs = Utils.random(15, max: 45)
+            nextItemSpawn = curTime + randSecs
+            
+            let randX = Utils.random(0, max: Float(self.frame.size.width))
+            var trilaserItem = SKSpriteNode.init(imageNamed: Assets.shotRed)
+            
+            // setup trilaserItem
+            trilaserItem.position = CGPointMake(CGFloat(randX),CGRectGetMaxY(self.frame))
+            trilaserItem.hidden = false
+            trilaserItem.xScale = 1.4
+            trilaserItem.yScale = 1.4
+            
+            // setup trilaserItem physics
+            trilaserItem.physicsBody = SKPhysicsBody.init(texture: trilaserItem.texture!, size: (trilaserItem.texture?.size())!)
+            trilaserItem.physicsBody?.categoryBitMask = PhysicsCategory.trilaser
+            trilaserItem.physicsBody?.contactTestBitMask = PhysicsCategory.spaceship
+            trilaserItem.physicsBody?.collisionBitMask = 0
+            trilaserItem.physicsBody?.allowsRotation = false
+            
+            let remove = SKAction.removeFromParent()
+            let seq = SKAction.sequence([SKAction.waitForDuration(15), remove])
+            self.addChild(trilaserItem)
+            trilaserItem.runAction(seq)
+            let blink = SKAction.sequence([
+                SKAction.fadeOutWithDuration(0.2),
+                SKAction.fadeInWithDuration(0.2)
+            ])
+            let blinkForTime = SKAction.repeatAction(blink, count: 30)
+            trilaserItem.runAction(blinkForTime)
+            trilaserItem.physicsBody?.applyImpulse(CGVectorMake(0, -5))
+        }
+        
+        if curTime > nextAsteroidSpawn {
+            Asteroid.init(scene: self, animation: animaAst)
+        }
     }
     
-    func setupStars() {
+    func doLasers() {
+        let curTime = CACurrentMediaTime()
         
+        if curTime > trilaserTime + 15 {
+            OnTrilaser = false
+        }
+        
+        if !OnTrilaser && curTime > nextLaserSpawn {
+            var shipLaser = SKSpriteNode.init(imageNamed: Assets.shotBlue)
+            
+            shipLaser.position = CGPointMake(spaceship.position.x, shipLaser.size.height / 2 + spaceship.position.y)
+            shipLaser.hidden = false
+            shipLaser.removeAllActions()
+            
+            // setup shipLaser physics
+            shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
+            shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
+            shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
+            shipLaser.physicsBody?.collisionBitMask = 0
+            shipLaser.physicsBody?.allowsRotation = false
+            
+            let remove = SKAction.removeFromParent()
+            let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
+            self.addChild(shipLaser)
+            shipLaser.runAction(seq)
+            shipLaser.physicsBody?.applyImpulse(CGVectorMake(0, 10))
+        } else if curTime > nextLaserSpawn {
+            nextLaserSpawn = 0.15 + curTime
+            
+            let shots = [
+                SKSpriteNode.init(imageNamed: Assets.shotRed),
+                SKSpriteNode.init(imageNamed: Assets.shotRed),
+                SKSpriteNode.init(imageNamed: Assets.shotRed)
+            ]
+            
+            for shipLaser in shots {
+                shipLaser.position = CGPointMake(spaceship.position.x, shipLaser.size.height / 2 + spaceship.position.y)
+                shipLaser.hidden = false
+                shipLaser.removeAllActions()
+                
+                // setup physics
+                shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
+                shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
+                shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
+                shipLaser.physicsBody?.collisionBitMask = 0
+                shipLaser.physicsBody?.allowsRotation = false
+                
+                let remove = SKAction.removeFromParent()
+                let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
+                self.addChild(shipLaser)
+                shipLaser.runAction(seq)
+            }
+            
+            shots[0].physicsBody?.applyImpulse(CGVectorMake(1, 10))
+            shots[1].physicsBody?.applyImpulse(CGVectorMake(0, 10))
+            shots[2].physicsBody?.applyImpulse(CGVectorMake(-1, 10))
+        }
     }
     
-    func start() {
+    func checkShip() {
+        if spaceship.position.x >= CGRectGetMaxX(self.frame) - 30 {
+            spaceship.position = CGPointMake(CGRectGetMaxX(self.frame) - 31 , spaceship.position.y)
+            spaceship.physicsBody?.velocity = CGVectorMake(0, spaceship.physicsBody!.velocity.dy)
+        } else if spaceship.position.x <= CGRectGetMinX(self.frame) + 30 {
+            spaceship.position = CGPointMake(CGRectGetMinX(self.frame) + 31 , spaceship.position.y)
+            spaceship.physicsBody?.velocity = CGVectorMake(0, spaceship.physicsBody!.velocity.dy)
+        }
         
-    }
-    
-    func setScore() {
-        
+        if spaceship.position.y >= CGRectGetMaxY(self.frame) - distTOP {
+            spaceship.position = CGPointMake(spaceship.position.x, CGRectGetMaxY(self.frame) - distTOP - 1)
+            spaceship.physicsBody?.velocity = CGVectorMake((spaceship.physicsBody?.velocity.dx)!, 0)
+        } else if spaceship.position.y <= CGRectGetMinY(self.frame) + 10 {
+            spaceship.position = CGPointMake(spaceship.position.x ,CGRectGetMinY(self.frame) + 11)
+            spaceship.physicsBody?.velocity = CGVectorMake(spaceship.physicsBody!.velocity.dx, 0)
+        }
     }
     
     func endTheScene(endReason: EndReason) {
@@ -232,12 +445,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         labelH.runAction(labelScaleAction)
     }
     
-    func checkGameOver() {
+    func setScore() {
+        var aux = score
+        var count = 1
+        while aux > 9 {
+            aux /= 10
+            count += 1
+        }
+        let first = CGRectGetMaxX(self.frame) * 0.9 - CGFloat(count * 9)
+        let second = CGRectGetMaxY(self.frame) * 0.95
+        LabelScore.position = CGPointMake(first, second);
+        LabelScore.name = String(format: "Score: %d", arguments: [score])
+    }
+    
+    func checkEndGame() {
         let cur = CACurrentMediaTime()
         if lives <= 0 {
             self.endTheScene(EndReason.Lose)
         } else if (cur >= gameOverTime) {
             self.endTheScene(EndReason.Win)
         }
+    }
+    
+    func norm(x: CGFloat, y: CGFloat) -> CGFloat {
+        return sqrt(x * x + y * y)
     }
 }

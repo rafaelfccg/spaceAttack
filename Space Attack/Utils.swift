@@ -9,7 +9,7 @@
 import Foundation
 
 public class Utils {
-    static func random(min: Float, max: Float) -> Float {
+    static func random(min: Float, max: Float) -> Double {
         
     }
 }

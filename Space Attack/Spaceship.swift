@@ -15,9 +15,10 @@ class Spaceship: SKSpriteNode {
     var nextLaserSpawn = Double()
     var ship_Speed = CGFloat()
     var shipLasers = []
-    
+
     init() {
-        super.init(imageNamed: Assets.spaceship)
+        let texture = SKTexture(imageNamed: Assets.spaceshipBgspeed)
+        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         self.xScale = 0.8
         self.yScale = 0.8
         
@@ -27,9 +28,9 @@ class Spaceship: SKSpriteNode {
         
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.allowsRotation = false
-        self.physicsBody?.categoryBitMask = Physics.shipCategory
+        self.physicsBody?.categoryBitMask = PhysicsCategory.spaceship
         self.physicsBody?.collisionBitMask = 0
-        self.physicsBody?.contactTestBitMask = Physics.shipCategory | Physics.eshipCategory | Physics.asteroidCategory | Physics.itemTrilaser
+        self.physicsBody?.contactTestBitMask = PhysicsCategory.spaceship | PhysicsCategory.enemy | PhysicsCategory.asteroid | PhysicsCategory.trilaser
         self.physicsBody?.mass = 0.366144
     }
 
@@ -47,14 +48,14 @@ class Spaceship: SKSpriteNode {
         if (!OnTrilaser && curTime > nextLaserSpawn) {
             nextLaserSpawn = curTime + 0.2
             
-            let shipLaser = SKSpriteNode.init(imageNamed: Assets.blueShot)
+            let shipLaser = SKSpriteNode.init(imageNamed: Assets.shotBlue)
             shipLaser.position = CGPointMake(self.position.x, shipLaser.size.height / 2 + self.position.y)
             shipLaser.hidden = false
             shipLaser.removeAllActions()
             
             shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
-            shipLaser.physicsBody?.categoryBitMask = Physics.laserCategory
-            shipLaser.physicsBody?.contactTestBitMask = Physics.asteroidCategory
+            shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
+            shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
             shipLaser.physicsBody?.collisionBitMask = 0
             shipLaser.physicsBody?.allowsRotation = false
             
@@ -66,7 +67,7 @@ class Spaceship: SKSpriteNode {
         } else if (curTime > nextLaserSpawn) {
             nextLaserSpawn = curTime + 0.15
             
-            let shot = SKSpriteNode.init(imageNamed: Assets.redShot)
+            let shot = SKSpriteNode.init(imageNamed: Assets.shotRed)
             var shots = [SKSpriteNode](count: 3, repeatedValue: shot)
             
             for shipLaser in shots {
@@ -75,8 +76,8 @@ class Spaceship: SKSpriteNode {
                 shipLaser.removeAllActions()
                 
                 shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
-                shipLaser.physicsBody?.categoryBitMask = Physics.laserCategory
-                shipLaser.physicsBody?.contactTestBitMask = Physics.asteroidCategory
+                shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
+                shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
                 shipLaser.physicsBody?.collisionBitMask = 0
                 shipLaser.physicsBody?.allowsRotation = false
                 

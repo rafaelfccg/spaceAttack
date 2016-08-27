@@ -12,24 +12,26 @@ class Asteroid: SKSpriteNode {
     static var nextAsteroidSpawn = Double()
     
     init(scene: SKScene, animation: SKAction) {
-        var asteriod = SKSpriteNode.init(imageNamed: Assets.rocks.rock1)
-        asteriod.xScale = 0.8
-        asteriod.yScale = 0.8
-        asteriod.position = CGPointMake(0, CGRectGetMaxY(scene.frame))
-        asteriod.hidden = false
+        let texture = SKTexture(imageNamed: Assets.rock1)
+        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+
+        self.xScale = 0.8
+        self.yScale = 0.8
+        self.position = CGPointMake(0, CGRectGetMaxY(scene.frame))
+        self.hidden = false
         
         // setup physics
-        asteriod.physicsBody = SKPhysicsBody.init(texture: asteriod.texture!, size: (asteriod.texture?.size())!)
-        asteriod.physicsBody?.categoryBitMask = Physics.asteroidCategory
-        asteriod.physicsBody?.contactTestBitMask = Physics.shipCategory | Physics.laserCategory
-        asteriod.physicsBody?.collisionBitMask = Physics.shipCategory
-        asteriod.physicsBody?.allowsRotation = false
+        self.physicsBody = SKPhysicsBody.init(texture: self.texture!, size: (self.texture?.size())!)
+        self.physicsBody?.categoryBitMask = PhysicsCategory.asteroid
+        self.physicsBody?.contactTestBitMask = PhysicsCategory.spaceship | PhysicsCategory.laser
+        self.physicsBody?.collisionBitMask = PhysicsCategory.spaceship
+        self.physicsBody?.allowsRotation = false
         
-        var remove = SKAction.removeFromParent()
-        var seq = SKAction.sequence([SKAction.waitForDuration(15), remove])
-        scene.addChild(asteriod)
-        asteriod.runAction(seq)
-        asteriod.runAction(animation, withKey: "asteriodAnima")
+        let remove = SKAction.removeFromParent()
+        let seq = SKAction.sequence([SKAction.waitForDuration(15), remove])
+        scene.addChild(self)
+        self.runAction(seq)
+        self.runAction(animation, withKey: "asteriodAnima")
         //asteriod.physicsBody?.applyImpulse(0, )
     }
 

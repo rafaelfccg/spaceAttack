@@ -20,18 +20,20 @@ class BackgroundMusicSingleton {
     var backgroundAudioPlayer = AVAudioPlayer()
     
     init() {
-        let path = NSURL.init(fileURLWithPath: Resources.gameplayMusic)
-        
         do {
+            let audioPath = NSBundle.mainBundle().pathForResource(Resources.backgroundMusic, ofType: "wav")
+            let path = NSURL.init(fileURLWithPath: audioPath!)
             self.backgroundAudioPlayer = try AVAudioPlayer.init(contentsOfURL: path)
+
+            self.backgroundAudioPlayer.prepareToPlay()
+            self.backgroundAudioPlayer.numberOfLoops = -1
+            self.backgroundAudioPlayer.volume = 1.0
+            self.backgroundAudioPlayer.play()
         } catch _ {
             print("error `background music`")
         }
         
-        self.backgroundAudioPlayer.prepareToPlay()
-        self.backgroundAudioPlayer.numberOfLoops = -1
-        self.backgroundAudioPlayer.volume = 1.0
-        self.backgroundAudioPlayer.play()
+        
     }
 }
 

@@ -7,13 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0047719D1D75A7770067994E /* background_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 004771961D75A7770067994E /* background_music.wav */; };
-		0047719E1D75A7770067994E /* explosion_asteroid.wav in Resources */ = {isa = PBXBuildFile; fileRef = 004771971D75A7770067994E /* explosion_asteroid.wav */; };
-		0047719F1D75A7770067994E /* explosion_enemy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 004771981D75A7770067994E /* explosion_enemy.wav */; };
-		004771A01D75A7770067994E /* explosion_player.wav in Resources */ = {isa = PBXBuildFile; fileRef = 004771991D75A7770067994E /* explosion_player.wav */; };
-		004771A11D75A7770067994E /* gameplay_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0047719A1D75A7770067994E /* gameplay_music.mp3 */; };
-		004771A21D75A7770067994E /* weapon_enemy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0047719B1D75A7770067994E /* weapon_enemy.wav */; };
-		004771A31D75A7770067994E /* weapon_player.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0047719C1D75A7770067994E /* weapon_player.wav */; };
 		493D30951D6FC05500FD5293 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30941D6FC05500FD5293 /* AppDelegate.swift */; };
 		493D30971D6FC05500FD5293 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 493D30961D6FC05500FD5293 /* GameScene.sks */; };
 		493D30991D6FC05500FD5293 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30981D6FC05500FD5293 /* GameScene.swift */; };
@@ -26,16 +19,17 @@
 		493D30CD1D6FCE1F00FD5293 /* Asteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30CC1D6FCE1F00FD5293 /* Asteroid.swift */; };
 		493D30D41D71B00C00FD5293 /* Parallax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30D31D71B00B00FD5293 /* Parallax.swift */; };
 		493D30DC1D71B4A700FD5293 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30DB1D71B4A700FD5293 /* Utils.swift */; };
+		49B27F7C1D75C84700889F2F /* background_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F751D75C84700889F2F /* background_music.wav */; };
+		49B27F7D1D75C84700889F2F /* explosion_asteroid.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F761D75C84700889F2F /* explosion_asteroid.wav */; };
+		49B27F7E1D75C84700889F2F /* explosion_enemy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F771D75C84700889F2F /* explosion_enemy.wav */; };
+		49B27F7F1D75C84700889F2F /* explosion_player.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F781D75C84700889F2F /* explosion_player.wav */; };
+		49B27F801D75C84700889F2F /* gameplay_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F791D75C84700889F2F /* gameplay_music.mp3 */; };
+		49B27F811D75C84700889F2F /* weapon_enemy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F7A1D75C84700889F2F /* weapon_enemy.wav */; };
+		49B27F821D75C84700889F2F /* weapon_player.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F7B1D75C84700889F2F /* weapon_player.wav */; };
+		49B27F841D76069300889F2F /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B27F831D76069300889F2F /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		004771961D75A7770067994E /* background_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = background_music.wav; sourceTree = "<group>"; };
-		004771971D75A7770067994E /* explosion_asteroid.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_asteroid.wav; sourceTree = "<group>"; };
-		004771981D75A7770067994E /* explosion_enemy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_enemy.wav; sourceTree = "<group>"; };
-		004771991D75A7770067994E /* explosion_player.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_player.wav; sourceTree = "<group>"; };
-		0047719A1D75A7770067994E /* gameplay_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameplay_music.mp3; sourceTree = "<group>"; };
-		0047719B1D75A7770067994E /* weapon_enemy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_enemy.wav; sourceTree = "<group>"; };
-		0047719C1D75A7770067994E /* weapon_player.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_player.wav; sourceTree = "<group>"; };
 		493D30911D6FC05500FD5293 /* SpaceAttack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceAttack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		493D30941D6FC05500FD5293 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		493D30961D6FC05500FD5293 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -50,6 +44,14 @@
 		493D30CC1D6FCE1F00FD5293 /* Asteroid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asteroid.swift; sourceTree = "<group>"; };
 		493D30D31D71B00B00FD5293 /* Parallax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parallax.swift; sourceTree = "<group>"; };
 		493D30DB1D71B4A700FD5293 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		49B27F751D75C84700889F2F /* background_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = background_music.wav; sourceTree = "<group>"; };
+		49B27F761D75C84700889F2F /* explosion_asteroid.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_asteroid.wav; sourceTree = "<group>"; };
+		49B27F771D75C84700889F2F /* explosion_enemy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_enemy.wav; sourceTree = "<group>"; };
+		49B27F781D75C84700889F2F /* explosion_player.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_player.wav; sourceTree = "<group>"; };
+		49B27F791D75C84700889F2F /* gameplay_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameplay_music.mp3; sourceTree = "<group>"; };
+		49B27F7A1D75C84700889F2F /* weapon_enemy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_enemy.wav; sourceTree = "<group>"; };
+		49B27F7B1D75C84700889F2F /* weapon_player.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_player.wav; sourceTree = "<group>"; };
+		49B27F831D76069300889F2F /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,28 +65,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		004771941D75A7770067994E /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				004771951D75A7770067994E /* Audios */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		004771951D75A7770067994E /* Audios */ = {
-			isa = PBXGroup;
-			children = (
-				004771961D75A7770067994E /* background_music.wav */,
-				004771971D75A7770067994E /* explosion_asteroid.wav */,
-				004771981D75A7770067994E /* explosion_enemy.wav */,
-				004771991D75A7770067994E /* explosion_player.wav */,
-				0047719A1D75A7770067994E /* gameplay_music.mp3 */,
-				0047719B1D75A7770067994E /* weapon_enemy.wav */,
-				0047719C1D75A7770067994E /* weapon_player.wav */,
-			);
-			path = Audios;
-			sourceTree = "<group>";
-		};
 		493D30881D6FC05500FD5293 = {
 			isa = PBXGroup;
 			children = (
@@ -104,7 +84,6 @@
 		493D30931D6FC05500FD5293 /* Space Attack */ = {
 			isa = PBXGroup;
 			children = (
-				004771941D75A7770067994E /* Assets */,
 				493D30A41D6FC05500FD5293 /* Info.plist */,
 				493D30961D6FC05500FD5293 /* GameScene.sks */,
 				493D30941D6FC05500FD5293 /* AppDelegate.swift */,
@@ -112,6 +91,7 @@
 				493D309A1D6FC05500FD5293 /* GameViewController.swift */,
 				493D30DB1D71B4A700FD5293 /* Utils.swift */,
 				493D309F1D6FC05500FD5293 /* Assets.xcassets */,
+				49B27F741D75C84700889F2F /* Audios */,
 				493D30CB1D6FCE0500FD5293 /* Nodes */,
 				493D30CE1D6FCFD000FD5293 /* Scenes */,
 				493D30C61D6FC06B00FD5293 /* Storyboards */,
@@ -142,8 +122,23 @@
 			isa = PBXGroup;
 			children = (
 				493D30981D6FC05500FD5293 /* GameScene.swift */,
+				49B27F831D76069300889F2F /* GameOverScene.swift */,
 			);
 			name = Scenes;
+			sourceTree = "<group>";
+		};
+		49B27F741D75C84700889F2F /* Audios */ = {
+			isa = PBXGroup;
+			children = (
+				49B27F751D75C84700889F2F /* background_music.wav */,
+				49B27F761D75C84700889F2F /* explosion_asteroid.wav */,
+				49B27F771D75C84700889F2F /* explosion_enemy.wav */,
+				49B27F781D75C84700889F2F /* explosion_player.wav */,
+				49B27F791D75C84700889F2F /* gameplay_music.mp3 */,
+				49B27F7A1D75C84700889F2F /* weapon_enemy.wav */,
+				49B27F7B1D75C84700889F2F /* weapon_player.wav */,
+			);
+			path = Audios;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,16 +200,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				493D30971D6FC05500FD5293 /* GameScene.sks in Resources */,
-				0047719F1D75A7770067994E /* explosion_enemy.wav in Resources */,
+				49B27F7E1D75C84700889F2F /* explosion_enemy.wav in Resources */,
 				493D30A31D6FC05500FD5293 /* LaunchScreen.storyboard in Resources */,
 				493D30A01D6FC05500FD5293 /* Assets.xcassets in Resources */,
-				0047719E1D75A7770067994E /* explosion_asteroid.wav in Resources */,
-				004771A11D75A7770067994E /* gameplay_music.mp3 in Resources */,
-				004771A31D75A7770067994E /* weapon_player.wav in Resources */,
-				004771A01D75A7770067994E /* explosion_player.wav in Resources */,
-				004771A21D75A7770067994E /* weapon_enemy.wav in Resources */,
+				49B27F7D1D75C84700889F2F /* explosion_asteroid.wav in Resources */,
+				49B27F801D75C84700889F2F /* gameplay_music.mp3 in Resources */,
+				49B27F821D75C84700889F2F /* weapon_player.wav in Resources */,
+				49B27F7F1D75C84700889F2F /* explosion_player.wav in Resources */,
+				49B27F811D75C84700889F2F /* weapon_enemy.wav in Resources */,
 				493D309E1D6FC05500FD5293 /* Main.storyboard in Resources */,
-				0047719D1D75A7770067994E /* background_music.wav in Resources */,
+				49B27F7C1D75C84700889F2F /* background_music.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +227,7 @@
 				493D30951D6FC05500FD5293 /* AppDelegate.swift in Sources */,
 				493D30C81D6FC6E100FD5293 /* Constants.swift in Sources */,
 				493D30CD1D6FCE1F00FD5293 /* Asteroid.swift in Sources */,
+				49B27F841D76069300889F2F /* GameOverScene.swift in Sources */,
 				493D30CA1D6FCE0200FD5293 /* Spaceship.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

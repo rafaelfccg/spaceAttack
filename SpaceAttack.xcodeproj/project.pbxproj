@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0047719D1D75A7770067994E /* background_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 004771961D75A7770067994E /* background_music.wav */; };
+		0047719E1D75A7770067994E /* explosion_asteroid.wav in Resources */ = {isa = PBXBuildFile; fileRef = 004771971D75A7770067994E /* explosion_asteroid.wav */; };
+		0047719F1D75A7770067994E /* explosion_enemy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 004771981D75A7770067994E /* explosion_enemy.wav */; };
+		004771A01D75A7770067994E /* explosion_player.wav in Resources */ = {isa = PBXBuildFile; fileRef = 004771991D75A7770067994E /* explosion_player.wav */; };
+		004771A11D75A7770067994E /* gameplay_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0047719A1D75A7770067994E /* gameplay_music.mp3 */; };
+		004771A21D75A7770067994E /* weapon_enemy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0047719B1D75A7770067994E /* weapon_enemy.wav */; };
+		004771A31D75A7770067994E /* weapon_player.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0047719C1D75A7770067994E /* weapon_player.wav */; };
 		493D30951D6FC05500FD5293 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30941D6FC05500FD5293 /* AppDelegate.swift */; };
 		493D30971D6FC05500FD5293 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 493D30961D6FC05500FD5293 /* GameScene.sks */; };
 		493D30991D6FC05500FD5293 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30981D6FC05500FD5293 /* GameScene.swift */; };
@@ -17,13 +24,19 @@
 		493D30C81D6FC6E100FD5293 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30C71D6FC6E100FD5293 /* Constants.swift */; };
 		493D30CA1D6FCE0200FD5293 /* Spaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30C91D6FCE0200FD5293 /* Spaceship.swift */; };
 		493D30CD1D6FCE1F00FD5293 /* Asteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30CC1D6FCE1F00FD5293 /* Asteroid.swift */; };
-		493D30D21D7004F700FD5293 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 493D30D11D7004F700FD5293 /* Resources */; };
 		493D30D41D71B00C00FD5293 /* Parallax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30D31D71B00B00FD5293 /* Parallax.swift */; };
 		493D30DC1D71B4A700FD5293 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30DB1D71B4A700FD5293 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		493D30911D6FC05500FD5293 /* Space Attack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Attack.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		004771961D75A7770067994E /* background_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = background_music.wav; sourceTree = "<group>"; };
+		004771971D75A7770067994E /* explosion_asteroid.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_asteroid.wav; sourceTree = "<group>"; };
+		004771981D75A7770067994E /* explosion_enemy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_enemy.wav; sourceTree = "<group>"; };
+		004771991D75A7770067994E /* explosion_player.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion_player.wav; sourceTree = "<group>"; };
+		0047719A1D75A7770067994E /* gameplay_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameplay_music.mp3; sourceTree = "<group>"; };
+		0047719B1D75A7770067994E /* weapon_enemy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_enemy.wav; sourceTree = "<group>"; };
+		0047719C1D75A7770067994E /* weapon_player.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_player.wav; sourceTree = "<group>"; };
+		493D30911D6FC05500FD5293 /* SpaceAttack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceAttack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		493D30941D6FC05500FD5293 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		493D30961D6FC05500FD5293 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		493D30981D6FC05500FD5293 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -35,7 +48,6 @@
 		493D30C71D6FC6E100FD5293 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		493D30C91D6FCE0200FD5293 /* Spaceship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spaceship.swift; sourceTree = "<group>"; };
 		493D30CC1D6FCE1F00FD5293 /* Asteroid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asteroid.swift; sourceTree = "<group>"; };
-		493D30D11D7004F700FD5293 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		493D30D31D71B00B00FD5293 /* Parallax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parallax.swift; sourceTree = "<group>"; };
 		493D30DB1D71B4A700FD5293 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,6 +63,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		004771941D75A7770067994E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				004771951D75A7770067994E /* Audios */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		004771951D75A7770067994E /* Audios */ = {
+			isa = PBXGroup;
+			children = (
+				004771961D75A7770067994E /* background_music.wav */,
+				004771971D75A7770067994E /* explosion_asteroid.wav */,
+				004771981D75A7770067994E /* explosion_enemy.wav */,
+				004771991D75A7770067994E /* explosion_player.wav */,
+				0047719A1D75A7770067994E /* gameplay_music.mp3 */,
+				0047719B1D75A7770067994E /* weapon_enemy.wav */,
+				0047719C1D75A7770067994E /* weapon_player.wav */,
+			);
+			path = Audios;
+			sourceTree = "<group>";
+		};
 		493D30881D6FC05500FD5293 = {
 			isa = PBXGroup;
 			children = (
@@ -62,7 +96,7 @@
 		493D30921D6FC05500FD5293 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				493D30911D6FC05500FD5293 /* Space Attack.app */,
+				493D30911D6FC05500FD5293 /* SpaceAttack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,7 +104,7 @@
 		493D30931D6FC05500FD5293 /* Space Attack */ = {
 			isa = PBXGroup;
 			children = (
-				493D30D11D7004F700FD5293 /* Resources */,
+				004771941D75A7770067994E /* Assets */,
 				493D30A41D6FC05500FD5293 /* Info.plist */,
 				493D30961D6FC05500FD5293 /* GameScene.sks */,
 				493D30941D6FC05500FD5293 /* AppDelegate.swift */,
@@ -115,9 +149,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		493D30901D6FC05500FD5293 /* Space Attack */ = {
+		493D30901D6FC05500FD5293 /* SpaceAttack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 493D30BD1D6FC05500FD5293 /* Build configuration list for PBXNativeTarget "Space Attack" */;
+			buildConfigurationList = 493D30BD1D6FC05500FD5293 /* Build configuration list for PBXNativeTarget "SpaceAttack" */;
 			buildPhases = (
 				493D308D1D6FC05500FD5293 /* Sources */,
 				493D308E1D6FC05500FD5293 /* Frameworks */,
@@ -127,9 +161,9 @@
 			);
 			dependencies = (
 			);
-			name = "Space Attack";
+			name = SpaceAttack;
 			productName = "Space Attack";
-			productReference = 493D30911D6FC05500FD5293 /* Space Attack.app */;
+			productReference = 493D30911D6FC05500FD5293 /* SpaceAttack.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -147,7 +181,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 493D308C1D6FC05500FD5293 /* Build configuration list for PBXProject "Space Attack" */;
+			buildConfigurationList = 493D308C1D6FC05500FD5293 /* Build configuration list for PBXProject "SpaceAttack" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -160,7 +194,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				493D30901D6FC05500FD5293 /* Space Attack */,
+				493D30901D6FC05500FD5293 /* SpaceAttack */,
 			);
 		};
 /* End PBXProject section */
@@ -171,10 +205,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				493D30971D6FC05500FD5293 /* GameScene.sks in Resources */,
+				0047719F1D75A7770067994E /* explosion_enemy.wav in Resources */,
 				493D30A31D6FC05500FD5293 /* LaunchScreen.storyboard in Resources */,
 				493D30A01D6FC05500FD5293 /* Assets.xcassets in Resources */,
+				0047719E1D75A7770067994E /* explosion_asteroid.wav in Resources */,
+				004771A11D75A7770067994E /* gameplay_music.mp3 in Resources */,
+				004771A31D75A7770067994E /* weapon_player.wav in Resources */,
+				004771A01D75A7770067994E /* explosion_player.wav in Resources */,
+				004771A21D75A7770067994E /* weapon_enemy.wav in Resources */,
 				493D309E1D6FC05500FD5293 /* Main.storyboard in Resources */,
-				493D30D21D7004F700FD5293 /* Resources in Resources */,
+				0047719D1D75A7770067994E /* background_music.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,9 +345,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Space Attack/Info.plist";
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "br.ufpe.cin.Space-Attack";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SpaceAttack;
 			};
 			name = Debug;
 		};
@@ -317,16 +358,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Space Attack/Info.plist";
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "br.ufpe.cin.Space-Attack";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SpaceAttack;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		493D308C1D6FC05500FD5293 /* Build configuration list for PBXProject "Space Attack" */ = {
+		493D308C1D6FC05500FD5293 /* Build configuration list for PBXProject "SpaceAttack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				493D30BB1D6FC05500FD5293 /* Debug */,
@@ -335,13 +377,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		493D30BD1D6FC05500FD5293 /* Build configuration list for PBXNativeTarget "Space Attack" */ = {
+		493D30BD1D6FC05500FD5293 /* Build configuration list for PBXNativeTarget "SpaceAttack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				493D30BE1D6FC05500FD5293 /* Debug */,
 				493D30BF1D6FC05500FD5293 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

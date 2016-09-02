@@ -29,10 +29,6 @@ struct Resources {
 struct Assets {
     static let gameFont = "Futura-CondensedMedium"
     
-    static let orbGreen = "orb-green"
-    static let orbRed = "orb-red"
-    static let orbYellow = "orb-yellow"
-    
     static let rock1 = "rock-1"
     static let rock2 = "rock-2"
     static let rock3 = "rock-3"

@@ -10,8 +10,33 @@ import SpriteKit
 
 class Asteroid: SKSpriteNode {
     static var nextAsteroidSpawn = Double()
+    static let asteroidAnimation:SKAction = Asteroid.createAsteroidAnimation()
     
-    init(scene: SKScene, animation: SKAction) {
+    static func createAsteroidAnimation() -> SKAction {
+        let animaAstTexture = [
+            SKTexture.init(imageNamed: Assets.rock1),
+            SKTexture.init(imageNamed: Assets.rock2),
+            SKTexture.init(imageNamed: Assets.rock3),
+            SKTexture.init(imageNamed: Assets.rock4),
+            SKTexture.init(imageNamed: Assets.rock5),
+            SKTexture.init(imageNamed: Assets.rock6),
+            SKTexture.init(imageNamed: Assets.rock7),
+            SKTexture.init(imageNamed: Assets.rock8),
+            SKTexture.init(imageNamed: Assets.rock9),
+            SKTexture.init(imageNamed: Assets.rock10),
+            SKTexture.init(imageNamed: Assets.rock11),
+            SKTexture.init(imageNamed: Assets.rock12),
+            SKTexture.init(imageNamed: Assets.rock13),
+            SKTexture.init(imageNamed: Assets.rock14),
+            SKTexture.init(imageNamed: Assets.rock15)
+        ]
+        let anima = SKAction.animateWithTextures(animaAstTexture, timePerFrame: 0.025)
+        let animaAst = SKAction.repeatActionForever(anima)
+        return animaAst
+    }
+    
+    
+    init(scene: SKScene) {
         let texture = SKTexture(imageNamed: Assets.rock1)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
 
@@ -31,8 +56,7 @@ class Asteroid: SKSpriteNode {
         let seq = SKAction.sequence([SKAction.waitForDuration(15), remove])
         scene.addChild(self)
         self.runAction(seq)
-        self.runAction(animation, withKey: "asteriodAnima")
-        //asteriod.physicsBody?.applyImpulse(0, )
+        self.runAction(Asteroid.asteroidAnimation, withKey: "asteriodAnima")
     }
 
     required init?(coder aDecoder: NSCoder) {

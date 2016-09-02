@@ -19,21 +19,22 @@ class BackgroundMusicSingleton {
     static let sharedInstance = BackgroundMusicSingleton()
     var backgroundAudioPlayer = AVAudioPlayer()
     
-    init() {
-        do {
-            let audioPath = NSBundle.mainBundle().pathForResource(Resources.backgroundMusic, ofType: "wav")
-            let path = NSURL.init(fileURLWithPath: audioPath!)
+    private init() {
+        playMusic(Resources.backgroundMusic, withFormat: "wav")
+    }
+    
+    func playMusic(name: String, withFormat format:String) {
+        let audioPath = NSBundle.mainBundle().pathForResource(name, ofType:format)
+        let path = NSURL.init(fileURLWithPath: audioPath!)
+        do{
             self.backgroundAudioPlayer = try AVAudioPlayer.init(contentsOfURL: path)
-
             self.backgroundAudioPlayer.prepareToPlay()
             self.backgroundAudioPlayer.numberOfLoops = -1
             self.backgroundAudioPlayer.volume = 1.0
             self.backgroundAudioPlayer.play()
-        } catch _ {
-            print("error `background music`")
+        }catch _ {
+            print("error `background music` not found")
         }
-        
-        
     }
 }
 
@@ -64,24 +65,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var animaAst = SKAction()
     var LabelScore = SKLabelNode()
     var restartLabel = SKLabelNode()
-    var parallaxNodeBackgrounds = Parallax()
-    var parallaxSpaceDust = Parallax()
+    var parallaxNodeBackgrounds:Parallax?
     
     static func sceneFromFileNamed(fileNamed:String!)->GameScene?{
         let gameScene = GameScene.unarchiveFromFile(fileNamed) as? GameScene;
+        gameScene?.initialize()
         return gameScene
     }
     
-    override init(size: CGSize) {
+    func initialize() {
         
-        super.init(size: size)
         // setup background color
         self.backgroundColor = SKColor.blackColor()
-        
         // setup physics world
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
-        
         // setup label
         self.LabelScore = SKLabelNode.init(fontNamed: Assets.gameFont)
         self.LabelScore.name = "scoreLabel"
@@ -91,55 +89,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.LabelScore.zPosition = 100
         
         // game backgorund
-        var parallaxBackground2Names = [Assets.space, Assets.space]
-        // self.parallaxSpaceDust = initWithBackgrounds(parallaxBackground2Names, size, 30.0, size)
-        parallaxSpaceDust.position = CGPointMake(0, 0)
-        self.addChild(parallaxSpaceDust)
-        let randSecs = Utils.random(25, max: 45)
-        nextItemSpawn = randSecs
+        self.parallaxNodeBackgrounds = Parallax.init(withFile: Assets.space, imageRepetitions: 2, size: size, speed: 30, frameSize: size)
+        parallaxNodeBackgrounds!.position = CGPointMake(0, 0)
+        self.addChild(parallaxNodeBackgrounds!)
+        let randSecs = Utils.random(30, max: 45)
+        nextItemSpawn = randSecs + CACurrentMediaTime()
         
         // setup spaceship sprite
         spaceship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) * 0.2)
         self.addChild(spaceship)
         ship_Speed = 0
         
-        // setup asteroids
-        let animaAstTexture = [
-            SKTexture.init(imageNamed: Assets.rock1),
-            SKTexture.init(imageNamed: Assets.rock2),
-            SKTexture.init(imageNamed: Assets.rock3),
-            SKTexture.init(imageNamed: Assets.rock4),
-            SKTexture.init(imageNamed: Assets.rock5),
-            SKTexture.init(imageNamed: Assets.rock6),
-            SKTexture.init(imageNamed: Assets.rock7),
-            SKTexture.init(imageNamed: Assets.rock8),
-            SKTexture.init(imageNamed: Assets.rock9),
-            SKTexture.init(imageNamed: Assets.rock10),
-            SKTexture.init(imageNamed: Assets.rock11),
-            SKTexture.init(imageNamed: Assets.rock12),
-            SKTexture.init(imageNamed: Assets.rock13),
-            SKTexture.init(imageNamed: Assets.rock14),
-            SKTexture.init(imageNamed: Assets.rock15)
-        ]
-        let anima = SKAction.animateWithTextures(animaAstTexture, timePerFrame: 0.025)
-        animaAst = SKAction.repeatActionForever(anima)
-        
         // setup lasers
         for _ in 1...kNumLasers {
             let shipLaser = SKSpriteNode.init(imageNamed: Assets.shotBlue)
             shipLaser.hidden = true
             shipLasers.append(shipLaser)
+            shipLaser.name = "shipLaserOnInit"
             self.addChild(shipLaser)
         }
         
         // setup stars
-        self.addChild(loadEmitterNode(Assets.star1))
+//        self.addChild(loadEmitterNode(Assets.star1))
         
         startTheGame()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -170,8 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         self.checkShip()
-        // parallaxSpaceDust.update(currentTime)
-        // parallaxNodeBackgrounds.update(currentTime)
+        parallaxNodeBackgrounds?.update(currentTime)
         if !gameOver {
             self.doAsteroids()
             spaceship.doLasers(self)
@@ -254,7 +230,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spaceship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) * 0.2)
         spaceship.hidden = false
         
-        let arr = [
+        let livesArr = [
             SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
             SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
             SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed)
@@ -263,7 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let x = CGRectGetMinX(self.frame)
         let y = CGRectGetMinY(self.frame)
         
-        for i in arr {
+        for i in livesArr {
             i.xScale = 0.25
             i.yScale = 0.25
             let fir = CGFloat((x + CGFloat(2 * count + 1) * i.size.width) / 7)
@@ -287,7 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let randX = Utils.random(0, max: Double(self.frame.size.width))
             let trilaserItem = SKSpriteNode.init(imageNamed: Assets.shotRed)
-            
+            trilaserItem.name = "trilaserItem"
             // setup trilaserItem
             trilaserItem.position = CGPointMake(CGFloat(randX),CGRectGetMaxY(self.frame))
             trilaserItem.hidden = false
@@ -315,7 +291,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if curTime > nextAsteroidSpawn {
-            let asteroid = Asteroid.init(scene: self, animation: animaAst)
+            let asteroid = Asteroid.init(scene: self)
         }
     }
     
@@ -342,6 +318,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let remove = SKAction.removeFromParent()
             let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
+            shipLaser.name = "shipLaser"
             self.addChild(shipLaser)
             shipLaser.runAction(seq)
             shipLaser.physicsBody?.applyImpulse(CGVectorMake(0, 10))
@@ -368,6 +345,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 let remove = SKAction.removeFromParent()
                 let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
+                shipLaser.name = "shipLaser349"
                 self.addChild(shipLaser)
                 shipLaser.runAction(seq)
             }

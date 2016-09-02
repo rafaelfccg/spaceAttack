@@ -67,10 +67,12 @@ class Spaceship: SKSpriteNode {
         } else if (curTime > nextLaserSpawn) {
             nextLaserSpawn = curTime + 0.15
             
-            let shot = SKSpriteNode.init(imageNamed: Assets.shotRed)
-            var shots = [SKSpriteNode](count: 3, repeatedValue: shot)
+            var shots = [SKSpriteNode.init(imageNamed: Assets.shotRed),
+                         SKSpriteNode.init(imageNamed: Assets.shotRed),
+                         SKSpriteNode.init(imageNamed: Assets.shotRed)]
             
             for shipLaser in shots {
+                shipLaser.name = "laserShip"
                 shipLaser.position = CGPointMake(self.position.x, shipLaser.size.height/2+self.position.y)
                 shipLaser.hidden = false
                 shipLaser.removeAllActions()

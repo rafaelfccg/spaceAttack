@@ -35,7 +35,7 @@ class GameViewController: UIViewController {
         
         if let scene = GameScene.sceneFromFileNamed("GameScene") {
             let skView = self.view as! SKView
-            
+            skView.showsPhysics = true;
             skView.showsFPS = true
             skView.showsNodeCount = true
             skView.ignoresSiblingOrder = true

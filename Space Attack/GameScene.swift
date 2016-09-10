@@ -74,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initialize() {
-        
+        self.size = UIScreen.mainScreen().bounds.size
         // setup background color
         self.backgroundColor = SKColor.blackColor()
         // setup physics world
@@ -90,8 +90,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // game backgorund
         self.parallaxNodeBackgrounds = Parallax.init(withFile: Assets.space, imageRepetitions: 2, size: size, speed: 30, frameSize: size)
-        parallaxNodeBackgrounds!.position = CGPointMake(0, 0)
+        parallaxNodeBackgrounds?.position = CGPointMake(0, 0)
+        parallaxNodeBackgrounds?.zPosition = -10;
+        parallaxNodeBackgrounds?.name = "parallaxNode"
         self.addChild(parallaxNodeBackgrounds!)
+        
         let randSecs = Utils.random(30, max: 45)
         nextItemSpawn = randSecs + CACurrentMediaTime()
         
@@ -100,15 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spaceship)
         ship_Speed = 0
         
-        // setup lasers
-        for _ in 1...kNumLasers {
-            let shipLaser = SKSpriteNode.init(imageNamed: Assets.shotBlue)
-            shipLaser.hidden = true
-            shipLasers.append(shipLaser)
-            shipLaser.name = "shipLaserOnInit"
-            self.addChild(shipLaser)
-        }
-        
+//        
         // setup stars
 //        self.addChild(loadEmitterNode(Assets.star1))
         
@@ -152,6 +147,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.doAsteroids()
             spaceship.doLasers(self)
             self.checkEndGame()
+            
+//            for nodes in self.children {
+//                print(nodes.name)
+//            }
+//            print("-------")
         }
     }
     
@@ -182,17 +182,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if (((secondBody.categoryBitMask & PhysicsCategory.laser == PhysicsCategory.laser) &&
             (firstBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid))
             && (!secondBody.node!.hidden == true) && !firstBody.node!.hidden) {
-            firstBody.node?.hidden = true
-            firstBody.collisionBitMask = 0
-            secondBody.node?.hidden = true
-            secondBody.collisionBitMask = 0
-            self.score += 50
-            setScore()
-            
-            let emitterPath = NSBundle.mainBundle().pathForResource("explosion", ofType: nil)
-            let emitterNode = SKEmitterNode.unarchiveFromFile(emitterPath!)
-            emitterNode?.position = (firstBody.node?.position)!
-            self.addChild(emitterNode!)
+//            firstBody.node?.hidden = true
+//            firstBody.collisionBitMask = 0
+//            secondBody.node?.hidden = true
+//            secondBody.collisionBitMask = 0
+//            self.score += 50
+//            setScore()
+//            
+//            let emitterPath = NSBundle.mainBundle().pathForResource("explosion", ofType: nil)
+//            let emitterNode = SKEmitterNode.unarchiveFromFile(emitterPath!)
+//            emitterNode?.position = (firstBody.node?.position)!
+//            self.addChild(emitterNode!)
         } else if ((secondBody.categoryBitMask & PhysicsCategory.trilaser == 1) &&
             (firstBody.categoryBitMask & PhysicsCategory.spaceship == 1) &&
             secondBody.node!.hidden == true) {
@@ -291,68 +291,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if curTime > nextAsteroidSpawn {
-            let asteroid = Asteroid.init(scene: self)
-        }
-    }
-    
-    func doLasers() {
-        let curTime = CACurrentMediaTime()
-        
-        if curTime > trilaserTime + 15 {
-            OnTrilaser = false
-        }
-        
-        if !OnTrilaser && curTime > nextLaserSpawn {
-            let shipLaser = SKSpriteNode.init(imageNamed: Assets.shotBlue)
-            
-            shipLaser.position = CGPointMake(spaceship.position.x, shipLaser.size.height / 2 + spaceship.position.y)
-            shipLaser.hidden = false
-            shipLaser.removeAllActions()
-            
-            // setup shipLaser physics
-            shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
-            shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
-            shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
-            shipLaser.physicsBody?.collisionBitMask = 0
-            shipLaser.physicsBody?.allowsRotation = false
-            
-            let remove = SKAction.removeFromParent()
-            let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
-            shipLaser.name = "shipLaser"
-            self.addChild(shipLaser)
-            shipLaser.runAction(seq)
-            shipLaser.physicsBody?.applyImpulse(CGVectorMake(0, 10))
-        } else if curTime > nextLaserSpawn {
-            nextLaserSpawn = 0.15 + curTime
-            
-            let shots = [
-                SKSpriteNode.init(imageNamed: Assets.shotRed),
-                SKSpriteNode.init(imageNamed: Assets.shotRed),
-                SKSpriteNode.init(imageNamed: Assets.shotRed)
-            ]
-            
-            for shipLaser in shots {
-                shipLaser.position = CGPointMake(spaceship.position.x, shipLaser.size.height / 2 + spaceship.position.y)
-                shipLaser.hidden = false
-                shipLaser.removeAllActions()
-                
-                // setup physics
-                shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
-                shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
-                shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
-                shipLaser.physicsBody?.collisionBitMask = 0
-                shipLaser.physicsBody?.allowsRotation = false
-                
-                let remove = SKAction.removeFromParent()
-                let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
-                shipLaser.name = "shipLaser349"
-                self.addChild(shipLaser)
-                shipLaser.runAction(seq)
-            }
-            
-            shots[0].physicsBody?.applyImpulse(CGVectorMake(1, 10))
-            shots[1].physicsBody?.applyImpulse(CGVectorMake(0, 10))
-            shots[2].physicsBody?.applyImpulse(CGVectorMake(-1, 10))
+            nextAsteroidSpawn = Utils.random(0.1, max: 0.8) + curTime
+            let asteroid:Asteroid = Asteroid.init(scene: self)
+            asteroid.name = "asteroid" + String(nextAsteroidSpawn)
+            self.addChild(asteroid)
+            asteroid.lauch()
         }
     }
     

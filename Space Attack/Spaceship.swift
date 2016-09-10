@@ -42,7 +42,7 @@ class Spaceship: SKSpriteNode {
         let curTime = CACurrentMediaTime()
         
         if (curTime > trilaserTime + 15) {
-            OnTrilaser = true
+            OnTrilaser = false
         }
         
         if (!OnTrilaser && curTime > nextLaserSpawn) {
@@ -94,8 +94,5 @@ class Spaceship: SKSpriteNode {
             }
         }
     }
-    
-    func setPhysicsBodyContent() {
-        
-    }
+
 }

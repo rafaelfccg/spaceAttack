@@ -24,11 +24,12 @@ class Parallax: SKNode {
         self.backgrounds = []
         self.frameSize = frameSize
         super.init()
-        for i in 1...imageRepetitions {
+        for i in 0...(imageRepetitions-1) {
             let node = SKSpriteNode(imageNamed: withFile);
             node.size = size
             node.anchorPoint = CGPointZero
             node.position = CGPointMake(0, size.height*CGFloat(i))
+            node.name = "p"+String(i)
             self.backgrounds.append(node)
             self.addChild(node)
         }
@@ -40,9 +41,9 @@ class Parallax: SKNode {
     
     func update(currentTime:NSTimeInterval){
         if self.lastUpdatedTime <= 0 {
-            self.deltaTime = currentTime - self.lastUpdatedTime
-        }else {
             self.deltaTime = 0
+        }else {
+            self.deltaTime = currentTime - self.lastUpdatedTime
         }
         self.lastUpdatedTime = currentTime
         CGPointMake(0, -self.parallaxSpeed)

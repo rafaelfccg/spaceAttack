@@ -26,6 +26,18 @@ struct Resources {
     static let weaponPlayer = "weapon_player"
 }
 
+struct GameMessages {
+    static let win = "You Won!"
+    static let lose = "You Lost!"
+    static let playAgain = "Play Again?"
+}
+
+struct NodeNames {
+    static let highScore = "HSLabel"
+    static let endMessage = "endMessageLabel"
+    static let callToActionLabel = "callToActionLabel"
+}
+
 struct Assets {
     static let gameFont = "Futura-CondensedMedium"
     

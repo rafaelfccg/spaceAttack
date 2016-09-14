@@ -103,12 +103,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(spaceship)
         ship_Speed = 0
         
-//         setup stars
+        // setup stars
         let star1Emitter = loadEmitterNode(Assets.star1)
         if star1Emitter != nil {
             self.addChild(star1Emitter!)
         }
-        
         
         startTheGame()
     }
@@ -143,7 +142,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.checkShip()
         parallaxNodeBackgrounds?.update(currentTime)
         if !gameOver {
-            self.doAsteroids()
+            self.doLauchables()
             spaceship.doLasers(self)
             self.checkEndGame()
             
@@ -202,7 +201,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundMusic = BackgroundMusicSingleton()
     }
     
-    func doAsteroids() {
+    func doLauchables() {
         let curTime = CACurrentMediaTime()
         
         if curTime > nextItemSpawn {
@@ -254,13 +253,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var message = String()
         if (endReason == EndReason.Win) {
-            message = "You won!"
+            message = GameMessages.win
         } else {
-            message = "You lost!"
+            message = GameMessages.lose
         }
         
         let labelH = SKLabelNode.init(fontNamed: Assets.gameFont)
-        labelH.name = "HSLabel"
+        labelH.name = NodeNames.highScore
         
         let n = NSUserDefaults.standardUserDefaults()
         var val = n.integerForKey("HS")
@@ -278,15 +277,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var label = SKLabelNode()
         label = SKLabelNode.init(fontNamed: Assets.gameFont)
-        label.name = "winLoseLabel"
+        label.name = NodeNames.endMessage
         label.text = message
         label.setScale(0.1)
         label.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height * 0.6)
         self.addChild(label)
         
         restartLabel = SKLabelNode.init(fontNamed: Assets.gameFont)
-        restartLabel.name = "restartLabel"
-        restartLabel.text = "Play again?"
+        restartLabel.name = NodeNames.callToActionLabel
+        restartLabel.text = GameMessages.playAgain
         restartLabel.setScale(0.5)
         restartLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height * 0.4)
         restartLabel.fontColor = color

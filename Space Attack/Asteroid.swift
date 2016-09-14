@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Asteroid: SKSpriteNode {
+class Asteroid: SKSpriteNode, Lauchable, Explodable {
     static var nextAsteroidSpawn = Double()
     static let asteroidAnimation:SKAction = Asteroid.createAsteroidAnimation()
     
@@ -43,7 +43,6 @@ class Asteroid: SKSpriteNode {
         self.yScale = 0.8
         
         let posX = CGFloat(Utils.random(0, max: Double(scene.frame.size.width)))
-        print(posX)
         self.position = CGPointMake(posX, CGRectGetMaxY(scene.frame))
         self.hidden = false
         self.zPosition = 10;
@@ -64,11 +63,19 @@ class Asteroid: SKSpriteNode {
     func lauch(){
         let speedY = CGFloat(Utils.random(3,max: 9))
         let speedX = CGFloat(Utils.random(-0.5,max: 0.5))
-        let remove = SKAction.removeFromParent()
-        let seq = SKAction.sequence([SKAction.waitForDuration(15), remove])
-        self.runAction(seq)
+        self.runAction(Utils.removeAfter(15))
         self.runAction(Asteroid.asteroidAnimation, withKey: "asteriodAnima")
         self.physicsBody?.applyImpulse(CGVectorMake(speedX, -speedY))
-        
+    }
+    
+    func explode(scene:GameScene) {
+        let emitterPath = NSBundle.mainBundle().pathForResource("explosion", ofType: "sks")
+        let emitterNode = NSKeyedUnarchiver.unarchiveObjectWithFile(emitterPath!) as? SKEmitterNode
+        emitterNode?.position = self.position
+        self.safeRemoveFromParent()
+        if (emitterNode != nil) {
+            scene.addChild(emitterNode!)
+            emitterNode?.runAction(Utils.removeAfter(1))
+        }
     }
 }

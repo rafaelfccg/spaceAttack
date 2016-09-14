@@ -25,7 +25,9 @@ class Spaceship: SKSpriteNode {
         var a: CGSize = (self.texture?.size())!
         a.height = a.height * 0.2
         a.width = a.width * 0.2
+        self.name = "spaceShip"
         
+        self.physicsBody = SKPhysicsBody.init(rectangleOfSize: CGSizeMake(self.frame.size.width * 0.4, self.frame.size.height * 0.85))
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.categoryBitMask = PhysicsCategory.spaceship
@@ -87,11 +89,10 @@ class Spaceship: SKSpriteNode {
                 let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
                 self.scene?.addChild(shipLaser)
                 shipLaser.runAction(seq)
-                
-                shots[0].physicsBody?.applyImpulse(CGVectorMake(1, 10))
-                shots[1].physicsBody?.applyImpulse(CGVectorMake(0, 10))
-                shots[2].physicsBody?.applyImpulse(CGVectorMake(-1, 10))
             }
+            shots[0].physicsBody?.applyImpulse(CGVectorMake(1, 10))
+            shots[1].physicsBody?.applyImpulse(CGVectorMake(0, 10))
+            shots[2].physicsBody?.applyImpulse(CGVectorMake(-1, 10))
         }
     }
 

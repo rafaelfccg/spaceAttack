@@ -7,9 +7,14 @@
 //
 
 import Foundation
+import SpriteKit
 
 public class Utils {
     static func random(min: Double, max: Double) -> Double {
         return Double( Double(arc4random())/Double(UINT32_MAX))*(max - min) + min;
+    }
+    
+    static func removeAfter(time:NSTimeInterval) -> SKAction {
+        return SKAction.sequence([SKAction.waitForDuration(time), SKAction.removeFromParent()])
     }
 }

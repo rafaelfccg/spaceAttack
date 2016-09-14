@@ -9,11 +9,11 @@
 import Foundation
 
 struct PhysicsCategory {
-    static let spaceship: UInt32 = 1 << 1
-    static let asteroid: UInt32 = 1 << 2
-    static let laser: UInt32 = 1 << 3
-    static let enemy: UInt32 = 1 << 4
-    static let trilaser: UInt32 = 1 << 5
+    static let spaceship: UInt32 = 1 << 0
+    static let asteroid: UInt32 = 1 << 1
+    static let laser: UInt32 = 1 << 2
+    static let enemy: UInt32 = 1 << 3
+    static let trilaser: UInt32 = 1 << 4
 }
 
 struct Resources {
@@ -71,7 +71,7 @@ struct Assets {
     
     static let spark = "spark"
     
-    static let star1 = "star-1"
-    static let star2 = "star-2"
-    static let star3 = "star-3"
+    static let star1 = "stars1"
+    static let star2 = "stars2"
+    static let star3 = "stars3"
 }

@@ -40,6 +40,14 @@ class Spaceship: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func applyMovement(direction:CGPoint){
+        let x = direction.x - self.position.x
+        let y = direction.y - self.position.y
+        let normT = Utils.norm(x, y: y)
+        let thrustVector = CGVectorMake(40 * x / normT, 40 * y / normT)
+        self.physicsBody?.applyImpulse(thrustVector)
+    }
+    
     func doLasers(scene: SKScene) {
         let curTime = CACurrentMediaTime()
         

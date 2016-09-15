@@ -47,8 +47,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameOver = Bool()
     var nextAsteroid = Int()
     var nextShipLaser = Int()
-    var lives = Int()
-    var score = Int()
+    var lives = 0
+    var score = 0
     var nextAsteroidSpawn = Double()
     var nextItemSpawn = Double()
     var nextLaserSpawn = Double()
@@ -56,7 +56,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var last_hit = Double()
     var trilaserTime = Double()
     var ship_Speed = CGFloat()
-    var initMove = CGPoint()
     var shipLasers = [SKSpriteNode]()
     var asteroids = []
     
@@ -115,28 +114,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    required override init(size: CGSize) {
+        super.init(size: size)
+        self.initialize()
+    }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
         /* Called when a touch begins */
-        if !restartLabel.hidden {
-           
-        }
-        
-        if gameOver {
-            return
-        }
-        
         for touch in touches {
             let pos = touch.locationInNode(self)
-            initMove = pos
-            let x = pos.x - spaceship.position.x
-            let y = pos.y - spaceship.position.y
-            let normT = norm(x, y: y)
-            let thrustVector = CGVectorMake(40 * x / normT, 40 * y / normT)
-            spaceship.physicsBody?.applyImpulse(thrustVector)
+            let node = self.nodeAtPoint(pos)
+            if node.name == NodeNames.callToActionLabel {
+                restartGame()
+            } else if !gameOver{
+                self.spaceship.applyMovement(pos)
+            }
+            
         }
     }
-   
+    func restartGame(){
+        self.childNodeWithName(NodeNames.callToActionLabel)?.safeRemoveFromParent()
+        self.childNodeWithName(NodeNames.endMessage)?.safeRemoveFromParent()
+        self.childNodeWithName(NodeNames.highScore)?.safeRemoveFromParent()
+        self.LabelScore.safeRemoveFromParent()
+        
+        self.startTheGame()
+    }
+    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         self.checkShip()
@@ -308,7 +313,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let first = CGRectGetMaxX(self.frame) * 0.9 - CGFloat(count * 9)
         let second = CGRectGetMaxY(self.frame) * 0.95
         LabelScore.position = CGPointMake(first, second);
-        LabelScore.name = String(format: "Score: %d", arguments: [score])
+        LabelScore.text = "Score: \(self.score)"
     }
     
     func checkEndGame() {
@@ -318,9 +323,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if (cur >= gameOverTime) {
             self.endTheScene(EndReason.Win)
         }
-    }
-    
-    func norm(x: CGFloat, y: CGFloat) -> CGFloat {
-        return sqrt(x * x + y * y)
     }
 }

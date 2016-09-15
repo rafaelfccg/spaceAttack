@@ -17,4 +17,8 @@ public class Utils {
     static func removeAfter(time:NSTimeInterval) -> SKAction {
         return SKAction.sequence([SKAction.waitForDuration(time), SKAction.removeFromParent()])
     }
+    
+    static func norm(x: CGFloat, y: CGFloat) -> CGFloat {
+        return sqrt(x * x + y * y)
+    }
 }

@@ -32,16 +32,15 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let scene = GameScene.init(size: self.view.frame.size)
+        let skView = self.view as! SKView
+        skView.showsPhysics = true;
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.ignoresSiblingOrder = true
+        scene.scaleMode = .AspectFill
+        skView.presentScene(scene)
         
-        if let scene = GameScene.sceneFromFileNamed("GameScene") {
-            let skView = self.view as! SKView
-            skView.showsPhysics = true;
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            skView.ignoresSiblingOrder = true
-            scene.scaleMode = .AspectFill
-            skView.presentScene(scene)
-        }
     }
 
     override func shouldAutorotate() -> Bool {
@@ -58,5 +57,15 @@ class GameViewController: UIViewController {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    
+    func clearScene(){
+        let skView = self.view as? SKView
+        if skView?.scene != nil {
+            skView?.scene?.removeAllActions()
+            skView?.scene?.removeAllChildren()
+            skView?.presentScene(nil)
+        }
     }
 }

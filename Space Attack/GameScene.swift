@@ -194,9 +194,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for i in livesArr {
             i.xScale = 0.25
             i.yScale = 0.25
-            let fir = CGFloat((x + CGFloat(2 * count + 1) * i.size.width) / 7)
-            let sec = CGFloat(y - i.size.height / -5)
-            i.position = CGPointMake(fir, sec)
+            let xL = CGFloat((x + CGFloat(2 * (count + 1)) * i.size.width)/2)
+            let yL = CGFloat(y + i.size.height)
+            i.position = CGPointMake(xL, yL)
             i.name = String(format: "L%d", arguments: [count])
             self.addChild(i)
             count += 1

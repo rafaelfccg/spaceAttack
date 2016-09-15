@@ -210,7 +210,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let curTime = CACurrentMediaTime()
         
         if curTime > nextItemSpawn {
-            let randSecs = Utils.random(15, max: 45)
+            let randSecs = 5.0 //Utils.random(15, max: 45)
             nextItemSpawn = curTime + randSecs
             let triLaserItem = TrilaserItem(scene: self)
             self.addChild(triLaserItem)

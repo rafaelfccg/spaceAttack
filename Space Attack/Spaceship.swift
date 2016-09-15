@@ -51,7 +51,7 @@ class Spaceship: SKSpriteNode {
     func doLasers(scene: SKScene) {
         let curTime = CACurrentMediaTime()
         
-        if (curTime > trilaserTime + 15) {
+        if (OnTrilaser && curTime > trilaserTime + 15) {
             OnTrilaser = false
         }
         

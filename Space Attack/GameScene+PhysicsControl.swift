@@ -24,6 +24,9 @@ extension GameScene {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
         }
+        if(secondBody.categoryBitMask == PhysicsCategory.trilaser){
+            print("eita")
+        }
         
         if ((secondBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid) &&
             (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (last_hit + 1.0 < cur)) {
@@ -43,10 +46,9 @@ extension GameScene {
                 explodable.explode(self)
             }
             
-        } else if ((secondBody.categoryBitMask & PhysicsCategory.trilaser == 1) &&
-            (firstBody.categoryBitMask & PhysicsCategory.spaceship == 1) &&
-            secondBody.node!.hidden == true) {
-            secondBody.node?.hidden = true
+        } else if ((secondBody.categoryBitMask == PhysicsCategory.trilaser) &&
+            (firstBody.categoryBitMask == PhysicsCategory.spaceship)) {
+            secondBody.node?.safeRemoveFromParent()
             self.spaceship.OnTrilaser = true
             self.spaceship.trilaserTime = cur
         }

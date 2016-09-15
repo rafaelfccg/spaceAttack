@@ -41,7 +41,6 @@ class BackgroundMusicSingleton {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let kNumAsteroids = 10
     let kNumLasers = 25
-    let distTOP = CGFloat(250)
     
     var OnTrilaser = Bool()
     var gameOver = Bool()
@@ -73,12 +72,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initialize() {
-//        self.size = UIScreen.mainScreen().bounds.size
         // setup background color
         self.backgroundColor = SKColor.blackColor()
         // setup physics world
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
+        
         // setup label
         self.LabelScore = SKLabelNode.init(fontNamed: Assets.gameFont)
         self.LabelScore.name = "scoreLabel"
@@ -103,12 +102,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ship_Speed = 0
         
         // setup stars
+        self.setUpEmmitters()
+        
+        startTheGame()
+    }
+    
+    func setUpEmmitters() {
+        let point = CGPointMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame))
         let star1Emitter = loadEmitterNode(Assets.star1)
+        star1Emitter?.position = point;
         if star1Emitter != nil {
             self.addChild(star1Emitter!)
         }
-        
-        startTheGame()
+        let star2Emitter = loadEmitterNode(Assets.star2)
+        star2Emitter?.position = point;
+        if star2Emitter != nil {
+            self.addChild(star2Emitter!)
+        }
+        let star3Emitter = loadEmitterNode(Assets.star3)
+        star3Emitter?.position = point;
+        if star3Emitter != nil {
+            self.addChild(star3Emitter!)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -228,19 +243,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func checkShip() {
-        if spaceship.position.x >= CGRectGetMaxX(self.frame) - 30 {
-            spaceship.position = CGPointMake(CGRectGetMaxX(self.frame) - 31 , spaceship.position.y)
+        if spaceship.position.x >= CGRectGetMaxX(self.frame) - ScreenLimits.limitX {
+            spaceship.position = CGPointMake(CGRectGetMaxX(self.frame) - ScreenLimits.limitX - 1 , spaceship.position.y)
             spaceship.physicsBody?.velocity = CGVectorMake(0, spaceship.physicsBody!.velocity.dy)
-        } else if spaceship.position.x <= CGRectGetMinX(self.frame) + 30 {
-            spaceship.position = CGPointMake(CGRectGetMinX(self.frame) + 31 , spaceship.position.y)
+        } else if spaceship.position.x <= CGRectGetMinX(self.frame) + ScreenLimits.limitX {
+            spaceship.position = CGPointMake(CGRectGetMinX(self.frame) + ScreenLimits.limitX + 1 , spaceship.position.y)
             spaceship.physicsBody?.velocity = CGVectorMake(0, spaceship.physicsBody!.velocity.dy)
         }
-        
-        if spaceship.position.y >= CGRectGetMaxY(self.frame) - distTOP {
-            spaceship.position = CGPointMake(spaceship.position.x, CGRectGetMaxY(self.frame) - distTOP - 1)
+        if spaceship.position.y >= CGRectGetMaxY(self.frame) - ScreenLimits.distTOP {
+            spaceship.position = CGPointMake(spaceship.position.x, CGRectGetMaxY(self.frame) - ScreenLimits.distTOP - 1)
             spaceship.physicsBody?.velocity = CGVectorMake((spaceship.physicsBody?.velocity.dx)!, 0)
-        } else if spaceship.position.y <= CGRectGetMinY(self.frame) + 10 {
-            spaceship.position = CGPointMake(spaceship.position.x ,CGRectGetMinY(self.frame) + 11)
+        } else if spaceship.position.y <= CGRectGetMinY(self.frame) + ScreenLimits.limitY {
+            spaceship.position = CGPointMake(spaceship.position.x ,CGRectGetMinY(self.frame) + ScreenLimits.limitY + 1)
             spaceship.physicsBody?.velocity = CGVectorMake(spaceship.physicsBody!.velocity.dx, 0)
         }
     }

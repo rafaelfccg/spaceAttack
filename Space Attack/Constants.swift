@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 struct PhysicsCategory {
     static let spaceship: UInt32 = 1 << 0
@@ -14,6 +15,12 @@ struct PhysicsCategory {
     static let laser: UInt32 = 1 << 2
     static let enemy: UInt32 = 1 << 3
     static let trilaser: UInt32 = 1 << 4
+}
+
+struct ScreenLimits {
+    static let limitX:CGFloat = (35)
+    static let limitY:CGFloat = (10)
+    static let distTOP:CGFloat = (250)
 }
 
 struct Resources {

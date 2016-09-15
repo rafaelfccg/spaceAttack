@@ -102,9 +102,9 @@
 			children = (
 				493D30961D6FC05500FD5293 /* GameScene.sks */,
 				00D92B1E1D897509000F1A8E /* explosion.sks */,
-				00D92B201D897521000F1A8E /* stars3.sks */,
 				00D92B211D897521000F1A8E /* stars1.sks */,
 				00D92B221D897521000F1A8E /* stars2.sks */,
+				00D92B201D897521000F1A8E /* stars3.sks */,
 			);
 			name = sks;
 			sourceTree = "<group>";

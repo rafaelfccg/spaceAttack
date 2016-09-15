@@ -24,10 +24,7 @@ extension GameScene {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
         }
-        if(secondBody.categoryBitMask == PhysicsCategory.trilaser){
-            print("eita")
-        }
-        
+                
         if ((secondBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid) &&
             (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (last_hit + 1.0 < cur)) {
             last_hit = cur

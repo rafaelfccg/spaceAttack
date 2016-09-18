@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:SpaceAttack.xcodeproj">
+      location = "self:/Users/rafaelgouveia/Workspace/SpaceAttack2/spaceAttack/SpaceAttack.xcodeproj">
    </FileRef>
 </Workspace>

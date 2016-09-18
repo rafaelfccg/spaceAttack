@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 
 protocol Lauchable {
@@ -15,4 +16,19 @@ protocol Lauchable {
 
 protocol Explodable {
     func explode(scene:GameScene)
+}
+
+protocol Hitable {
+    func hittedBy(node:SKNode)
+}
+
+protocol ShotManager {
+    var nextLaserSpawn:Double {get}
+    var shotInterval:Double {get}
+    func shot(node:SKNode)
+    
+}
+
+protocol PowerUp {
+    func poweUp(ship:Spaceship)
 }

@@ -11,6 +11,7 @@ import SpriteKit
 class Asteroid: SKSpriteNode, Lauchable, Explodable {
     static var nextAsteroidSpawn = Double()
     static let asteroidAnimation:SKAction = Asteroid.createAsteroidAnimation()
+    static let scale:CGFloat = 0.8
     
     static func createAsteroidAnimation() -> SKAction {
         let animaAstTexture = [
@@ -39,8 +40,8 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
     init(scene: SKScene) {
         let texture = SKTexture(imageNamed: Assets.rock1)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
-        self.xScale = 0.8
-        self.yScale = 0.8
+        self.xScale = Asteroid.scale
+        self.yScale = Asteroid.scale
         
         let posX = CGFloat(Utils.random(0, max: Double(scene.frame.size.width)))
         self.position = CGPointMake(posX, CGRectGetMaxY(scene.frame))

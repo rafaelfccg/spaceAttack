@@ -45,9 +45,10 @@ extension GameScene {
             
         } else if ((secondBody.categoryBitMask == PhysicsCategory.trilaser) &&
             (firstBody.categoryBitMask == PhysicsCategory.spaceship)) {
+            if let powerUp = secondBody.node as? PowerUp {
+                powerUp.poweUp(self.spaceship)
+            }
             secondBody.node?.safeRemoveFromParent()
-            self.spaceship.OnTrilaser = true
-            self.spaceship.trilaserTime = cur
         }
     }
 

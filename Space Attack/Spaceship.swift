@@ -12,9 +12,10 @@ class Spaceship: SKSpriteNode {
     var OnTrilaser = Bool()
     var nextShipLaser = Int()
     var trilaserTime = Double()
-    var nextLaserSpawn = Double()
     var ship_Speed = CGFloat()
     var shipLasers = []
+    let regularShot = RegularShot()
+    var specialShot:ShotManager? = nil
 
     init() {
         let texture = SKTexture(imageNamed: Assets.spaceshipBgspeed)
@@ -53,54 +54,13 @@ class Spaceship: SKSpriteNode {
         
         if (OnTrilaser && curTime > trilaserTime + 15) {
             OnTrilaser = false
+            self.specialShot = nil
         }
         
-        if (!OnTrilaser && curTime > nextLaserSpawn) {
-            nextLaserSpawn = curTime + 0.2
-            
-            let shipLaser = SKSpriteNode.init(imageNamed: Assets.shotBlue)
-            shipLaser.position = CGPointMake(self.position.x, shipLaser.size.height / 2 + self.position.y)
-            shipLaser.hidden = false
-            shipLaser.removeAllActions()
-            
-            shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
-            shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
-            shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
-            shipLaser.physicsBody?.collisionBitMask = 0
-            shipLaser.physicsBody?.allowsRotation = false
-            
-            let remove = SKAction.removeFromParent()
-            let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
-            self.scene?.addChild(shipLaser)
-            shipLaser.runAction(seq)
-            shipLaser.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 10))
-        } else if (curTime > nextLaserSpawn) {
-            nextLaserSpawn = curTime + 0.15
-            
-            var shots = [SKSpriteNode.init(imageNamed: Assets.shotRed),
-                         SKSpriteNode.init(imageNamed: Assets.shotRed),
-                         SKSpriteNode.init(imageNamed: Assets.shotRed)]
-            
-            for shipLaser in shots {
-                shipLaser.name = "laserShip"
-                shipLaser.position = CGPointMake(self.position.x, shipLaser.size.height/2+self.position.y)
-                shipLaser.hidden = false
-                shipLaser.removeAllActions()
-                
-                shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
-                shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
-                shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
-                shipLaser.physicsBody?.collisionBitMask = 0
-                shipLaser.physicsBody?.allowsRotation = false
-                
-                let remove = SKAction.removeFromParent()
-                let seq = SKAction.sequence([SKAction.waitForDuration(5), remove])
-                self.scene?.addChild(shipLaser)
-                shipLaser.runAction(seq)
-            }
-            shots[0].physicsBody?.applyImpulse(CGVectorMake(1, 10))
-            shots[1].physicsBody?.applyImpulse(CGVectorMake(0, 10))
-            shots[2].physicsBody?.applyImpulse(CGVectorMake(-1, 10))
+        if (!OnTrilaser) {
+            self.regularShot.shot(self)
+        } else {
+            specialShot?.shot(self)
         }
     }
 

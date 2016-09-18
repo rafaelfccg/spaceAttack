@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0083C7071D8EB1BF00F27958 /* RegularShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7061D8EB1BF00F27958 /* RegularShot.swift */; };
+		0083C7091D8EB3A800F27958 /* TrilaseShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7081D8EB3A800F27958 /* TrilaseShot.swift */; };
 		00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B141D896869000F1A8E /* TrilaserItem.swift */; };
 		00D92B191D896A02000F1A8E /* TypeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B181D896A02000F1A8E /* TypeProtocols.swift */; };
 		00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0083C7061D8EB1BF00F27958 /* RegularShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularShot.swift; sourceTree = "<group>"; };
+		0083C7081D8EB3A800F27958 /* TrilaseShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaseShot.swift; sourceTree = "<group>"; };
 		00D92B141D896869000F1A8E /* TrilaserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaserItem.swift; sourceTree = "<group>"; };
 		00D92B181D896A02000F1A8E /* TypeProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeProtocols.swift; sourceTree = "<group>"; };
 		00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameScene+PhysicsControl.swift"; sourceTree = "<group>"; };
@@ -81,6 +85,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0083C7041D8EB13E00F27958 /* Spaceship */ = {
+			isa = PBXGroup;
+			children = (
+				0083C7051D8EB14F00F27958 /* Shots */,
+				493D30C91D6FCE0200FD5293 /* Spaceship.swift */,
+			);
+			name = Spaceship;
+			sourceTree = "<group>";
+		};
+		0083C7051D8EB14F00F27958 /* Shots */ = {
+			isa = PBXGroup;
+			children = (
+				0083C7061D8EB1BF00F27958 /* RegularShot.swift */,
+				0083C7081D8EB3A800F27958 /* TrilaseShot.swift */,
+			);
+			name = Shots;
+			sourceTree = "<group>";
+		};
 		00D92B131D89683B000F1A8E /* PowerUps */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,11 +177,11 @@
 		493D30CB1D6FCE0500FD5293 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				0083C7041D8EB13E00F27958 /* Spaceship */,
 				00D92B161D8969E5000F1A8E /* Protocols */,
 				00D92B131D89683B000F1A8E /* PowerUps */,
 				493D30CC1D6FCE1F00FD5293 /* Asteroid.swift */,
 				493D30D31D71B00B00FD5293 /* Parallax.swift */,
-				493D30C91D6FCE0200FD5293 /* Spaceship.swift */,
 				00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */,
 			);
 			name = Nodes;
@@ -278,11 +300,13 @@
 				493D30D41D71B00C00FD5293 /* Parallax.swift in Sources */,
 				493D30991D6FC05500FD5293 /* GameScene.swift in Sources */,
 				493D30DC1D71B4A700FD5293 /* Utils.swift in Sources */,
+				0083C7071D8EB1BF00F27958 /* RegularShot.swift in Sources */,
 				493D309B1D6FC05500FD5293 /* GameViewController.swift in Sources */,
 				493D30951D6FC05500FD5293 /* AppDelegate.swift in Sources */,
 				00D92B191D896A02000F1A8E /* TypeProtocols.swift in Sources */,
 				493D30C81D6FC6E100FD5293 /* Constants.swift in Sources */,
 				493D30CD1D6FCE1F00FD5293 /* Asteroid.swift in Sources */,
+				0083C7091D8EB3A800F27958 /* TrilaseShot.swift in Sources */,
 				49B27F841D76069300889F2F /* GameOverScene.swift in Sources */,
 				493D30CA1D6FCE0200FD5293 /* Spaceship.swift in Sources */,
 			);

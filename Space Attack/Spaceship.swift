@@ -41,12 +41,17 @@ class Spaceship: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func applyMovement(direction:CGPoint){
-        let x = direction.x - self.position.x
-        let y = direction.y - self.position.y
-        let normT = Utils.norm(x, y: y)
-        let thrustVector = CGVectorMake(40 * x / normT, 40 * y / normT)
-        self.physicsBody?.applyImpulse(thrustVector)
+    func applyMovement(direction:CGPoint, screenSize:CGSize){
+//        let x = direction.x - self.position.x
+//        let y = direction.y - self.position.y
+//        let normT = Utils.norm(x, y: y)
+//        let thrustVector = CGVectorMake(40 * x / normT, 40 * y / normT)
+//        self.physicsBody?.applyImpulse(thrustVector)
+        
+        let norm = Utils.norm(abs(direction.x - self.position.x), y: abs(direction.y - self.position.y))
+        let time = 0.07 +  0.07*(Double(norm)/Double(max(size.height,size.width)));
+        self.runAction(SKAction.moveTo(CGPointMake(direction.x, direction.y + self.frame.size.width/2), duration: time))
+        
     }
     
     func doLasers(scene: SKScene) {

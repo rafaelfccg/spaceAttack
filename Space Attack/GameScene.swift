@@ -143,11 +143,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if node.name == NodeNames.callToActionLabel {
                 restartGame()
             } else if !gameOver{
-                self.spaceship.applyMovement(pos)
+                self.spaceship.applyMovement(cropPositionPoint(pos), screenSize: self.size)
             }
             
         }
     }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        /* Called when a touch begins */
+        for touch in touches {
+            let pos = touch.locationInNode(self)
+            let node = self.nodeAtPoint(pos)
+            if node.name == NodeNames.callToActionLabel {
+                restartGame()
+            } else if !gameOver{
+                
+                self.spaceship.applyMovement(cropPositionPoint(pos),screenSize: self.size)
+            }
+            
+        }
+    }
+    
     func restartGame(){
         self.childNodeWithName(NodeNames.callToActionLabel)?.safeRemoveFromParent()
         self.childNodeWithName(NodeNames.endMessage)?.safeRemoveFromParent()
@@ -242,21 +258,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func cropPositionPoint(point:CGPoint) -> CGPoint{
+        var pointRet:CGPoint = point;
+        if point.x >= CGRectGetMaxX(self.frame) - ScreenLimits.limitX {
+            pointRet = CGPointMake(CGRectGetMaxX(self.frame) - ScreenLimits.limitX - 1 , pointRet.y)
+        } else if pointRet.x <= CGRectGetMinX(self.frame) + ScreenLimits.limitX {
+            pointRet = CGPointMake(CGRectGetMinX(self.frame) + ScreenLimits.limitX + 1 , pointRet.y)
+        }
+        if pointRet.y >= CGRectGetMaxY(self.frame) - ScreenLimits.distTOP {
+            pointRet = CGPointMake(pointRet.x, CGRectGetMaxY(self.frame) - ScreenLimits.distTOP - 1)
+        } else if pointRet.y <= CGRectGetMinY(self.frame) + ScreenLimits.limitY {
+            pointRet = CGPointMake(pointRet.x ,CGRectGetMinY(self.frame) + ScreenLimits.limitY + 1)
+        }
+        return pointRet
+        
+    }
     func checkShip() {
-        if spaceship.position.x >= CGRectGetMaxX(self.frame) - ScreenLimits.limitX {
-            spaceship.position = CGPointMake(CGRectGetMaxX(self.frame) - ScreenLimits.limitX - 1 , spaceship.position.y)
-            spaceship.physicsBody?.velocity = CGVectorMake(0, spaceship.physicsBody!.velocity.dy)
-        } else if spaceship.position.x <= CGRectGetMinX(self.frame) + ScreenLimits.limitX {
-            spaceship.position = CGPointMake(CGRectGetMinX(self.frame) + ScreenLimits.limitX + 1 , spaceship.position.y)
-            spaceship.physicsBody?.velocity = CGVectorMake(0, spaceship.physicsBody!.velocity.dy)
+        let oldPos = self.spaceship.position;
+        let newPos = cropPositionPoint(oldPos);
+        if(oldPos.x != newPos.x){
+            self.spaceship.physicsBody?.velocity = CGVectorMake(0, (self.spaceship.physicsBody?.velocity.dy)!)
         }
-        if spaceship.position.y >= CGRectGetMaxY(self.frame) - ScreenLimits.distTOP {
-            spaceship.position = CGPointMake(spaceship.position.x, CGRectGetMaxY(self.frame) - ScreenLimits.distTOP - 1)
-            spaceship.physicsBody?.velocity = CGVectorMake((spaceship.physicsBody?.velocity.dx)!, 0)
-        } else if spaceship.position.y <= CGRectGetMinY(self.frame) + ScreenLimits.limitY {
-            spaceship.position = CGPointMake(spaceship.position.x ,CGRectGetMinY(self.frame) + ScreenLimits.limitY + 1)
-            spaceship.physicsBody?.velocity = CGVectorMake(spaceship.physicsBody!.velocity.dx, 0)
+        if(oldPos.y != newPos.y){
+            self.spaceship.physicsBody?.velocity = CGVectorMake((self.spaceship.physicsBody?.velocity.dx)!, 0)
         }
+        self.spaceship.position = newPos
+        
     }
     
     func endTheScene(endReason: EndReason) {

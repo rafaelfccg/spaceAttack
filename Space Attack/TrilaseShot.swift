@@ -13,7 +13,7 @@ class TrilaserShot: AnyObject, ShotManager {
     var nextLaserSpawn:Double = 0
     var shotInterval = 0.2
     var verticalStr:CGFloat = 10
-    let lateralStr:CGFloat = 0.8
+    let lateralStr:CGFloat = 0.5
     func shot(node: SKNode) {
         let curTime = CACurrentMediaTime()
         if (curTime > nextLaserSpawn) {

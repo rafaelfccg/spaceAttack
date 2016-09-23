@@ -20,8 +20,8 @@ class Spaceship: SKSpriteNode {
     init() {
         let texture = SKTexture(imageNamed: Assets.spaceshipBgspeed)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
-        self.xScale = 0.8
-        self.yScale = 0.8
+        self.xScale = 0.5
+        self.yScale = 0.5
         
         var a: CGSize = (self.texture?.size())!
         a.height = a.height * 0.2
@@ -41,17 +41,11 @@ class Spaceship: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func applyMovement(direction:CGPoint, screenSize:CGSize){
-//        let x = direction.x - self.position.x
-//        let y = direction.y - self.position.y
-//        let normT = Utils.norm(x, y: y)
-//        let thrustVector = CGVectorMake(40 * x / normT, 40 * y / normT)
-//        self.physicsBody?.applyImpulse(thrustVector)
-        
+    func applyMovement(direction:CGPoint, reposition:CGPoint -> CGPoint){
         let norm = Utils.norm(abs(direction.x - self.position.x), y: abs(direction.y - self.position.y))
         let time = 0.07 +  0.07*(Double(norm)/Double(max(size.height,size.width)));
-        self.runAction(SKAction.moveTo(CGPointMake(direction.x, direction.y + self.frame.size.width/2), duration: time))
-        
+        let pointFinal =  reposition(CGPointMake(direction.x, direction.y + self.frame.size.width/2));
+        self.runAction(SKAction.moveTo(pointFinal, duration: time))
     }
     
     func doLasers(scene: SKScene) {

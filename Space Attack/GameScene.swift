@@ -143,7 +143,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if node.name == NodeNames.callToActionLabel {
                 restartGame()
             } else if !gameOver{
-                self.spaceship.applyMovement(cropPositionPoint(pos), screenSize: self.size)
+                self.spaceship.applyMovement(cropPositionPoint(pos), reposition:self.cropPositionPoint)
             }
             
         }
@@ -158,7 +158,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 restartGame()
             } else if !gameOver{
                 
-                self.spaceship.applyMovement(cropPositionPoint(pos),screenSize: self.size)
+                self.spaceship.applyMovement(cropPositionPoint(pos),reposition: self.cropPositionPoint)
             }
             
         }
@@ -276,14 +276,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func checkShip() {
         let oldPos = self.spaceship.position;
         let newPos = cropPositionPoint(oldPos);
-        if(oldPos.x != newPos.x){
-            self.spaceship.physicsBody?.velocity = CGVectorMake(0, (self.spaceship.physicsBody?.velocity.dy)!)
-        }
-        if(oldPos.y != newPos.y){
-            self.spaceship.physicsBody?.velocity = CGVectorMake((self.spaceship.physicsBody?.velocity.dx)!, 0)
-        }
-        self.spaceship.position = newPos
         
+        self.spaceship.position = newPos
     }
     
     func endTheScene(endReason: EndReason) {

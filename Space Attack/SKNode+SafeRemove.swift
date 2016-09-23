@@ -13,6 +13,8 @@ extension SKNode {
 
     func safeRemoveFromParent(){
         self.removeAllActions()
+        self.physicsBody?.categoryBitMask = 0;
+        self.physicsBody?.collisionBitMask = 0;
         for child in self.children {
             child.safeRemoveFromParent()
         }

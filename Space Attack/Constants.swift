@@ -18,9 +18,9 @@ struct PhysicsCategory {
 }
 
 struct ScreenLimits {
-    static let limitX:CGFloat = (35)
+    static let limitX:CGFloat = (15)
     static let limitY:CGFloat = (10)
-    static let distTOP:CGFloat = (250)
+    static let distTOP:CGFloat = (100)
 }
 
 struct Resources {

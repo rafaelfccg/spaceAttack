@@ -8,16 +8,25 @@
 
 import SpriteKit
 
+enum ShipModes {
+    case Shooter
+    case Shield
+    case Propulsor
+}
+
 class Spaceship: SKSpriteNode {
     var OnTrilaser = Bool()
     var nextShipLaser = Int()
     var trilaserTime = Double()
     var ship_Speed = CGFloat()
+    var mode:ShipModes = ShipModes.Shooter
+    var modeMap:[ShipModes:Mode]
     var shipLasers = []
     let regularShot = RegularShot()
     var specialShot:ShotManager? = nil
 
     init() {
+        modeMap = [ShipModes.Shooter:ShooterMode()]
         let texture = SKTexture(imageNamed: Assets.spaceshipBgspeed)
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         self.xScale = 0.5

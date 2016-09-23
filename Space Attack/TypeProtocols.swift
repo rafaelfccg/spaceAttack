@@ -22,6 +22,11 @@ protocol Hitable {
     func hittedBy(node:SKNode)
 }
 
+protocol Mode {
+    func shoot()
+    func Hit()
+    func powerUp()
+}
 protocol ShotManager {
     var nextLaserSpawn:Double {get}
     var shotInterval:Double {get}

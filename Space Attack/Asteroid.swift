@@ -63,7 +63,7 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
     
     func lauch(){
         let speedY = CGFloat(Utils.random(3,max: 9))
-        let speedX = CGFloat(Utils.random(-0.5,max: 0.5))
+        let speedX = CGFloat(Utils.random(-0.8,max: 0.8))
         self.runAction(Utils.removeAfter(15))
         self.runAction(Asteroid.asteroidAnimation, withKey: "asteriodAnima")
         self.physicsBody?.applyImpulse(CGVectorMake(speedX, -speedY))

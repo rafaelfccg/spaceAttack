@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0054C0831D957A01002E1720 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0821D957A01002E1720 /* Shield.swift */; };
+		0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0851D957FB9002E1720 /* ShieldMode.swift */; };
+		0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0871D958010002E1720 /* PropulsiveMode.swift */; };
+		0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0891D95801B002E1720 /* ShooterMode.swift */; };
 		0083C7071D8EB1BF00F27958 /* RegularShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7061D8EB1BF00F27958 /* RegularShot.swift */; };
 		0083C7091D8EB3A800F27958 /* TrilaseShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7081D8EB3A800F27958 /* TrilaseShot.swift */; };
 		00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B141D896869000F1A8E /* TrilaserItem.swift */; };
@@ -40,6 +44,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0054C0821D957A01002E1720 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
+		0054C0851D957FB9002E1720 /* ShieldMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShieldMode.swift; sourceTree = "<group>"; };
+		0054C0871D958010002E1720 /* PropulsiveMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropulsiveMode.swift; sourceTree = "<group>"; };
+		0054C0891D95801B002E1720 /* ShooterMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShooterMode.swift; sourceTree = "<group>"; };
 		0083C7061D8EB1BF00F27958 /* RegularShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularShot.swift; sourceTree = "<group>"; };
 		0083C7081D8EB3A800F27958 /* TrilaseShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaseShot.swift; sourceTree = "<group>"; };
 		00D92B141D896869000F1A8E /* TrilaserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaserItem.swift; sourceTree = "<group>"; };
@@ -85,11 +93,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0054C0841D957F99002E1720 /* Modes */ = {
+			isa = PBXGroup;
+			children = (
+				0054C0851D957FB9002E1720 /* ShieldMode.swift */,
+				0054C0871D958010002E1720 /* PropulsiveMode.swift */,
+				0054C0891D95801B002E1720 /* ShooterMode.swift */,
+			);
+			name = Modes;
+			sourceTree = "<group>";
+		};
 		0083C7041D8EB13E00F27958 /* Spaceship */ = {
 			isa = PBXGroup;
 			children = (
+				0054C0841D957F99002E1720 /* Modes */,
 				0083C7051D8EB14F00F27958 /* Shots */,
 				493D30C91D6FCE0200FD5293 /* Spaceship.swift */,
+				0054C0821D957A01002E1720 /* Shield.swift */,
 			);
 			name = Spaceship;
 			sourceTree = "<group>";
@@ -294,14 +314,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0054C0831D957A01002E1720 /* Shield.swift in Sources */,
 				00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */,
+				0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */,
 				00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */,
+				0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */,
 				00D92B1D1D897428000F1A8E /* SKNode+SafeRemove.swift in Sources */,
 				493D30D41D71B00C00FD5293 /* Parallax.swift in Sources */,
 				493D30991D6FC05500FD5293 /* GameScene.swift in Sources */,
 				493D30DC1D71B4A700FD5293 /* Utils.swift in Sources */,
 				0083C7071D8EB1BF00F27958 /* RegularShot.swift in Sources */,
 				493D309B1D6FC05500FD5293 /* GameViewController.swift in Sources */,
+				0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */,
 				493D30951D6FC05500FD5293 /* AppDelegate.swift in Sources */,
 				00D92B191D896A02000F1A8E /* TypeProtocols.swift in Sources */,
 				493D30C81D6FC6E100FD5293 /* Constants.swift in Sources */,

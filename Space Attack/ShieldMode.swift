@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+class ShieldMode: AnyObject, Mode {
+    func shoot(){}
+    func Hit(){}
+    func powerUp(){}
+}

@@ -26,12 +26,15 @@ class Spaceship: SKSpriteNode {
     var specialShot:ShotManager? = nil
 
     init() {
-        modeMap = [ShipModes.Shooter:ShooterMode()]
+        self.modeMap = [ShipModes.Shooter:ShooterMode(),
+                   ShipModes.Propulsor:PropulsiveMode(),
+                   ShipModes.Shield:ShieldMode()]
         let texture = SKTexture(imageNamed: Assets.spaceshipBgspeed)
+        
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        
         self.xScale = 0.5
         self.yScale = 0.5
-        
         var a: CGSize = (self.texture?.size())!
         a.height = a.height * 0.2
         a.width = a.width * 0.2
@@ -60,11 +63,12 @@ class Spaceship: SKSpriteNode {
     func doLasers(scene: SKScene) {
         let curTime = CACurrentMediaTime()
         
+        
         if (OnTrilaser && curTime > trilaserTime + 15) {
             OnTrilaser = false
             self.specialShot = nil
         }
-        
+        self.modeMap[self.mode]?.shoot()
         if (!OnTrilaser) {
             self.regularShot.shot(self)
         } else {

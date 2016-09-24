@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+class PropulsiveMode: AnyObject, Mode {
+    func shoot(){}
+    func Hit(){}
+    func powerUp(){}
+}

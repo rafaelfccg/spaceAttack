@@ -67,11 +67,11 @@ class Spaceship: SKSpriteNode {
             OnTrilaser = false
             self.specialShot = nil
         }
-        self.modeMap[self.mode]?.shoot()
+        
         if (!OnTrilaser) {
-            self.regularShot.shot(self)
+            self.modeMap[self.mode]?.shoot()
         } else {
-            specialShot?.shot(self)
+            self.modeMap[self.mode]?.shoot()
         }
     }
 

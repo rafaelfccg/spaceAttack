@@ -14,11 +14,11 @@ class Shield: SKShapeNode, Hitable {
     var life = 3;
     
     static func shieldNode(forShipOfSize size: CGSize)->Shield{
-        let shield = Shield.init(ellipseOfSize: size);
+        let shield = Shield(ellipseOf: size);
         return shield;
     }
     
-    func hittedBy(node:SKNode){
+    func hittedBy(_ node:SKNode){
         life -= 1;
     }
 }

@@ -13,13 +13,13 @@ class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
     
     static func action()->SKAction{
         let remove = SKAction.removeFromParent()
-        let seq = SKAction.sequence([SKAction.waitForDuration(15), remove])
+        let seq = SKAction.sequence([SKAction.wait(forDuration: 15), remove])
 
         let blink = SKAction.sequence([
-            SKAction.fadeOutWithDuration(0.25),
-            SKAction.fadeInWithDuration(0.25)
+            SKAction.fadeOut(withDuration: 0.25),
+            SKAction.fadeIn(withDuration: 0.25)
             ])
-        let blinkForTime = SKAction.repeatAction(blink, count: 30)
+        let blinkForTime = SKAction.repeat(blink, count: 30)
         
         return SKAction.group([blinkForTime,seq])
     }
@@ -28,11 +28,11 @@ class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
         
         let randX = Utils.random(0, max: Double(scene.frame.size.width))
         let texture = SKTexture(imageNamed: Assets.shotRed)
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        super.init(texture: texture, color: UIColor.clear, size: texture.size())
         self.name = "trilaserItem"
         // setup trilaserItem
-        self.position = CGPointMake(CGFloat(randX),CGRectGetMaxY(scene.frame))
-        self.hidden = false
+        self.position = CGPoint(x: CGFloat(randX),y: scene.frame.maxY)
+        self.isHidden = false
         self.xScale = 1.4
         self.yScale = 1.4
         
@@ -49,11 +49,11 @@ class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
     }
     
     func lauch() {
-        self.runAction(TrilaserItem.action())
-        self.physicsBody?.applyImpulse(CGVectorMake(0, -5))
+        self.run(TrilaserItem.action())
+        self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -5))
         
     }
-    func poweUp(ship: Spaceship) {
+    func poweUp(_ ship: Spaceship) {
         let curTime = CACurrentMediaTime()
         ship.specialShot = TrilaserShot()
         ship.OnTrilaser = true

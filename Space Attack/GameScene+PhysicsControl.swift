@@ -10,8 +10,8 @@ import Foundation
 import SpriteKit
 
 extension GameScene {
-    
-    func didBeginContact(contact: SKPhysicsContact) {
+
+    @objc(didBeginContact:) func didBegin(_ contact: SKPhysicsContact) {
         let cur = CACurrentMediaTime()
         
         var firstBody = SKPhysicsBody()
@@ -29,10 +29,10 @@ extension GameScene {
             (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (last_hit + 1.0 < cur)) {
             last_hit = cur
             secondBody.node?.safeRemoveFromParent()
-            let blink = SKAction.sequence([SKAction.fadeOutWithDuration(0.1), SKAction.fadeInWithDuration(0.1)])
-            let blinkForTime = SKAction.repeatAction(blink, count: 5)
-            self.spaceship.runAction(blinkForTime)
-            self.childNodeWithName(String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
+            let blink = SKAction.sequence([SKAction.fadeOut(withDuration: 0.1), SKAction.fadeIn(withDuration: 0.1)])
+            let blinkForTime = SKAction.repeat(blink, count: 5)
+            self.spaceship.run(blinkForTime)
+            self.childNode(withName: String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
             lives -= 1
         } else if (((secondBody.categoryBitMask & PhysicsCategory.laser == PhysicsCategory.laser) &&
             (firstBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid))) {

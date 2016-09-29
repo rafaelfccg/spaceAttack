@@ -11,23 +11,23 @@ import SpriteKit
 import Darwin
 
 enum EndReason {
-    case Win
-    case Lose
+    case win
+    case lose
 }
 
 class BackgroundMusicSingleton {
     static let sharedInstance = BackgroundMusicSingleton()
     var backgroundAudioPlayer = AVAudioPlayer()
     
-    private init() {
+    fileprivate init() {
         playMusic(Resources.backgroundMusic, withFormat: "wav")
     }
     
-    func playMusic(name: String, withFormat format:String) {
-        let audioPath = NSBundle.mainBundle().pathForResource(name, ofType:format)
-        let path = NSURL.init(fileURLWithPath: audioPath!)
+    func playMusic(_ name: String, withFormat format:String) {
+        let audioPath = Bundle.main.path(forResource: name, ofType:format)
+        let path = URL.init(fileURLWithPath: audioPath!)
         do{
-            self.backgroundAudioPlayer = try AVAudioPlayer.init(contentsOfURL: path)
+            self.backgroundAudioPlayer = try AVAudioPlayer.init(contentsOf: path)
             self.backgroundAudioPlayer.prepareToPlay()
             self.backgroundAudioPlayer.numberOfLoops = -1
             self.backgroundAudioPlayer.volume = 1.0
@@ -56,7 +56,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var trilaserTime = Double()
     var ship_Speed = CGFloat()
     var shipLasers = [SKSpriteNode]()
-    var asteroids = []
+    var asteroids:[Asteroid] = []
     
     var spaceship = Spaceship()
     var backgroundMusic = BackgroundMusicSingleton()
@@ -65,7 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var restartLabel = SKLabelNode()
     var parallaxNodeBackgrounds:Parallax?
     
-    static func sceneFromFileNamed(fileNamed:String!)->GameScene?{
+    static func sceneFromFileNamed(_ fileNamed:String!)->GameScene?{
         let gameScene = GameScene.unarchiveFromFile(fileNamed) as? GameScene;
         gameScene?.initialize()
         return gameScene
@@ -73,22 +73,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func initialize() {
         // setup background color
-        self.backgroundColor = SKColor.blackColor()
+        self.backgroundColor = SKColor.black
         // setup physics world
-        self.physicsWorld.gravity = CGVectorMake(0, 0)
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.physicsWorld.contactDelegate = self
         
         // setup label
         self.LabelScore = SKLabelNode.init(fontNamed: Assets.gameFont)
         self.LabelScore.name = "scoreLabel"
         self.LabelScore.text = String(format: "Score: %@", arguments: [score])
-        self.LabelScore.position = CGPointMake(CGRectGetMaxX(self.frame) * 0.9 - 25, CGRectGetMaxY(self.frame) * 0.95 - 5)
-        self.LabelScore.fontColor = UIColor.whiteColor()
+        self.LabelScore.position = CGPoint(x: self.frame.maxX * 0.9 - 25, y: self.frame.maxY * 0.95 - 5)
+        self.LabelScore.fontColor = UIColor.white
         self.LabelScore.zPosition = 100
         
         // game backgorund
         self.parallaxNodeBackgrounds = Parallax.init(withFile: Assets.space, imageRepetitions: 2, size: size, speed: 30, frameSize: size)
-        parallaxNodeBackgrounds?.position = CGPointMake(0, 0)
+        parallaxNodeBackgrounds?.position = CGPoint(x: 0, y: 0)
         parallaxNodeBackgrounds?.zPosition = -10;
         parallaxNodeBackgrounds?.name = "parallaxNode"
         self.addChild(parallaxNodeBackgrounds!)
@@ -97,7 +97,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         nextItemSpawn = randSecs + CACurrentMediaTime()
         
         // setup spaceship sprite
-        spaceship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) * 0.2)
+        spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
         self.addChild(spaceship)
         ship_Speed = 0
         
@@ -108,7 +108,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setUpEmmitters() {
-        let point = CGPointMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame))
+        let point = CGPoint(x: self.frame.minX, y: self.frame.minY)
         let star1Emitter = loadEmitterNode(Assets.star1)
         star1Emitter?.position = point;
         if star1Emitter != nil {
@@ -134,12 +134,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.initialize()
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         /* Called when a touch begins */
         for touch in touches {
-            let pos = touch.locationInNode(self)
-            let node = self.nodeAtPoint(pos)
+            let pos = touch.location(in: self)
+            let node = self.atPoint(pos)
             if node.name == NodeNames.callToActionLabel {
                 restartGame()
             } else if !gameOver{
@@ -149,11 +149,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         /* Called when a touch begins */
         for touch in touches {
-            let pos = touch.locationInNode(self)
-            let node = self.nodeAtPoint(pos)
+            let pos = touch.location(in: self)
+            let node = self.atPoint(pos)
             if node.name == NodeNames.callToActionLabel {
                 restartGame()
             } else if !gameOver{
@@ -165,15 +165,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func restartGame(){
-        self.childNodeWithName(NodeNames.callToActionLabel)?.safeRemoveFromParent()
-        self.childNodeWithName(NodeNames.endMessage)?.safeRemoveFromParent()
-        self.childNodeWithName(NodeNames.highScore)?.safeRemoveFromParent()
+        self.childNode(withName: NodeNames.callToActionLabel)?.safeRemoveFromParent()
+        self.childNode(withName: NodeNames.endMessage)?.safeRemoveFromParent()
+        self.childNode(withName: NodeNames.highScore)?.safeRemoveFromParent()
         self.LabelScore.safeRemoveFromParent()
         
         self.startTheGame()
     }
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
         self.checkShip()
         parallaxNodeBackgrounds?.update(currentTime)
@@ -185,12 +185,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func loadEmitterNode(emitterFileName: String) -> SKEmitterNode? {
-        let emitterPath = NSBundle.mainBundle().pathForResource(emitterFileName, ofType: "sks")
-        let emitterNode:SKEmitterNode? = NSKeyedUnarchiver.unarchiveObjectWithFile(emitterPath!) as? SKEmitterNode
+    func loadEmitterNode(_ emitterFileName: String) -> SKEmitterNode? {
+        let emitterPath = Bundle.main.path(forResource: emitterFileName, ofType: "sks")
+        let emitterNode:SKEmitterNode? = NSKeyedUnarchiver.unarchiveObject(withFile: emitterPath!) as? SKEmitterNode
         
-         emitterNode?.particlePosition = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
-         emitterNode?.particlePositionRange = CGVectorMake(self.size.width, self.size.height + 150);
+         emitterNode?.particlePosition = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0);
+         emitterNode?.particlePositionRange = CGVector(dx: self.size.width, dy: self.size.height + 150);
          return emitterNode
     }
     
@@ -204,14 +204,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameOver = false
         OnTrilaser = false
         
-        restartLabel.hidden = false
+        restartLabel.isHidden = false
         let randSecs = Utils.random(10, max: 40)
         nextItemSpawn = cur + randSecs
         nextAsteroidSpawn = cur + 2.5
         setScore()
         
-        spaceship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) * 0.2)
-        spaceship.hidden = false
+        spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
+        spaceship.isHidden = false
         
         let livesArr = [
             SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
@@ -219,15 +219,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed)
         ]
         var count = 0
-        let x = CGRectGetMinX(self.frame)
-        let y = CGRectGetMinY(self.frame)
+        let x = self.frame.minX
+        let y = self.frame.minY
         
         for i in livesArr {
             i.xScale = 0.25
             i.yScale = 0.25
             let xL = CGFloat((x + CGFloat(2 * (count + 1)) * i.size.width)/2)
             let yL = CGFloat(y + i.size.height)
-            i.position = CGPointMake(xL, yL)
+            i.position = CGPoint(x: xL, y: yL)
             i.name = String(format: "L%d", arguments: [count])
             self.addChild(i)
             count += 1
@@ -258,17 +258,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func cropPositionPoint(point:CGPoint) -> CGPoint{
+    func cropPositionPoint(_ point:CGPoint) -> CGPoint{
         var pointRet:CGPoint = point;
-        if point.x >= CGRectGetMaxX(self.frame) - ScreenLimits.limitX {
-            pointRet = CGPointMake(CGRectGetMaxX(self.frame) - ScreenLimits.limitX - 1 , pointRet.y)
-        } else if pointRet.x <= CGRectGetMinX(self.frame) + ScreenLimits.limitX {
-            pointRet = CGPointMake(CGRectGetMinX(self.frame) + ScreenLimits.limitX + 1 , pointRet.y)
+        if point.x >= self.frame.maxX - ScreenLimits.limitX {
+            pointRet = CGPoint(x: self.frame.maxX - ScreenLimits.limitX - 1 , y: pointRet.y)
+        } else if pointRet.x <= self.frame.minX + ScreenLimits.limitX {
+            pointRet = CGPoint(x: self.frame.minX + ScreenLimits.limitX + 1 , y: pointRet.y)
         }
-        if pointRet.y >= CGRectGetMaxY(self.frame) - ScreenLimits.distTOP {
-            pointRet = CGPointMake(pointRet.x, CGRectGetMaxY(self.frame) - ScreenLimits.distTOP - 1)
-        } else if pointRet.y <= CGRectGetMinY(self.frame) + ScreenLimits.limitY {
-            pointRet = CGPointMake(pointRet.x ,CGRectGetMinY(self.frame) + ScreenLimits.limitY + 1)
+        if pointRet.y >= self.frame.maxY - ScreenLimits.distTOP {
+            pointRet = CGPoint(x: pointRet.x, y: self.frame.maxY - ScreenLimits.distTOP - 1)
+        } else if pointRet.y <= self.frame.minY + ScreenLimits.limitY {
+            pointRet = CGPoint(x: pointRet.x ,y: self.frame.minY + ScreenLimits.limitY + 1)
         }
         return pointRet
         
@@ -280,19 +280,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.spaceship.position = newPos
     }
     
-    func endTheScene(endReason: EndReason) {
+    func endTheScene(_ endReason: EndReason) {
         if (gameOver) {
             return
         }
         
         self.removeAllActions()
         
-        spaceship.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) * 0.2)
-        spaceship.physicsBody?.velocity = CGVectorMake(0, 0)
+        spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
+        spaceship.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         gameOver = true
         
         var message = String()
-        if (endReason == EndReason.Win) {
+        if (endReason == EndReason.win) {
             message = GameMessages.win
         } else {
             message = GameMessages.lose
@@ -301,16 +301,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let labelH = SKLabelNode.init(fontNamed: Assets.gameFont)
         labelH.name = NodeNames.highScore
         
-        let n = NSUserDefaults.standardUserDefaults()
-        var val = n.integerForKey("HS")
+        let n = UserDefaults.standard
+        var val = n.integer(forKey: "HS")
         
         if (score > val) {
-            n.setInteger(score, forKey: "HS")
+            n.set(score, forKey: "HS")
             val = score
         }
         
         labelH.text = String.init(format: "High Score: %ld", arguments: [val])
-        labelH.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height * 0.8)
+        labelH.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height * 0.8)
         let color = SKColor.init(red: 0.807, green: 0.717, blue: 0.439, alpha: 1)
         labelH.fontColor = color
         self.addChild(labelH)
@@ -320,22 +320,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         label.name = NodeNames.endMessage
         label.text = message
         label.setScale(0.1)
-        label.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height * 0.6)
+        label.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height * 0.6)
         self.addChild(label)
         
         restartLabel = SKLabelNode.init(fontNamed: Assets.gameFont)
         restartLabel.name = NodeNames.callToActionLabel
         restartLabel.text = GameMessages.playAgain
         restartLabel.setScale(0.5)
-        restartLabel.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height * 0.4)
+        restartLabel.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height * 0.4)
         restartLabel.fontColor = color
         restartLabel.zPosition = 100
         self.addChild(restartLabel)
         
-        let labelScaleAction = SKAction.scaleTo(1.0, duration: 0.5)
-        restartLabel.runAction(labelScaleAction)
-        label.runAction(labelScaleAction)
-        labelH.runAction(labelScaleAction)
+        let labelScaleAction = SKAction.scale(to: 1.0, duration: 0.5)
+        restartLabel.run(labelScaleAction)
+        label.run(labelScaleAction)
+        labelH.run(labelScaleAction)
     }
     
     func setScore() {
@@ -345,18 +345,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             aux /= 10
             count += 1
         }
-        let first = CGRectGetMaxX(self.frame) * 0.9 - CGFloat(count * 9)
-        let second = CGRectGetMaxY(self.frame) * 0.95
-        LabelScore.position = CGPointMake(first, second);
+        let first = self.frame.maxX * 0.9 - CGFloat(count * 9)
+        let second = self.frame.maxY * 0.95
+        LabelScore.position = CGPoint(x: first, y: second);
         LabelScore.text = "Score: \(self.score)"
     }
     
     func checkEndGame() {
         let cur = CACurrentMediaTime()
         if lives <= 0 {
-            self.endTheScene(EndReason.Lose)
+            self.endTheScene(EndReason.lose)
         } else if (cur >= gameOverTime) {
-            self.endTheScene(EndReason.Win)
+            self.endTheScene(EndReason.win)
         }
     }
 }

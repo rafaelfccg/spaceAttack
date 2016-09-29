@@ -10,19 +10,19 @@ import UIKit
 import SpriteKit
 
 extension SKNode {
-    class func unarchiveFromFile(file: String) -> SKNode? {
-        let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
-        let sceneData: NSData?
+    class func unarchiveFromFile(_ file: String) -> SKNode? {
+        let path = Bundle.main.path(forResource: file, ofType: "sks")
+        let sceneData: Data?
         
         do {
-            sceneData = try NSData(contentsOfFile: path!, options: .DataReadingMapped)
+            sceneData = try Data(contentsOf: URL(fileURLWithPath: path!), options: .dataReadingMapped)
         } catch _ {
             sceneData = nil
         }
         
-        let archiver = NSKeyedUnarchiver(forReadingWithData: sceneData!)
+        let archiver = NSKeyedUnarchiver(forReadingWith: sceneData!)
         archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! GameScene
+        let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! GameScene
         archiver.finishDecoding()
         return scene
     }
@@ -38,24 +38,24 @@ class GameViewController: UIViewController {
         skView.showsFPS = true
         skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
-        scene.scaleMode = .AspectFill
+        scene.scaleMode = .aspectFill
         skView.presentScene(scene)
         
     }
 
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .allButUpsideDown
         } else {
-            return .All
+            return .all
         }
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     

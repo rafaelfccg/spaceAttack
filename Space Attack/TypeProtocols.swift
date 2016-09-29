@@ -15,25 +15,27 @@ protocol Lauchable {
 }
 
 protocol Explodable {
-    func explode(scene:GameScene)
+    func explode(_ scene:GameScene)
 }
 
 protocol Hitable {
-    func hittedBy(node:SKNode)
+    func hittedBy(_ node:SKNode)
 }
 
 protocol Mode {
+    var spaceship:Spaceship { get }
     func shoot()
-    func Hit()
+    func Hit()->Bool
     func powerUp()
+    func getSpeed() -> Double
 }
 protocol ShotManager {
     var nextLaserSpawn:Double {get}
     var shotInterval:Double {get}
-    func shot(node:SKNode)
+    func shot(_ node:SKNode)
     
 }
 
 protocol PowerUp {
-    func poweUp(ship:Spaceship)
+    func poweUp(_ ship:Spaceship)
 }

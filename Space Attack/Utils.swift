@@ -9,16 +9,16 @@
 import Foundation
 import SpriteKit
 
-public class Utils {
-    static func random(min: Double, max: Double) -> Double {
+open class Utils {
+    static func random(_ min: Double, max: Double) -> Double {
         return Double( Double(arc4random())/Double(UINT32_MAX))*(max - min) + min;
     }
     
-    static func removeAfter(time:NSTimeInterval) -> SKAction {
-        return SKAction.sequence([SKAction.waitForDuration(time), SKAction.removeFromParent()])
+    static func removeAfter(_ time:TimeInterval) -> SKAction {
+        return SKAction.sequence([SKAction.wait(forDuration: time), SKAction.removeFromParent()])
     }
     
-    static func norm(x: CGFloat, y: CGFloat) -> CGFloat {
+    static func norm(_ x: CGFloat, y: CGFloat) -> CGFloat {
         return sqrt(x * x + y * y)
     }
 }

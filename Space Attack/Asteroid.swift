@@ -31,21 +31,21 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
             SKTexture.init(imageNamed: Assets.rock14),
             SKTexture.init(imageNamed: Assets.rock15)
         ]
-        let anima = SKAction.animateWithTextures(animaAstTexture, timePerFrame: 0.025)
-        let animaAst = SKAction.repeatActionForever(anima)
+        let anima = SKAction.animate(with: animaAstTexture, timePerFrame: 0.025)
+        let animaAst = SKAction.repeatForever(anima)
         return animaAst
     }
     
     
     init(scene: SKScene) {
         let texture = SKTexture(imageNamed: Assets.rock1)
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        super.init(texture: texture, color: UIColor.clear, size: texture.size())
         self.xScale = Asteroid.scale
         self.yScale = Asteroid.scale
         
         let posX = CGFloat(Utils.random(0, max: Double(scene.frame.size.width)))
-        self.position = CGPointMake(posX, CGRectGetMaxY(scene.frame))
-        self.hidden = false
+        self.position = CGPoint(x: posX, y: scene.frame.maxY)
+        self.isHidden = false
         self.zPosition = 10;
         
         // setup physics
@@ -64,19 +64,19 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
     func lauch(){
         let speedY = CGFloat(Utils.random(3,max: 9))
         let speedX = CGFloat(Utils.random(-0.8,max: 0.8))
-        self.runAction(Utils.removeAfter(15))
-        self.runAction(Asteroid.asteroidAnimation, withKey: "asteriodAnima")
-        self.physicsBody?.applyImpulse(CGVectorMake(speedX, -speedY))
+        self.run(Utils.removeAfter(15))
+        self.run(Asteroid.asteroidAnimation, withKey: "asteriodAnima")
+        self.physicsBody?.applyImpulse(CGVector(dx: speedX, dy: -speedY))
     }
     
-    func explode(scene:GameScene) {
-        let emitterPath = NSBundle.mainBundle().pathForResource("explosion", ofType: "sks")
-        let emitterNode = NSKeyedUnarchiver.unarchiveObjectWithFile(emitterPath!) as? SKEmitterNode
+    func explode(_ scene:GameScene) {
+        let emitterPath = Bundle.main.path(forResource: "explosion", ofType: "sks")
+        let emitterNode = NSKeyedUnarchiver.unarchiveObject(withFile: emitterPath!) as? SKEmitterNode
         emitterNode?.position = self.position
         self.safeRemoveFromParent()
         if (emitterNode != nil) {
             scene.addChild(emitterNode!)
-            emitterNode?.runAction(Utils.removeAfter(1))
+            emitterNode?.run(Utils.removeAfter(1))
         }
     }
 }

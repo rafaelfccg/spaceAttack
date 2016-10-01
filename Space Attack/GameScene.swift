@@ -179,7 +179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         parallaxNodeBackgrounds?.update(currentTime)
         if !gameOver {
             self.doLauchables()
-            spaceship.doLasers(self)
+            spaceship.doLasers()
             self.checkEndGame()
             
         }

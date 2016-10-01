@@ -15,9 +15,9 @@ enum ShipModes {
 }
 
 class Spaceship: SKSpriteNode {
-    var OnTrilaser = Bool()
+    var isPowerUp = Bool()
     var nextShipLaser = Int()
-    var trilaserTime = Double()
+    var powerUpTime = Double()
     var ship_Speed = CGFloat()
     var mode:ShipModes = ShipModes.shooter
     var modeMap:[ShipModes:Mode] = [:]
@@ -59,20 +59,15 @@ class Spaceship: SKSpriteNode {
         self.run(SKAction.move(to: pointFinal, duration: time))
     }
     
-    func doLasers(_ scene: SKScene) {
-        let curTime = CACurrentMediaTime()
-        
-        
-        if (OnTrilaser && curTime > trilaserTime + 15) {
-            OnTrilaser = false
-            self.specialShot = nil
-        }
-        
-        if (!OnTrilaser) {
-            self.modeMap[self.mode]?.shoot()
-        } else {
-            self.modeMap[self.mode]?.shoot()
-        }
+    func doLasers() {
+        self.getMode().shoot()
+    }
+    
+    func getMode()->Mode{
+        return modeMap[self.mode]!
+    }
+    func powerUp(powerUp:PowerUp) {
+        self.getMode().powerUp()
     }
 
 }

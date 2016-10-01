@@ -14,7 +14,7 @@ class ShooterMode: AnyObject, Mode {
     var powerUpShoot:ShotManager
     var isPowerUped:Bool = false
     
-    let powerUpTime:UInt64 = 15
+    let powerUpTime:Double = 15
     let speed:Double = 1
     
     init(spaceship:Spaceship) {
@@ -34,8 +34,8 @@ class ShooterMode: AnyObject, Mode {
     }
     func powerUp(){
         self.isPowerUped = true
-        let delayTime = DispatchTime.init(uptimeNanoseconds: self.powerUpTime * NSEC_PER_SEC)
-        DispatchQueue.main.asyncAfter(deadline: delayTime) {
+        //let delayTime =  DispatchTime.now() + DispatchTime(uptimeNanoseconds: self.powerUpTime * NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.powerUpTime) {
             self.isPowerUped = false
         }
     }

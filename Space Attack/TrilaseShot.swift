@@ -11,20 +11,23 @@ import SpriteKit
 
 class TrilaserShot: AnyObject, ShotManager {
     var nextLaserSpawn:Double = 0
-    var shotInterval = 0.2
+    var shotInterval = 0.25
     var verticalStr:CGFloat = 10
     let lateralStr:CGFloat = 0.5
     func shot(_ node: SKNode) {
         let curTime = CACurrentMediaTime()
         if (curTime > nextLaserSpawn) {
             nextLaserSpawn = curTime + shotInterval
+            let sceneNode = Utils.getRootNode(node: node)
+            let shotPosition = node.convert(CGPoint(x:0,y:0), to: sceneNode)
+            
             var shots = [SKSpriteNode.init(imageNamed: Assets.shotRed),
                          SKSpriteNode.init(imageNamed: Assets.shotRed),
                          SKSpriteNode.init(imageNamed: Assets.shotRed)]
             
             for shipLaser in shots {
                 shipLaser.name = "laserShip"
-                shipLaser.position = CGPoint(x: 0, y: 0)
+                shipLaser.position = shotPosition
                 shipLaser.zPosition = node.zPosition - 1;
                 shipLaser.isHidden = false
                 shipLaser.removeAllActions()
@@ -37,7 +40,7 @@ class TrilaserShot: AnyObject, ShotManager {
                 
                 let remove = SKAction.removeFromParent()
                 let seq = SKAction.sequence([SKAction.wait(forDuration: 5), remove])
-                node.addChild(shipLaser)
+                sceneNode.addChild(shipLaser)
                 shipLaser.run(seq)
             }
             shots[0].physicsBody?.applyImpulse(CGVector(dx: lateralStr, dy: verticalStr))

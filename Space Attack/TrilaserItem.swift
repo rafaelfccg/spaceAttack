@@ -55,8 +55,7 @@ class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
     }
     func poweUp(_ ship: Spaceship) {
         let curTime = CACurrentMediaTime()
-        ship.specialShot = TrilaserShot()
-        ship.OnTrilaser = true
-        ship.trilaserTime = curTime
+        ship.isPowerUp = true
+        ship.powerUpTime = curTime
     }
 }

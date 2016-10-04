@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9AE1DA158D700C85C09 /* HUD.swift */; };
+		0004C9B21DA3E21A00C85C09 /* ModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9B11DA3E21A00C85C09 /* ModeButton.swift */; };
 		0054C0831D957A01002E1720 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0821D957A01002E1720 /* Shield.swift */; };
 		0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0851D957FB9002E1720 /* ShieldMode.swift */; };
 		0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0871D958010002E1720 /* PropulsiveMode.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0004C9AE1DA158D700C85C09 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		0004C9B11DA3E21A00C85C09 /* ModeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeButton.swift; sourceTree = "<group>"; };
 		0054C0821D957A01002E1720 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
 		0054C0851D957FB9002E1720 /* ShieldMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShieldMode.swift; sourceTree = "<group>"; };
 		0054C0871D958010002E1720 /* PropulsiveMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropulsiveMode.swift; sourceTree = "<group>"; };
@@ -93,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0004C9AD1DA158C600C85C09 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				0004C9B11DA3E21A00C85C09 /* ModeButton.swift */,
+				0004C9AE1DA158D700C85C09 /* HUD.swift */,
+			);
+			name = HUD;
+			sourceTree = "<group>";
+		};
 		0054C0841D957F99002E1720 /* Modes */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +210,7 @@
 		493D30CB1D6FCE0500FD5293 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				0004C9AD1DA158C600C85C09 /* HUD */,
 				0083C7041D8EB13E00F27958 /* Spaceship */,
 				00D92B161D8969E5000F1A8E /* Protocols */,
 				00D92B131D89683B000F1A8E /* PowerUps */,
@@ -263,6 +277,7 @@
 				TargetAttributes = {
 					493D30901D6FC05500FD5293 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 46HQV8ZA5C;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -316,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0054C0831D957A01002E1720 /* Shield.swift in Sources */,
+				0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */,
 				00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */,
 				0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */,
 				00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */,
@@ -323,6 +339,7 @@
 				00D92B1D1D897428000F1A8E /* SKNode+SafeRemove.swift in Sources */,
 				493D30D41D71B00C00FD5293 /* Parallax.swift in Sources */,
 				493D30991D6FC05500FD5293 /* GameScene.swift in Sources */,
+				0004C9B21DA3E21A00C85C09 /* ModeButton.swift in Sources */,
 				493D30DC1D71B4A700FD5293 /* Utils.swift in Sources */,
 				0083C7071D8EB1BF00F27958 /* RegularShot.swift in Sources */,
 				493D309B1D6FC05500FD5293 /* GameViewController.swift in Sources */,
@@ -381,6 +398,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 46HQV8ZA5C;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -427,6 +445,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 46HQV8ZA5C;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

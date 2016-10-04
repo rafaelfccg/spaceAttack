@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 extension GameScene {
-
+    
     @objc(didBeginContact:) func didBegin(_ contact: SKPhysicsContact) {
         let cur = CACurrentMediaTime()
         
@@ -26,8 +26,8 @@ extension GameScene {
         }
                 
         if ((secondBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid) &&
-            (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (last_hit + 1.0 < cur)) {
-            last_hit = cur
+            (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (self.last_hit + 1.0 < cur)) {
+            self.last_hit = cur
             secondBody.node?.safeRemoveFromParent()
             let blink = SKAction.sequence([SKAction.fadeOut(withDuration: 0.1), SKAction.fadeIn(withDuration: 0.1)])
             let blinkForTime = SKAction.repeat(blink, count: 5)

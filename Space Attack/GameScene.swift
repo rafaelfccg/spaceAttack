@@ -39,26 +39,18 @@ class BackgroundMusicSingleton {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    let kNumAsteroids = 10
-    let kNumLasers = 25
     
-    var OnTrilaser = Bool()
     var gameOver = Bool()
-    var nextAsteroid = Int()
-    var nextShipLaser = Int()
     var lives = 0
     var score = 0
+    var last_hit:Double = 0
     var nextAsteroidSpawn = Double()
     var nextItemSpawn = Double()
-    var nextLaserSpawn = Double()
     var gameOverTime = Double()
-    var last_hit = Double()
-    var trilaserTime = Double()
-    var ship_Speed = CGFloat()
-    var shipLasers = [SKSpriteNode]()
     var asteroids:[Asteroid] = []
     
     var spaceship = Spaceship()
+    var hud:HUD? = nil
     var backgroundMusic = BackgroundMusicSingleton()
     var animaAst = SKAction()
     var LabelScore = SKLabelNode()
@@ -99,10 +91,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // setup spaceship sprite
         spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
         self.addChild(spaceship)
-        ship_Speed = 0
         
         // setup stars
         self.setUpEmmitters()
+        self.hud = HUD(scene: self)
+        self.hud?.setUp()
         
         startTheGame()
     }
@@ -142,10 +135,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let node = self.atPoint(pos)
             if node.name == NodeNames.callToActionLabel {
                 restartGame()
+            } else if let modeBut = node as? ModeButton{
+                self.spaceship.mode = modeBut.mode
             } else if !gameOver{
                 self.spaceship.applyMovement(cropPositionPoint(pos), reposition:self.cropPositionPoint)
             }
-            
         }
     }
     
@@ -160,7 +154,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 self.spaceship.applyMovement(cropPositionPoint(pos),reposition: self.cropPositionPoint)
             }
-            
         }
     }
     
@@ -202,7 +195,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         score = 0
         gameOverTime = 180 + cur
         gameOver = false
-        OnTrilaser = false
         
         restartLabel.isHidden = false
         let randSecs = Utils.random(10, max: 40)

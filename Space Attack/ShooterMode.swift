@@ -19,7 +19,7 @@ class ShooterMode: AnyObject, Mode {
     
     init(spaceship:Spaceship) {
         self.spaceship = spaceship
-        regularShot = RegularShot()
+        regularShot = TrilaserShot()
         powerUpShoot = TrilaserShot()
     }
     func shoot(){

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class ShieldMode: AnyObject, Mode {
     
@@ -15,10 +16,15 @@ class ShieldMode: AnyObject, Mode {
     var shieldHP = 3
     var powerUpHP = 0
     let powerUpTime:UInt64 = 15
+    var shieldNode:SKShapeNode
     
     init(spaceship:Spaceship) {
         self.spaceship = spaceship
+        self.shieldNode = SKShapeNode(circleOfRadius: self.spaceship.size.width/2)
         shieldShot = RegularShot()
+    }
+    func activate() {
+        self.spaceship.addChild(self.shieldNode)
     }
     func shoot(){
         shieldShot.shot(spaceship)

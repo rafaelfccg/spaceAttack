@@ -24,10 +24,13 @@ protocol Hitable {
 
 protocol Mode {
     var spaceship:Spaceship { get }
+    
     func shoot()
     func Hit()->Bool
     func powerUp()
     func getSpeed() -> Double
+    func deactivate() -> Bool
+    func activate()
 }
 protocol ShotManager {
     var nextLaserSpawn:Double {get}

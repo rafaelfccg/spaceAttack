@@ -9,6 +9,7 @@
 import Foundation
 
 class ShooterMode: AnyObject, Mode {
+
     var spaceship: Spaceship
     var regularShot:ShotManager
     var powerUpShoot:ShotManager
@@ -29,6 +30,13 @@ class ShooterMode: AnyObject, Mode {
             regularShot.shot(spaceship)
         }
     }
+    
+    func activate() {}
+    
+    func deactivate() -> Bool{
+        return true
+    }
+    
     func Hit()->Bool{
         return false
     }

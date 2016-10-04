@@ -27,6 +27,10 @@ class PropulsiveMode: AnyObject, Mode {
     func Hit()->Bool{
         return false
     }
+    func activate(){}
+    func deactivate() -> Bool{
+        return true
+    }
     func powerUp(){
         self.isPowerUped = true
         let delayTime = DispatchTime.init(uptimeNanoseconds: self.powerUpTime * NSEC_PER_SEC)

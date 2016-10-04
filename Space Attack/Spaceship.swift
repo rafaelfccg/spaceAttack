@@ -19,7 +19,7 @@ class Spaceship: SKSpriteNode {
     var nextShipLaser = Int()
     var powerUpTime = Double()
     var ship_Speed = CGFloat()
-    var mode:ShipModes = ShipModes.shooter
+    var mode:ShipModes = ShipModes.shooter 
     var modeMap:[ShipModes:Mode] = [:]
     let regularShot = RegularShot()
     var specialShot:ShotManager? = nil

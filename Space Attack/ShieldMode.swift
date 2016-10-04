@@ -23,8 +23,13 @@ class ShieldMode: AnyObject, Mode {
         self.shieldNode = SKShapeNode(circleOfRadius: self.spaceship.size.width/2)
         shieldShot = RegularShot()
     }
-    func activate() {
+    internal func activate() {
         self.spaceship.addChild(self.shieldNode)
+    }
+    
+    internal func deactivate() -> Bool {
+        self.shieldNode.removeFromParent()
+        return true
     }
     func shoot(){
         shieldShot.shot(spaceship)

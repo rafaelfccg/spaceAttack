@@ -146,8 +146,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
-        self.checkShip()
+        
         parallaxNodeBackgrounds?.update(currentTime)
+        self.checkShip()
         if !gameOver {
             self.doLauchables()
             spaceship.doLasers()
@@ -225,8 +226,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let oldPos = self.spaceship.position;
         let newPos = cropPositionPoint(oldPos);
         self.spaceship.position = newPos
-        self.multiplier = self.spaceship.getSpeed()
-        self.hud?.setMultiplerValue(value: self.multiplier)
+        if !gameOver {
+            self.multiplier = self.spaceship.getSpeed()
+            self.hud?.setMultiplerValue(value: self.multiplier)
+        }
     }
     
     func endTheScene(_ endReason: EndReason) {

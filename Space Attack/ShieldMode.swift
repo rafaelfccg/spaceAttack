@@ -15,26 +15,36 @@ class ShieldMode: AnyObject, Mode {
     var shieldShot:ShotManager
     var shieldHP = 3
     var powerUpHP = 0
-    let powerUpTime:UInt64 = 15
+    let powerUpTime:Double = 15
+    let regenerationTime:Double = 30
     var shieldNode:SKShapeNode
+    var isActive:Bool = false
+    
     
     init(spaceship:Spaceship) {
         self.spaceship = spaceship
-        self.shieldNode = SKShapeNode(circleOfRadius: self.spaceship.size.width/2)
-        shieldShot = RegularShot()
+        self.shieldNode = SKShapeNode(circleOfRadius: self.spaceship.size.width)
+        self.shieldNode.fillColor = SKColor(colorLiteralRed: 0.1, green: 0.15, blue: 0.9, alpha: 0.4)
+        self.shieldNode.zPosition = self.spaceship.zPosition+1;
+        shieldShot = RegularShot(shotInterval: 0.8)
     }
     internal func activate() {
         self.spaceship.addChild(self.shieldNode)
+        isActive = true
     }
     
     internal func deactivate() -> Bool {
+        if self.shieldHP <= 0 {
+            return false
+        }
         self.shieldNode.removeFromParent()
+        isActive = false
         return true
     }
     func shoot(){
         shieldShot.shot(spaceship)
     }
-    func Hit()->Bool{
+    func hit()->Bool{
         if self.powerUpHP > 0 {
             powerUpHP -= 1
             return false
@@ -43,16 +53,28 @@ class ShieldMode: AnyObject, Mode {
             return true
         }
         self.shieldHP -= 1
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.regenerationTime) {
+            if (self.shieldHP < 3) {
+                self.shieldHP += 1
+            }
+            if self.isActive && self.shieldNode.parent == nil {
+                self.spaceship.addChild(self.shieldNode)
+            }
+        }
+        if self.shieldHP <= 0 {
+            self.shieldNode.removeFromParent()
+        }
+        
         return false
     }
     func powerUp(){
         self.powerUpHP += 3
-        let delayTime = DispatchTime.init(uptimeNanoseconds: self.powerUpTime * NSEC_PER_SEC)
-        DispatchQueue.main.asyncAfter(deadline: delayTime) { 
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.powerUpTime) {
             self.powerUpHP = 0
         }
     }
-    func getSpeed() -> Double {
+    func getSpeedBonus() -> Double {
         return 0
     }
 }

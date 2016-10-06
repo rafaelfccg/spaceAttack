@@ -29,16 +29,14 @@ extension GameScene {
             (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (self.last_hit + 1.0 < cur)) {
             self.last_hit = cur
             secondBody.node?.safeRemoveFromParent()
-            let blink = SKAction.sequence([SKAction.fadeOut(withDuration: 0.1), SKAction.fadeIn(withDuration: 0.1)])
-            let blinkForTime = SKAction.repeat(blink, count: 5)
-            self.spaceship.run(blinkForTime)
-            self.childNode(withName: String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
-            lives -= 1
+            if self.spaceship.hittedBy(secondBody.node) {            
+                self.childNode(withName: String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
+                lives -= 1
+            }
         } else if (((secondBody.categoryBitMask & PhysicsCategory.laser == PhysicsCategory.laser) &&
             (firstBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid))) {
             secondBody.node?.safeRemoveFromParent()
-            self.score += 50
-            setScore()
+            self.addScore(value: 50)
             if let explodable = firstBody.node as? Explodable {
                 explodable.explode(self)
             }

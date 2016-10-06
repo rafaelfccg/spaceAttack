@@ -15,29 +15,6 @@ enum EndReason {
     case lose
 }
 
-class BackgroundMusicSingleton {
-    static let sharedInstance = BackgroundMusicSingleton()
-    var backgroundAudioPlayer = AVAudioPlayer()
-    
-    fileprivate init() {
-        playMusic(Resources.backgroundMusic, withFormat: "wav")
-    }
-    
-    func playMusic(_ name: String, withFormat format:String) {
-        let audioPath = Bundle.main.path(forResource: name, ofType:format)
-        let path = URL.init(fileURLWithPath: audioPath!)
-        do{
-            self.backgroundAudioPlayer = try AVAudioPlayer.init(contentsOf: path)
-            self.backgroundAudioPlayer.prepareToPlay()
-            self.backgroundAudioPlayer.numberOfLoops = -1
-            self.backgroundAudioPlayer.volume = 1.0
-            self.backgroundAudioPlayer.play()
-        }catch _ {
-            print("error `background music` not found")
-        }
-    }
-}
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameOver = Bool()
@@ -48,10 +25,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var nextItemSpawn = Double()
     var gameOverTime = Double()
     var asteroids:[Asteroid] = []
+    var multiplier = 1
     
     var spaceship = Spaceship()
     var hud:HUD? = nil
-    var backgroundMusic = BackgroundMusicSingleton()
+    var backgroundMusic = BackgroundMusicSingleton.getInstance()
     var animaAst = SKAction()
     var LabelScore = SKLabelNode()
     var restartLabel = SKLabelNode()
@@ -136,7 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if node.name == NodeNames.callToActionLabel {
                 restartGame()
             } else if let modeBut = node as? ModeButton{
-                self.spaceship.mode = modeBut.mode
+                _ = self.spaceship.setMode(mode: modeBut.mode)
             } else if !gameOver{
                 self.spaceship.applyMovement(cropPositionPoint(pos), reposition:self.cropPositionPoint)
             }
@@ -205,28 +183,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
         spaceship.isHidden = false
         
-        let livesArr = [
-            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
-            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
-            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed)
-        ]
-        var count = 0
-        let x = self.frame.minX
-        let y = self.frame.minY
-        
-        for i in livesArr {
-            i.xScale = 0.25
-            i.yScale = 0.25
-            let xL = CGFloat((x + CGFloat(2 * (count + 1)) * i.size.width)/2)
-            let yL = CGFloat(y + i.size.height)
-            i.position = CGPoint(x: xL, y: yL)
-            i.name = String(format: "L%d", arguments: [count])
-            self.addChild(i)
-            count += 1
-        }
-        
         self.addChild(LabelScore)
-        self.backgroundMusic = BackgroundMusicSingleton()
     }
     
     func doLauchables() {
@@ -238,7 +195,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let triLaserItem = TrilaserItem(scene: self)
             self.addChild(triLaserItem)
             triLaserItem.lauch();
-            
         }
         
         if curTime > nextAsteroidSpawn {
@@ -268,8 +224,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func checkShip() {
         let oldPos = self.spaceship.position;
         let newPos = cropPositionPoint(oldPos);
-        
         self.spaceship.position = newPos
+        self.multiplier = self.spaceship.getSpeed()
+        self.hud?.setMultiplerValue(value: self.multiplier)
     }
     
     func endTheScene(_ endReason: EndReason) {
@@ -331,16 +288,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setScore() {
-        var aux = score
-        var count = 1
-        while aux > 9 {
-            aux /= 10
-            count += 1
-        }
+        let count = Utils.countCharsForNumber(number: score)
         let first = self.frame.maxX * 0.9 - CGFloat(count * 9)
         let second = self.frame.maxY * 0.95
         LabelScore.position = CGPoint(x: first, y: second);
         LabelScore.text = "Score: \(self.score)"
+    }
+    
+    func addScore(value:Int) {
+        self.score += value * multiplier;
+        setScore()
     }
     
     func checkEndGame() {

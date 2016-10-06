@@ -13,19 +13,19 @@ class PropulsiveMode: AnyObject, Mode {
     var propulsiveShot:ShotManager
     var isPowerUped:Bool = false
     let powerUpTime:UInt64 = 15
-    let speed:Double = 2
-    let powerUpSpeed:Double = 4
+    let speed:Double = 0.2
+    let powerUpSpeed:Double = 0.4
     
     
     init(spaceship:Spaceship) {
         self.spaceship = spaceship
-        propulsiveShot = RegularShot()
+        propulsiveShot = RegularShot(shotInterval: 0.5)
     }
     func shoot(){
         propulsiveShot.shot(spaceship)
     }
-    func Hit()->Bool{
-        return false
+    func hit()->Bool{
+        return true
     }
     func activate(){}
     func deactivate() -> Bool{
@@ -38,7 +38,7 @@ class PropulsiveMode: AnyObject, Mode {
             self.isPowerUped = false
         }
     }
-    func getSpeed() -> Double {
+    func getSpeedBonus() -> Double {
         if isPowerUped {
             return powerUpSpeed
         }

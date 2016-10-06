@@ -19,16 +19,16 @@ protocol Explodable {
 }
 
 protocol Hitable {
-    func hittedBy(_ node:SKNode)
+    func hittedBy(_ node:SKNode?)->Bool
 }
 
 protocol Mode {
     var spaceship:Spaceship { get }
     
     func shoot()
-    func Hit()->Bool
+    func hit()->Bool
     func powerUp()
-    func getSpeed() -> Double
+    func getSpeedBonus() -> Double
     func deactivate() -> Bool
     func activate()
 }

@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
+class TrilaserItem: SKSpriteNode, Lauchable {
     
     static func action()->SKAction{
         let remove = SKAction.removeFromParent()
@@ -52,10 +52,5 @@ class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
         self.run(TrilaserItem.action())
         self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -5))
         
-    }
-    func poweUp(_ ship: Spaceship) {
-        let curTime = CACurrentMediaTime()
-        ship.isPowerUp = true
-        ship.powerUpTime = curTime
     }
 }

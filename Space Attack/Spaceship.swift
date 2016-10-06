@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import Darwin
 
 enum ShipModes {
     case shooter
@@ -14,19 +15,16 @@ enum ShipModes {
     case propulsor
 }
 
-class Spaceship: SKSpriteNode {
-    var isPowerUp = Bool()
-    var nextShipLaser = Int()
-    var powerUpTime = Double()
-    var ship_Speed = CGFloat()
+class Spaceship: SKSpriteNode,Hitable {
     var mode:ShipModes = ShipModes.shooter 
-    var modeMap:[ShipModes:Mode] = [:]
-    let regularShot = RegularShot()
+    private var modeMap:[ShipModes:Mode] = [:]
     var specialShot:ShotManager? = nil
+    private var speedMultiplier:Double = 1
+    private var lastSpeedBonus:TimeInterval = 0
+    private let speedBonusInterval:TimeInterval = 1
 
     init() {
         let texture = SKTexture(imageNamed: Assets.spaceshipBgspeed)
-        
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         
         self.xScale = 0.5
@@ -66,8 +64,36 @@ class Spaceship: SKSpriteNode {
     func getMode()->Mode{
         return modeMap[self.mode]!
     }
+    
+    func setMode(mode:ShipModes) -> Bool?{
+        let deactivated = self.modeMap[self.mode]?.deactivate()
+        if deactivated! {
+            self.mode = mode;
+            self.modeMap[mode]?.activate()
+        }
+        return deactivated
+    }
+    
     func powerUp(powerUp:PowerUp) {
         self.getMode().powerUp()
     }
-
+    
+    func hittedBy(_ node: SKNode?)->Bool {
+        let hitted = self.getMode().hit()
+        if(hitted){
+            let blink = SKAction.sequence([SKAction.fadeOut(withDuration: 0.1), SKAction.fadeIn(withDuration: 0.1)])
+            let blinkForTime = SKAction.repeat(blink, count: 5)
+            self.run(blinkForTime)
+        }
+        return hitted
+    }
+    
+    func getSpeed() -> Int {
+        let curTime = CACurrentMediaTime()
+        if lastSpeedBonus + speedBonusInterval < curTime {
+            self.lastSpeedBonus = curTime
+            self.speedMultiplier += self.getMode().getSpeedBonus()   
+        }
+        return Int(floor(self.speedMultiplier))
+    }
 }

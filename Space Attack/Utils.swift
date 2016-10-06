@@ -29,4 +29,13 @@ open class Utils {
         }
         return sceneNode
     }
+    static func countCharsForNumber(number:Int) -> Int{
+        var aux = number
+        var count = 1
+        while aux > 9 {
+            aux /= 10
+            count += 1
+        }
+        return count
+    }
 }

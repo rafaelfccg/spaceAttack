@@ -13,17 +13,49 @@ class HUD: AnyObject {
     var shootModeButton:SKShapeNode;
     var shieldModeButton:SKShapeNode;
     var propulsorModeButton:SKShapeNode;
+    var multiplierLabel:SKLabelNode;
     var scene:SKScene
+    let butHeight:CGFloat = 0.08
+    let uiZPositon:CGFloat = 100
+    let topPosition:CGFloat = 0.95
+    let charFont32Size = 9
+    
     init(scene:SKScene) {
         self.scene = scene
         let butWidth = self.scene.size.width/3;
-        let butHeight = self.scene.size.height * 0.1
+        let butHeight = self.scene.size.height * self.butHeight
         let sizeBut = CGSize(width: butWidth, height: butHeight)
         shootModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shooter)
         shieldModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shield)
         propulsorModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.propulsor)
+        multiplierLabel = SKLabelNode(fontNamed: Assets.gameFont)
     }
+    
     func setUp() {
+        setModeButtons()
+        setLives()
+        setMultiplierNode()
+    }
+    
+    func setMultiplierNode() {
+        let x = scene.frame.midX
+        let y = scene.frame.maxY
+        
+        scene.addChild(self.multiplierLabel)
+        self.multiplierLabel.position = CGPoint(x: x, y: y * self.topPosition)
+        self.multiplierLabel.zPosition = self.uiZPositon
+        setMultiplerValue(value: 1)
+    }
+    
+    func setMultiplerValue(value:Int) {
+        self.multiplierLabel.text = String(format:"x%d", value)
+        let count = Utils.countCharsForNumber(number: value)
+        let currPos = self.multiplierLabel.position
+        let x = scene.frame.midX - CGFloat(count/2 * charFont32Size)
+        self.multiplierLabel.position = CGPoint(x: x, y: currPos.y)
+    }
+    
+    func setModeButtons() {
         var offSetX = self.shootModeButton.frame.width/2
         let offSetY = self.shootModeButton.frame.height/2
         
@@ -42,8 +74,30 @@ class HUD: AnyObject {
         propulsorModeButton.fillColor = UIColor.yellow
         shieldModeButton.fillColor = UIColor.blue
     }
-    func checkHUDTouch() -> Bool {
+    
+    func setLives() {
+        let livesArr = [
+            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
+            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
+            SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed)
+        ]
+        var count = 0
+        let x = scene.frame.minX
+        let y = scene.frame.maxY
         
+        for i in livesArr {
+            i.xScale = 0.20
+            i.yScale = 0.20
+            let xL = CGFloat((x + CGFloat(2 * (count + 1)) * i.size.width)/2)
+            let yL = CGFloat(y - i.size.height)
+            i.position = CGPoint(x: xL, y: yL)
+            i.name = String(format: "L%d", arguments: [count])
+            scene.addChild(i)
+            count += 1
+        }
+    }
+    
+    func checkHUDTouch() -> Bool {
         return false
     }
 }

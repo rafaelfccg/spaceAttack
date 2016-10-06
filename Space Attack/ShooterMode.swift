@@ -16,11 +16,11 @@ class ShooterMode: AnyObject, Mode {
     var isPowerUped:Bool = false
     
     let powerUpTime:Double = 15
-    let speed:Double = 1
+    let speed:Double = 0.1
     
     init(spaceship:Spaceship) {
         self.spaceship = spaceship
-        regularShot = TrilaserShot()
+        regularShot = RegularShot()
         powerUpShoot = TrilaserShot()
     }
     func shoot(){
@@ -37,17 +37,16 @@ class ShooterMode: AnyObject, Mode {
         return true
     }
     
-    func Hit()->Bool{
-        return false
+    func hit()->Bool{
+        return true
     }
     func powerUp(){
         self.isPowerUped = true
-        //let delayTime =  DispatchTime.now() + DispatchTime(uptimeNanoseconds: self.powerUpTime * NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: .now() + self.powerUpTime) {
             self.isPowerUped = false
         }
     }
-    func getSpeed() -> Double {
+    func getSpeedBonus() -> Double {
         return speed
     }
 }

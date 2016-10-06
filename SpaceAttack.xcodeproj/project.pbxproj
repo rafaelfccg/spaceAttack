@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9AE1DA158D700C85C09 /* HUD.swift */; };
 		0004C9B21DA3E21A00C85C09 /* ModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9B11DA3E21A00C85C09 /* ModeButton.swift */; };
-		0054C0831D957A01002E1720 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0821D957A01002E1720 /* Shield.swift */; };
 		0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0851D957FB9002E1720 /* ShieldMode.swift */; };
 		0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0871D958010002E1720 /* PropulsiveMode.swift */; };
 		0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0891D95801B002E1720 /* ShooterMode.swift */; };
 		0083C7071D8EB1BF00F27958 /* RegularShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7061D8EB1BF00F27958 /* RegularShot.swift */; };
 		0083C7091D8EB3A800F27958 /* TrilaseShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7081D8EB3A800F27958 /* TrilaseShot.swift */; };
+		00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */; };
 		00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B141D896869000F1A8E /* TrilaserItem.swift */; };
 		00D92B191D896A02000F1A8E /* TypeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B181D896A02000F1A8E /* TypeProtocols.swift */; };
 		00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */; };
@@ -48,12 +48,12 @@
 /* Begin PBXFileReference section */
 		0004C9AE1DA158D700C85C09 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		0004C9B11DA3E21A00C85C09 /* ModeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeButton.swift; sourceTree = "<group>"; };
-		0054C0821D957A01002E1720 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
 		0054C0851D957FB9002E1720 /* ShieldMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShieldMode.swift; sourceTree = "<group>"; };
 		0054C0871D958010002E1720 /* PropulsiveMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropulsiveMode.swift; sourceTree = "<group>"; };
 		0054C0891D95801B002E1720 /* ShooterMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShooterMode.swift; sourceTree = "<group>"; };
 		0083C7061D8EB1BF00F27958 /* RegularShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularShot.swift; sourceTree = "<group>"; };
 		0083C7081D8EB3A800F27958 /* TrilaseShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaseShot.swift; sourceTree = "<group>"; };
+		00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMusicManager.swift; sourceTree = "<group>"; };
 		00D92B141D896869000F1A8E /* TrilaserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaserItem.swift; sourceTree = "<group>"; };
 		00D92B181D896A02000F1A8E /* TypeProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeProtocols.swift; sourceTree = "<group>"; };
 		00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameScene+PhysicsControl.swift"; sourceTree = "<group>"; };
@@ -122,7 +122,6 @@
 				0054C0841D957F99002E1720 /* Modes */,
 				0083C7051D8EB14F00F27958 /* Shots */,
 				493D30C91D6FCE0200FD5293 /* Spaceship.swift */,
-				0054C0821D957A01002E1720 /* Shield.swift */,
 			);
 			name = Spaceship;
 			sourceTree = "<group>";
@@ -134,6 +133,47 @@
 				0083C7081D8EB3A800F27958 /* TrilaseShot.swift */,
 			);
 			name = Shots;
+			sourceTree = "<group>";
+		};
+		00C3E3DA1DA66B9600A04020 /* Enemies */ = {
+			isa = PBXGroup;
+			children = (
+				493D30CC1D6FCE1F00FD5293 /* Asteroid.swift */,
+			);
+			name = Enemies;
+			sourceTree = "<group>";
+		};
+		00C3E3DB1DA66BA500A04020 /* Scenario */ = {
+			isa = PBXGroup;
+			children = (
+				493D30D31D71B00B00FD5293 /* Parallax.swift */,
+			);
+			name = Scenario;
+			sourceTree = "<group>";
+		};
+		00C3E3DC1DA6739C00A04020 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				493D309A1D6FC05500FD5293 /* GameViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		00C3E3DD1DA673A600A04020 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				493D30DB1D71B4A700FD5293 /* Utils.swift */,
+				493D30C71D6FC6E100FD5293 /* Constants.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		00C3E3DF1DA6741000A04020 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		00D92B131D89683B000F1A8E /* PowerUps */ = {
@@ -183,13 +223,13 @@
 		493D30931D6FC05500FD5293 /* Space Attack */ = {
 			isa = PBXGroup;
 			children = (
-				00D92B261D897525000F1A8E /* sks */,
 				493D30A41D6FC05500FD5293 /* Info.plist */,
 				493D30941D6FC05500FD5293 /* AppDelegate.swift */,
-				493D30C71D6FC6E100FD5293 /* Constants.swift */,
-				493D309A1D6FC05500FD5293 /* GameViewController.swift */,
-				493D30DB1D71B4A700FD5293 /* Utils.swift */,
 				493D309F1D6FC05500FD5293 /* Assets.xcassets */,
+				00C3E3DF1DA6741000A04020 /* Managers */,
+				00C3E3DD1DA673A600A04020 /* Utils */,
+				00C3E3DC1DA6739C00A04020 /* Controllers */,
+				00D92B261D897525000F1A8E /* sks */,
 				49B27F741D75C84700889F2F /* Audios */,
 				493D30CB1D6FCE0500FD5293 /* Nodes */,
 				493D30CE1D6FCFD000FD5293 /* Scenes */,
@@ -210,12 +250,12 @@
 		493D30CB1D6FCE0500FD5293 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				00C3E3DB1DA66BA500A04020 /* Scenario */,
+				00C3E3DA1DA66B9600A04020 /* Enemies */,
 				0004C9AD1DA158C600C85C09 /* HUD */,
 				0083C7041D8EB13E00F27958 /* Spaceship */,
 				00D92B161D8969E5000F1A8E /* Protocols */,
 				00D92B131D89683B000F1A8E /* PowerUps */,
-				493D30CC1D6FCE1F00FD5293 /* Asteroid.swift */,
-				493D30D31D71B00B00FD5293 /* Parallax.swift */,
 				00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */,
 			);
 			name = Nodes;
@@ -330,10 +370,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0054C0831D957A01002E1720 /* Shield.swift in Sources */,
 				0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */,
 				00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */,
 				0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */,
+				00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */,
 				00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */,
 				0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */,
 				00D92B1D1D897428000F1A8E /* SKNode+SafeRemove.swift in Sources */,

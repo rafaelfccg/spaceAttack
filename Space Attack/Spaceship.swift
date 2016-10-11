@@ -46,6 +46,13 @@ class Spaceship: SKSpriteNode,Hitable {
                         ShipModes.shield:ShieldMode(spaceship: self)]
     }
 
+    
+    func restrictMovement(toFrame frame:CGRect) {
+        let xRange = SKRange(lowerLimit: 0, upperLimit:frame.size.width)
+        let yRange = SKRange(lowerLimit: frame.size.height * 0.1, upperLimit:frame.size.height + 400)
+        self.constraints = [SKConstraint.positionX(xRange,y:yRange)]
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

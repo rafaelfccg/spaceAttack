@@ -39,6 +39,12 @@ protocol ShotManager {
     
 }
 
+protocol MovementPattern {
+    var currDirection:CGVector{get}
+    func applyMovement(node:SKNode)
+    
+}
+
 protocol PowerUp {
     func poweUp(_ ship:Spaceship)
 }

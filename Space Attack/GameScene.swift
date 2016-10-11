@@ -140,7 +140,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.childNode(withName: NodeNames.endMessage)?.safeRemoveFromParent()
         self.childNode(withName: NodeNames.highScore)?.safeRemoveFromParent()
         self.LabelScore.safeRemoveFromParent()
-        
+        self.hud?.setUp()
         self.startTheGame()
     }
     
@@ -182,6 +182,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setScore()
         
         spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
+        spaceship.restrictMovement(toFrame: self.frame)
         spaceship.isHidden = false
         
         self.addChild(LabelScore)
@@ -222,10 +223,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return pointRet
         
     }
+    
     func checkShip() {
-        let oldPos = self.spaceship.position;
-        let newPos = cropPositionPoint(oldPos);
-        self.spaceship.position = newPos
         if !gameOver {
             self.multiplier = self.spaceship.getSpeed()
             self.hud?.setMultiplerValue(value: self.multiplier)

@@ -10,6 +10,8 @@ import Foundation
 import SpriteKit
 
 class TrilaserShot: AnyObject, ShotManager {
+    
+    var shootDirection: CGVector = CGVector(dx:0, dy:1)
     var nextLaserSpawn:Double = 0
     var shotInterval = 0.25
     var verticalStr:CGFloat = 10

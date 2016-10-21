@@ -73,6 +73,7 @@ struct Assets {
     
     static let spaceshipBgbattle = "spaceship-bgbattle"
     static let spaceshipBgspeed = "spaceship-bgspeed"
+    static let spaceshipBgspeed2 = "spaceship-bgspeed2"
     static let spaceshipDrakir1 = "spaceship-drakir1"
     static let spaceshipDrakir2 = "spaceship-drakir2"
     static let spaceshipDrakir3 = "spaceship-drakir3"

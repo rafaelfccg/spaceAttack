@@ -35,14 +35,15 @@ protocol Mode {
 protocol ShotManager {
     var nextLaserSpawn:Double {get}
     var shotInterval:Double {get}
+    var shootDirection:CGVector{get set}
     func shot(_ node:SKNode)
+    
     
 }
 
 protocol MovementPattern {
     var currDirection:CGVector{get}
     func applyMovement(node:SKNode)
-    
 }
 
 protocol PowerUp {

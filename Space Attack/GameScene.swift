@@ -34,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var LabelScore = SKLabelNode()
     var restartLabel = SKLabelNode()
     var parallaxNodeBackgrounds:Parallax?
+    var enemy:EnemyShip?
     
     static func sceneFromFileNamed(_ fileNamed:String!)->GameScene?{
         let gameScene = GameScene.unarchiveFromFile(fileNamed) as? GameScene;
@@ -199,12 +200,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             triLaserItem.lauch();
         }
         
-        if curTime > nextAsteroidSpawn {
+        /*if curTime > nextAsteroidSpawn {
             nextAsteroidSpawn = Utils.random(0.1, max: 0.8) + curTime
             let asteroid:Asteroid = Asteroid.init(scene: self)
             asteroid.name = "asteroid" + String(nextAsteroidSpawn)
             self.addChild(asteroid)
             asteroid.lauch()
+        }*/
+        
+        if curTime > nextAsteroidSpawn {
+            nextAsteroidSpawn = Utils.random(200, max: 2005) + curTime
+            self.enemy = EnemyShip(scene:self)
+            //enemy.name = "asteroid" + String(nextAsteroidSpawn)
+            self.enemy?.position = CGPoint(x: self.frame.midX, y: self.frame.maxY);
+            self.addChild(self.enemy!)
+            
         }
     }
     

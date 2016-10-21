@@ -12,12 +12,15 @@ import SpriteKit
 class RegularShot: AnyObject, ShotManager {
     var nextLaserSpawn:Double = 0
     var shotInterval:Double = 0.25
+    var impulseNorm:CGFloat = 10
     var impulseVector = CGVector(dx: 0, dy: 10)
+    var shootDirection:CGVector = CGVector(dx:0, dy:1)
     
     init() {}
     init(shotInterval:Double) {
         self.shotInterval = shotInterval
     }
+    
     func shot(_ node: SKNode) {
         let curTime = CACurrentMediaTime()
         if (curTime > nextLaserSpawn) {
@@ -41,7 +44,9 @@ class RegularShot: AnyObject, ShotManager {
             
             sceneNode.addChild(shipLaser)
             shipLaser.run(seq)
-            shipLaser.physicsBody?.applyImpulse(impulseVector)
+            self.impulseVector = CGVector(dx: self.shootDirection.dx * self.impulseNorm,
+                                          dy: self.shootDirection.dy * self.impulseNorm)
+            shipLaser.physicsBody?.applyImpulse(self.impulseVector)
         }
     }
 }

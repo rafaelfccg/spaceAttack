@@ -24,7 +24,7 @@ class Spaceship: SKSpriteNode,Hitable {
     private let speedBonusInterval:TimeInterval = 1
 
     init() {
-        let texture = SKTexture(imageNamed: Assets.spaceshipBgspeed)
+        let texture = SKTexture(imageNamed: Assets.spaceshipBgspeed2)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         
         self.xScale = 0.5
@@ -46,7 +46,6 @@ class Spaceship: SKSpriteNode,Hitable {
                         ShipModes.shield:ShieldMode(spaceship: self)]
     }
 
-    
     func restrictMovement(toFrame frame:CGRect) {
         let xRange = SKRange(lowerLimit: 0, upperLimit:frame.size.width)
         let yRange = SKRange(lowerLimit: frame.size.height * 0.1, upperLimit:frame.size.height + 400)

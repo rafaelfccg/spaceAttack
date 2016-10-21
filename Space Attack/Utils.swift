@@ -40,8 +40,8 @@ open class Utils {
     }
     
     static func rotateVector(vector:CGVector, byAngle angle:Double) -> CGVector{
-        let x = CGFloat(Double(vector.dx) * cos(angle) - Double(vector.dx) * sin(angle))
-        let y = CGFloat(Double(vector.dx) * cos(angle) + Double(vector.dx) * sin(angle))
+        let x = CGFloat(Double(vector.dx) * cos(angle) - Double(vector.dy) * sin(angle))
+        let y = CGFloat(Double(vector.dy) * cos(angle) + Double(vector.dx) * sin(angle))
         return CGVector(dx:x,dy:y)
     }
 }

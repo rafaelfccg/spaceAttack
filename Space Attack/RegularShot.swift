@@ -15,6 +15,10 @@ class RegularShot: AnyObject, ShotManager {
     var impulseNorm:CGFloat = 10
     var impulseVector = CGVector(dx: 0, dy: 10)
     var shootDirection:CGVector = CGVector(dx:0, dy:1)
+    var target: UInt32 = 0
+    var category: UInt32 = 0
+    
+    var count = 0;
     
     init() {}
     init(shotInterval:Double) {
@@ -32,16 +36,18 @@ class RegularShot: AnyObject, ShotManager {
             shipLaser.isHidden = false
             shipLaser.removeAllActions()
             shipLaser.zPosition = node.zPosition - 1;
-            
+            shipLaser.xScale = BodyScales.laserScale
+            shipLaser.yScale = BodyScales.laserScale
             shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
-            shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
-            shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
+            shipLaser.physicsBody?.categoryBitMask = self.category
+            shipLaser.physicsBody?.contactTestBitMask = self.target
             shipLaser.physicsBody?.collisionBitMask = 0
             shipLaser.physicsBody?.allowsRotation = false
             
             let remove = SKAction.removeFromParent()
             let seq = SKAction.sequence([SKAction.wait(forDuration: 5), remove])
-            
+            shipLaser.name = "\(count)"
+            count+=1
             sceneNode.addChild(shipLaser)
             shipLaser.run(seq)
             self.impulseVector = CGVector(dx: self.shootDirection.dx * self.impulseNorm,

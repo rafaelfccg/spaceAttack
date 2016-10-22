@@ -9,12 +9,17 @@
 import Foundation
 import SpriteKit
 
+struct BodyScales {
+    static let laserScale:CGFloat = 0.8
+}
+
 struct PhysicsCategory {
     static let spaceship: UInt32 = 1 << 0
     static let asteroid: UInt32 = 1 << 1
     static let laser: UInt32 = 1 << 2
-    static let enemy: UInt32 = 1 << 3
-    static let trilaser: UInt32 = 1 << 4
+    static let enemyLaser: UInt32 = 1 << 3
+    static let enemy: UInt32 = 1 << 4
+    static let trilaser: UInt32 = 1 << 5
 }
 
 struct ScreenLimits {

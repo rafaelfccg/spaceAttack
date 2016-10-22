@@ -36,6 +36,8 @@ protocol ShotManager {
     var nextLaserSpawn:Double {get}
     var shotInterval:Double {get}
     var shootDirection:CGVector{get set}
+    var target:UInt32 {get set}
+    var category:UInt32 {get set}
     func shot(_ node:SKNode)
     
     

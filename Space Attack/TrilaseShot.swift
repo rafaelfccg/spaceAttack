@@ -15,17 +15,19 @@ class TrilaserShot: AnyObject, ShotManager {
     var nextLaserSpawn:Double = 0
     var shotInterval = 0.25
     var verticalStr:CGFloat = 10
+    var target: UInt32 = 0
+    var category: UInt32 = 0
     let lateralStr:CGFloat = 0.5
     func shot(_ node: SKNode) {
         let curTime = CACurrentMediaTime()
-        if (curTime > nextLaserSpawn) {
+        if (curTime > nextLaserSpawn && self.category > 0) {
             nextLaserSpawn = curTime + shotInterval
             let sceneNode = Utils.getRootNode(node: node)
             let shotPosition = node.convert(CGPoint(x:0,y:0), to: sceneNode)
             
-            var shots = [SKSpriteNode.init(imageNamed: Assets.shotRed),
-                         SKSpriteNode.init(imageNamed: Assets.shotRed),
-                         SKSpriteNode.init(imageNamed: Assets.shotRed)]
+            var shots = [SKSpriteNode.init(imageNamed: Assets.shotBlue),
+                         SKSpriteNode.init(imageNamed: Assets.shotBlue),
+                         SKSpriteNode.init(imageNamed: Assets.shotBlue)]
             
             for shipLaser in shots {
                 shipLaser.name = "laserShip"
@@ -33,10 +35,11 @@ class TrilaserShot: AnyObject, ShotManager {
                 shipLaser.zPosition = node.zPosition - 1;
                 shipLaser.isHidden = false
                 shipLaser.removeAllActions()
-                
+                shipLaser.xScale = BodyScales.laserScale
+                shipLaser.yScale = BodyScales.laserScale
                 shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
-                shipLaser.physicsBody?.categoryBitMask = PhysicsCategory.laser
-                shipLaser.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
+                shipLaser.physicsBody?.categoryBitMask = self.category
+                shipLaser.physicsBody?.contactTestBitMask = self.target
                 shipLaser.physicsBody?.collisionBitMask = 0
                 shipLaser.physicsBody?.allowsRotation = false
                 

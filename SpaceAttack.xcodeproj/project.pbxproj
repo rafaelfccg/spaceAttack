@@ -23,6 +23,7 @@
 		00D92B231D897521000F1A8E /* stars3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00D92B201D897521000F1A8E /* stars3.sks */; };
 		00D92B241D897521000F1A8E /* stars1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00D92B211D897521000F1A8E /* stars1.sks */; };
 		00D92B251D897521000F1A8E /* stars2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00D92B221D897521000F1A8E /* stars2.sks */; };
+		00E089061DBB8925000A9A1F /* IrregularCircularShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E089051DBB8925000A9A1F /* IrregularCircularShot.swift */; };
 		00E527381DAD055500648B08 /* EnemyShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E527371DAD055500648B08 /* EnemyShip.swift */; };
 		00E5273C1DAD07CD00648B08 /* SmoothMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5273B1DAD07CD00648B08 /* SmoothMovement.swift */; };
 		493D30951D6FC05500FD5293 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D30941D6FC05500FD5293 /* AppDelegate.swift */; };
@@ -64,6 +65,7 @@
 		00D92B201D897521000F1A8E /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars3.sks; sourceTree = "<group>"; };
 		00D92B211D897521000F1A8E /* stars1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars1.sks; sourceTree = "<group>"; };
 		00D92B221D897521000F1A8E /* stars2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars2.sks; sourceTree = "<group>"; };
+		00E089051DBB8925000A9A1F /* IrregularCircularShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IrregularCircularShot.swift; sourceTree = "<group>"; };
 		00E527371DAD055500648B08 /* EnemyShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShip.swift; sourceTree = "<group>"; };
 		00E5273B1DAD07CD00648B08 /* SmoothMovement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmoothMovement.swift; sourceTree = "<group>"; };
 		493D30911D6FC05500FD5293 /* SpaceAttack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceAttack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +136,7 @@
 			children = (
 				0083C7061D8EB1BF00F27958 /* RegularShot.swift */,
 				0083C7081D8EB3A800F27958 /* TrilaseShot.swift */,
+				00E089051DBB8925000A9A1F /* IrregularCircularShot.swift */,
 			);
 			name = Shots;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */,
 				00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */,
 				0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */,
+				00E089061DBB8925000A9A1F /* IrregularCircularShot.swift in Sources */,
 				00D92B1D1D897428000F1A8E /* SKNode+SafeRemove.swift in Sources */,
 				493D30D41D71B00C00FD5293 /* Parallax.swift in Sources */,
 				493D30991D6FC05500FD5293 /* GameScene.swift in Sources */,

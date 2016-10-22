@@ -22,6 +22,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var score = 0
     var last_hit:Double = 0
     var nextAsteroidSpawn = Double()
+    var nextEnemySpawn = Double()
     var nextItemSpawn = Double()
     var gameOverTime = Double()
     var asteroids:[Asteroid] = []
@@ -66,7 +67,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let randSecs = Utils.random(30, max: 45)
         nextItemSpawn = randSecs + CACurrentMediaTime()
-        
+        nextEnemySpawn = 0
         // setup spaceship sprite
         spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
         self.addChild(spaceship)
@@ -140,8 +141,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.childNode(withName: NodeNames.callToActionLabel)?.safeRemoveFromParent()
         self.childNode(withName: NodeNames.endMessage)?.safeRemoveFromParent()
         self.childNode(withName: NodeNames.highScore)?.safeRemoveFromParent()
-        self.LabelScore.safeRemoveFromParent()
-        self.hud?.setUp()
+        self.LabelScore.safeRemoveFromParent()        
         self.startTheGame()
     }
     
@@ -200,16 +200,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             triLaserItem.lauch();
         }
         
-        /*if curTime > nextAsteroidSpawn {
+        if curTime > nextAsteroidSpawn {
             nextAsteroidSpawn = Utils.random(0.1, max: 0.8) + curTime
             let asteroid:Asteroid = Asteroid.init(scene: self)
             asteroid.name = "asteroid" + String(nextAsteroidSpawn)
             self.addChild(asteroid)
             asteroid.lauch()
-        }*/
+        }
         
-        if curTime > nextAsteroidSpawn {
-            nextAsteroidSpawn = Utils.random(200, max: 2005) + curTime
+        if curTime > nextEnemySpawn {
+            nextEnemySpawn = Utils.random(5, max: 10) + curTime
             self.enemy = EnemyShip(scene:self)
             //enemy.name = "asteroid" + String(nextAsteroidSpawn)
             self.enemy?.position = CGPoint(x: self.frame.midX, y: self.frame.maxY);

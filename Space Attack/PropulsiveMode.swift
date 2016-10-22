@@ -20,6 +20,8 @@ class PropulsiveMode: AnyObject, Mode {
     init(spaceship:Spaceship) {
         self.spaceship = spaceship
         propulsiveShot = RegularShot(shotInterval: 0.5)
+        propulsiveShot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
+        propulsiveShot.category = PhysicsCategory.laser
     }
     func shoot(){
         propulsiveShot.shot(spaceship)

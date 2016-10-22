@@ -16,7 +16,7 @@ enum ShipModes {
 }
 
 class Spaceship: SKSpriteNode,Hitable {
-    var mode:ShipModes = ShipModes.shooter 
+    var mode:ShipModes = ShipModes.propulsor
     private var modeMap:[ShipModes:Mode] = [:]
     var specialShot:ShotManager? = nil
     private var speedMultiplier:Double = 1

@@ -22,6 +22,10 @@ class ShooterMode: AnyObject, Mode {
         self.spaceship = spaceship
         regularShot = RegularShot()
         powerUpShoot = TrilaserShot()
+        powerUpShoot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
+        powerUpShoot.category = PhysicsCategory.laser
+        regularShot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
+        regularShot.category = PhysicsCategory.laser
     }
     func shoot(){
         if(self.isPowerUped){

@@ -13,20 +13,22 @@ class EnemyShip: SKSpriteNode, Hitable {
     var shoot:ShotManager
     var movementController:MovementPattern
     var hp:Int
-    let margin:CGFloat = 30
+    static let margin:CGFloat = 15
     
     init(scene:SKScene) {
         let texture = SKTexture(imageNamed: Assets.spaceshipDrakir1)
-        shoot = RegularShot()
+        shoot = IrregularCircularShot()
+        shoot.target = PhysicsCategory.spaceship
+        shoot.category = PhysicsCategory.enemyLaser
         movementController = SmoothMovement()
-        
-        hp = Int(round(Utils.random(3, max: 4)))
+        hp = Int(round(Utils.random(3, max: 5)))
         super.init(texture:texture, color:UIColor.clear , size:texture.size());
         self.physicsBody = SKPhysicsBody(circleOfRadius: texture.size().width/2)
-        
         self.physicsBody?.categoryBitMask = PhysicsCategory.enemy
         self.physicsBody?.contactTestBitMask = PhysicsCategory.laser
         self.physicsBody?.collisionBitMask = 0
+        self.xScale = 0.6
+        self.yScale = 0.6
         
         self.run(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 0))
         self.zPosition = scene.zPosition + 10
@@ -36,8 +38,8 @@ class EnemyShip: SKSpriteNode, Hitable {
     }
     
     func restrictMovement(toFrame frame:CGRect) {
-        let xRange = SKRange(lowerLimit: -margin, upperLimit:frame.size.width + margin)
-        let yRange = SKRange(lowerLimit: -margin, upperLimit:frame.size.height + margin)
+        let xRange = SKRange(lowerLimit: -EnemyShip.margin, upperLimit:frame.size.width + EnemyShip.margin)
+        let yRange = SKRange(lowerLimit: -EnemyShip.margin, upperLimit:frame.size.height + EnemyShip.margin)
         self.constraints = [SKConstraint.positionX(xRange,y:yRange)]
     }
     
@@ -58,6 +60,9 @@ class EnemyShip: SKSpriteNode, Hitable {
     }
     
     func hittedBy(_ node: SKNode?) -> Bool {
+        if (node == nil){
+            return false
+        }
         hp -= 1
         if hp <= 0 {
             self.safeRemoveFromParent()

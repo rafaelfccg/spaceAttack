@@ -9,7 +9,11 @@
 import Foundation
 import SpriteKit
 
-class TrilaserItem: SKSpriteNode, Lauchable {
+class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
+    
+    internal func poweUp(_ ship: Spaceship) {
+        
+    }
     
     static func action()->SKAction{
         let remove = SKAction.removeFromParent()

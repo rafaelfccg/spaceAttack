@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9AE1DA158D700C85C09 /* HUD.swift */; };
 		0004C9B21DA3E21A00C85C09 /* ModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9B11DA3E21A00C85C09 /* ModeButton.swift */; };
+		002CDF911DC1477C001AE131 /* SKAction+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002CDF901DC1477C001AE131 /* SKAction+Extention.swift */; };
 		0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0851D957FB9002E1720 /* ShieldMode.swift */; };
 		0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0871D958010002E1720 /* PropulsiveMode.swift */; };
 		0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0891D95801B002E1720 /* ShooterMode.swift */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		0004C9AE1DA158D700C85C09 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		0004C9B11DA3E21A00C85C09 /* ModeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeButton.swift; sourceTree = "<group>"; };
+		002CDF901DC1477C001AE131 /* SKAction+Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKAction+Extention.swift"; sourceTree = "<group>"; };
 		0054C0851D957FB9002E1720 /* ShieldMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShieldMode.swift; sourceTree = "<group>"; };
 		0054C0871D958010002E1720 /* PropulsiveMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropulsiveMode.swift; sourceTree = "<group>"; };
 		0054C0891D95801B002E1720 /* ShooterMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShooterMode.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			children = (
 				493D30DB1D71B4A700FD5293 /* Utils.swift */,
 				493D30C71D6FC6E100FD5293 /* Constants.swift */,
+				002CDF901DC1477C001AE131 /* SKAction+Extention.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */,
 				00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */,
 				0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */,
+				002CDF911DC1477C001AE131 /* SKAction+Extention.swift in Sources */,
 				00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */,
 				00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */,
 				0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */,

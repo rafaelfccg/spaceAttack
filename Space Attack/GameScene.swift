@@ -211,7 +211,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if curTime > nextEnemySpawn {
             nextEnemySpawn = Utils.random(5, max: 10) + curTime
             self.enemy = EnemyShip(scene:self)
-            //enemy.name = "asteroid" + String(nextAsteroidSpawn)
             self.enemy?.position = CGPoint(x: self.frame.midX, y: self.frame.maxY);
             self.addChild(self.enemy!)
             

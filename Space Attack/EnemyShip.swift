@@ -27,6 +27,9 @@ class EnemyShip: SKSpriteNode, Hitable {
         self.physicsBody?.categoryBitMask = PhysicsCategory.enemy
         self.physicsBody?.contactTestBitMask = PhysicsCategory.laser
         self.physicsBody?.collisionBitMask = 0
+        self.physicsBody?.friction = 0
+        self.physicsBody?.linearDamping = 0
+        
         self.xScale = 0.6
         self.yScale = 0.6
         

@@ -12,12 +12,13 @@ import SpriteKit
 class IrregularCircularShot: AnyObject, ShotManager {
     var nextLaserSpawn:Double = 0.0
     var shotInterval:Double = 0.5
-    static let shotIntervalMax:Double = 0.3
-    static let shotIntervalMin:Double = 0.7
+    static let shotIntervalMax:CGFloat = 0.3
+    static let shotIntervalMin:CGFloat = 0.7
     
     var shootDirection:CGVector = CGVector(dx:0, dy:1)
-    var maximumRotation = M_PI/6
+    var maximumRotation:CGFloat = CGFloat(M_PI)/6
     var impulseNorm:CGFloat = 3
+    var shotsUntilReload = 3
     
     var target: UInt32 = 0
     var category: UInt32 = 0
@@ -25,9 +26,10 @@ class IrregularCircularShot: AnyObject, ShotManager {
     init() {}
     func shot(_ node:SKNode){
         let curTime = CACurrentMediaTime()
-        if (curTime > nextLaserSpawn && self.category > 0) {
-            self.shotInterval = Utils.random(IrregularCircularShot.shotIntervalMin,
-                                             max: IrregularCircularShot.shotIntervalMax)
+        if (curTime > nextLaserSpawn && self.category > 0 && self.shotsUntilReload >= 0) {
+            self.shotsUntilReload -= 1;
+            self.shotInterval = Double(Utils.random(IrregularCircularShot.shotIntervalMin,
+                                                    max: IrregularCircularShot.shotIntervalMax))
             nextLaserSpawn = curTime + shotInterval
             let sceneNode = Utils.getRootNode(node: node)
             let shotPosition = node.convert(CGPoint(x:0,y:0), to: sceneNode)
@@ -56,6 +58,9 @@ class IrregularCircularShot: AnyObject, ShotManager {
             shipLaser.run(seq)
             
             shipLaser.physicsBody?.applyImpulse(impulseVector)
+        } else {
+            self.shotsUntilReload = 10
+            nextLaserSpawn = curTime + 3
         }
     }
 }

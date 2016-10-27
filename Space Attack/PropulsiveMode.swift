@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class PropulsiveMode: AnyObject, Mode {
     var spaceship: Spaceship
@@ -15,13 +16,14 @@ class PropulsiveMode: AnyObject, Mode {
     let powerUpTime:UInt64 = 15
     let speed:Double = 0.2
     let powerUpSpeed:Double = 0.4
-    
+    let speedParticle:SKEmitterNode? = SKEmitterNode(fileNamed: "SpeedBoost")
     
     init(spaceship:Spaceship) {
         self.spaceship = spaceship
         propulsiveShot = RegularShot(shotInterval: 0.5)
         propulsiveShot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
         propulsiveShot.category = PhysicsCategory.laser
+        
     }
     func shoot(){
         propulsiveShot.shot(spaceship)
@@ -29,8 +31,13 @@ class PropulsiveMode: AnyObject, Mode {
     func hit()->Bool{
         return true
     }
-    func activate(){}
+    func activate(){
+        let rootNode = Utils.getRootNode(node: spaceship)
+        rootNode.addChild(speedParticle!)
+        speedParticle?.position = CGPoint(x: rootNode.frame.midX, y: rootNode.frame.minY)
+    }
     func deactivate() -> Bool{
+        speedParticle?.removeFromParent()
         return true
     }
     func powerUp(){

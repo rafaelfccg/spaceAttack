@@ -10,8 +10,8 @@ import Foundation
 import SpriteKit
 
 open class Utils {
-    static func random(_ min: Double, max: Double) -> Double {
-        return Double( Double(arc4random())/Double(UINT32_MAX))*(max - min) + min;
+    static func random(_ min: CGFloat, max: CGFloat) -> CGFloat {
+        return  CGFloat(arc4random())/CGFloat(UINT32_MAX)*(max - min) + min;
     }
     
     static func removeAfter(_ time:TimeInterval) -> SKAction {
@@ -39,9 +39,9 @@ open class Utils {
         return count
     }
     
-    static func rotateVector(vector:CGVector, byAngle angle:Double) -> CGVector{
-        let x = CGFloat(Double(vector.dx) * cos(angle) - Double(vector.dy) * sin(angle))
-        let y = CGFloat(Double(vector.dy) * cos(angle) + Double(vector.dx) * sin(angle))
+    static func rotateVector(vector:CGVector, byAngle angle:CGFloat) -> CGVector{
+        let x = CGFloat(vector.dx * cos(angle) - vector.dy * sin(angle))
+        let y = CGFloat(vector.dy * cos(angle) + vector.dx * sin(angle))
         return CGVector(dx:x,dy:y)
     }
 }

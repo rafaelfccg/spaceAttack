@@ -16,7 +16,7 @@ enum ShipModes {
 }
 
 class Spaceship: SKSpriteNode,Hitable {
-    var mode:ShipModes = ShipModes.propulsor
+    var mode:ShipModes = ShipModes.shooter
     private var modeMap:[ShipModes:Mode] = [:]
     var specialShot:ShotManager? = nil
     private var speedMultiplier:Double = 1
@@ -32,7 +32,7 @@ class Spaceship: SKSpriteNode,Hitable {
         var a: CGSize = (self.texture?.size())!
         a.height = a.height * 0.2
         a.width = a.width * 0.2
-        self.name = "spaceShip"
+        self.name = "spaceship"
         
         self.physicsBody = SKPhysicsBody.init(rectangleOf: CGSize(width: self.frame.size.width * 0.4, height: self.frame.size.height * 0.85))
         self.physicsBody?.affectedByGravity = false

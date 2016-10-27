@@ -10,6 +10,7 @@
 		0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9AE1DA158D700C85C09 /* HUD.swift */; };
 		0004C9B21DA3E21A00C85C09 /* ModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9B11DA3E21A00C85C09 /* ModeButton.swift */; };
 		002CDF911DC1477C001AE131 /* SKAction+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002CDF901DC1477C001AE131 /* SKAction+Extention.swift */; };
+		002CDF941DC24456001AE131 /* SpeedBoost.sks in Resources */ = {isa = PBXBuildFile; fileRef = 002CDF921DC24456001AE131 /* SpeedBoost.sks */; };
 		0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0851D957FB9002E1720 /* ShieldMode.swift */; };
 		0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0871D958010002E1720 /* PropulsiveMode.swift */; };
 		0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0891D95801B002E1720 /* ShooterMode.swift */; };
@@ -53,6 +54,7 @@
 		0004C9AE1DA158D700C85C09 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		0004C9B11DA3E21A00C85C09 /* ModeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeButton.swift; sourceTree = "<group>"; };
 		002CDF901DC1477C001AE131 /* SKAction+Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKAction+Extention.swift"; sourceTree = "<group>"; };
+		002CDF921DC24456001AE131 /* SpeedBoost.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SpeedBoost.sks; sourceTree = "<group>"; };
 		0054C0851D957FB9002E1720 /* ShieldMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShieldMode.swift; sourceTree = "<group>"; };
 		0054C0871D958010002E1720 /* PropulsiveMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropulsiveMode.swift; sourceTree = "<group>"; };
 		0054C0891D95801B002E1720 /* ShooterMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShooterMode.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				00D92B211D897521000F1A8E /* stars1.sks */,
 				00D92B221D897521000F1A8E /* stars2.sks */,
 				00D92B201D897521000F1A8E /* stars3.sks */,
+				002CDF921DC24456001AE131 /* SpeedBoost.sks */,
 			);
 			name = sks;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				493D30A31D6FC05500FD5293 /* LaunchScreen.storyboard in Resources */,
 				493D30A01D6FC05500FD5293 /* Assets.xcassets in Resources */,
 				49B27F7D1D75C84700889F2F /* explosion_asteroid.wav in Resources */,
+				002CDF941DC24456001AE131 /* SpeedBoost.sks in Resources */,
 				00D92B241D897521000F1A8E /* stars1.sks in Resources */,
 				00D92B1F1D897509000F1A8E /* explosion.sks in Resources */,
 				49B27F801D75C84700889F2F /* gameplay_music.mp3 in Resources */,

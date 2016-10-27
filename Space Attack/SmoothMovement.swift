@@ -31,8 +31,8 @@ class SmoothMovement: AnyObject, MovementPattern {
     func changeDirection(node:SKNode) {
         
         let scene  = Utils.getRootNode(node: node)
-        let xPos = CGFloat(Utils.random(0, max: Double(scene.frame.size.width)));
-        let yDis = CGFloat(Utils.random(Double(yDistanceMin), max: Double(yDistanceMin)))
+        let xPos = Utils.random(0, max: scene.frame.size.width)
+        let yDis = Utils.random(yDistanceMin, max: yDistanceMin)
         self.aimPoint = CGPoint(x:xPos,y: node.position.y - yDis)
     }
     
@@ -63,7 +63,7 @@ class SmoothMovement: AnyObject, MovementPattern {
     func applyMovement(node:SKNode){
         let currTime = CACurrentMediaTime()
         if (self.lastRotation + self.minimumTimeAtDirection < currTime ||
-            abs(aimPoint.y - node.position.y) < yDistanceMin / 3) {
+            abs(aimPoint.y - node.position.y) < (yDistanceMin / 4)) {
             self.lastRotation = currTime
             changeDirection(node: node)
             

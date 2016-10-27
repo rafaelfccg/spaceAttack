@@ -16,7 +16,7 @@ class ShooterMode: AnyObject, Mode {
     var isPowerUped:Bool = false
     
     let powerUpTime:Double = 15
-    let speed:Double = 0.1
+    let speed:Double = 0
     
     init(spaceship:Spaceship) {
         self.spaceship = spaceship

@@ -43,7 +43,7 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
         self.xScale = Asteroid.scale
         self.yScale = Asteroid.scale
         
-        let posX = CGFloat(Utils.random(0, max: Double(scene.frame.size.width)))
+        let posX = CGFloat(Utils.random(0, max: scene.frame.size.width))
         self.position = CGPoint(x: posX, y: scene.frame.maxY)
         self.isHidden = false
         self.zPosition = 10;

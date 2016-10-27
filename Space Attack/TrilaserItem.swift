@@ -30,7 +30,7 @@ class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
     
     init(scene: SKScene) {
         
-        let randX = Utils.random(0, max: Double(scene.frame.size.width))
+        let randX = Utils.random(0, max: scene.frame.size.width)
         let texture = SKTexture(imageNamed: Assets.shotRed)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         self.name = "trilaserItem"

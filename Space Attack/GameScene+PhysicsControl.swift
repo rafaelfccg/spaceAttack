@@ -46,6 +46,7 @@ extension GameScene {
             self.last_hit = cur
             secondBody.node?.safeRemoveFromParent()
             if self.spaceship.hittedBy(secondBody.node) {
+                self.addScore(value: 100)
                 self.childNode(withName: String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
                 lives -= 1
             }

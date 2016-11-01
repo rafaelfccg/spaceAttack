@@ -13,7 +13,7 @@ class EnemyShip: SKSpriteNode, Hitable {
     var shoot:ShotManager
     var movementController:MovementPattern
     var hp:Int
-    static let margin:CGFloat = 15
+    static let margin:CGFloat = 30
     
     init(scene:SKScene) {
         let texture = SKTexture(imageNamed: Assets.spaceshipDrakir1)
@@ -55,7 +55,10 @@ class EnemyShip: SKSpriteNode, Hitable {
             self.shoot.shot(self)
             self.movementController.applyMovement(node: self)
             self.shoot.shootDirection = self.movementController.currDirection
-            
+            let rootNode = Utils.getRootNode(node: self)
+            if !rootNode.intersects(self) {
+                self.safeRemoveFromParent()
+            }
         });
         let actionInterval = SKAction.wait(forDuration: 0.1)
         self.run(SKAction.repeatForever(SKAction.sequence([actions,actionInterval])))

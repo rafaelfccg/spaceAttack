@@ -15,8 +15,8 @@ class ShieldMode: AnyObject, Mode {
     var shieldShot:ShotManager
     var shieldHP = 3
     var powerUpHP = 0
-    let powerUpTime:Double = 15
-    let regenerationTime:Double = 30
+    let powerUpTime:Double = 20
+    let regenerationTime:Double = 20
     var shieldNode:SKShapeNode
     var isActive:Bool = false
     

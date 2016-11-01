@@ -35,7 +35,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var LabelScore = SKLabelNode()
     var restartLabel = SKLabelNode()
     var parallaxNodeBackgrounds:Parallax?
-    var enemy:EnemyShip?
     
     static func sceneFromFileNamed(_ fileNamed:String!)->GameScene?{
         let gameScene = GameScene.unarchiveFromFile(fileNamed) as? GameScene;
@@ -131,18 +130,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if node.name == NodeNames.callToActionLabel {
                 restartGame()
             } else if !gameOver{
-                
                 self.spaceship.applyMovement(cropPositionPoint(pos),reposition: self.cropPositionPoint)
             }
         }
     }
     
     func restartGame(){
+        
         self.childNode(withName: NodeNames.callToActionLabel)?.safeRemoveFromParent()
         self.childNode(withName: NodeNames.endMessage)?.safeRemoveFromParent()
         self.childNode(withName: NodeNames.highScore)?.safeRemoveFromParent()
         self.LabelScore.safeRemoveFromParent()
+        self.enumerateChildNodes(withName: NodeNames.removable) { (node, stop) in
+            node.safeRemoveFromParent()
+        }
+
         self.multiplier = 1
+        self.spaceship.speed = 1
+        
         self.startTheGame()
     }
     
@@ -187,6 +192,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spaceship.restrictMovement(toFrame: self.frame)
         spaceship.isHidden = false
         
+        self.hud?.setLives()
+        
         self.addChild(LabelScore)
     }
     
@@ -197,6 +204,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let randSecs = Utils.random(15, max: 45)
             nextItemSpawn = curTime + Double(randSecs)
             let triLaserItem = TrilaserItem(scene: self)
+            triLaserItem.name = NodeNames.removable
             self.addChild(triLaserItem)
             triLaserItem.lauch();
         }
@@ -204,7 +212,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if curTime > nextAsteroidSpawn {
             nextAsteroidSpawn = Double(Utils.random(0.1, max: 0.8)) + curTime
             let asteroid:Asteroid = Asteroid.init(scene: self)
-            asteroid.name = "asteroid" + String(nextAsteroidSpawn)
+            asteroid.name = NodeNames.removable
             self.addChild(asteroid)
             asteroid.lauch()
         }
@@ -212,9 +220,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if curTime > nextEnemySpawn {
             nextEnemySpawn = Double(Utils.random(5, max: 10)) + curTime
             let xPosition = Utils.random(0, max: self.frame.maxX)
-            self.enemy = EnemyShip(scene:self)
-            self.enemy?.position = CGPoint(x: xPosition, y: self.frame.maxY);
-            self.addChild(self.enemy!)
+            let enemy = EnemyShip(scene:self)
+            enemy.name = NodeNames.removable
+            enemy.position = CGPoint(x: xPosition, y: self.frame.maxY);
+            self.addChild(enemy)
         }
     }
     

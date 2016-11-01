@@ -48,6 +48,7 @@ struct NodeNames {
     static let highScore = "HSLabel"
     static let endMessage = "endMessageLabel"
     static let callToActionLabel = "callToActionLabel"
+    static let removable = "removable"
 }
 
 struct Assets {

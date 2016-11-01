@@ -14,6 +14,7 @@
 		0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0851D957FB9002E1720 /* ShieldMode.swift */; };
 		0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0871D958010002E1720 /* PropulsiveMode.swift */; };
 		0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0891D95801B002E1720 /* ShooterMode.swift */; };
+		006347751DC8B37E00EE41F0 /* DificultyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006347741DC8B37E00EE41F0 /* DificultyManager.swift */; };
 		0083C7071D8EB1BF00F27958 /* RegularShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7061D8EB1BF00F27958 /* RegularShot.swift */; };
 		0083C7091D8EB3A800F27958 /* TrilaseShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7081D8EB3A800F27958 /* TrilaseShot.swift */; };
 		00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */; };
@@ -58,6 +59,7 @@
 		0054C0851D957FB9002E1720 /* ShieldMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShieldMode.swift; sourceTree = "<group>"; };
 		0054C0871D958010002E1720 /* PropulsiveMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropulsiveMode.swift; sourceTree = "<group>"; };
 		0054C0891D95801B002E1720 /* ShooterMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShooterMode.swift; sourceTree = "<group>"; };
+		006347741DC8B37E00EE41F0 /* DificultyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DificultyManager.swift; sourceTree = "<group>"; };
 		0083C7061D8EB1BF00F27958 /* RegularShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularShot.swift; sourceTree = "<group>"; };
 		0083C7081D8EB3A800F27958 /* TrilaseShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaseShot.swift; sourceTree = "<group>"; };
 		00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMusicManager.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */,
+				006347741DC8B37E00EE41F0 /* DificultyManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */,
+				006347751DC8B37E00EE41F0 /* DificultyManager.swift in Sources */,
 				00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */,
 				0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */,
 				002CDF911DC1477C001AE131 /* SKAction+Extention.swift in Sources */,

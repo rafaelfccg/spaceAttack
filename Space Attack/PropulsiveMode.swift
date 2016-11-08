@@ -14,7 +14,7 @@ class PropulsiveMode: AnyObject, Mode {
     var propulsiveShot:ShotManager
     var isPowerUped:Bool = false
     let powerUpTime:UInt64 = 15
-    let speed:Double = 0.2
+    let speed:Double = 0.5
     let powerUpSpeed:Double = 0.4
     let speedParticle:SKEmitterNode? = SKEmitterNode(fileNamed: "SpeedBoost")
     

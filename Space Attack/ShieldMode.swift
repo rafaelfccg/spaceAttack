@@ -77,6 +77,6 @@ class ShieldMode: AnyObject, Mode {
         }
     }
     func getSpeedBonus() -> Double {
-        return 0
+        return 0.1
     }
 }

@@ -52,7 +52,7 @@ class TrilaserItem: SKSpriteNode, Lauchable, PowerUp {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func lauch() {
+    func lauch(scene: SKScene) {
         self.run(TrilaserItem.action())
         self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -5))
         

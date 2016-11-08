@@ -206,19 +206,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let triLaserItem = TrilaserItem(scene: self)
             triLaserItem.name = NodeNames.removable
             self.addChild(triLaserItem)
-            triLaserItem.lauch();
+            triLaserItem.lauch(scene: self);
         }
         
         if curTime > nextAsteroidSpawn {
-            nextAsteroidSpawn = Double(Utils.random(0.1, max: 0.8)) + curTime
-            let asteroid:Asteroid = Asteroid.init(scene: self)
+            nextAsteroidSpawn = DificultyManager.sharedInstance.getNextAsteroidSpawn()
+            let asteroid:Asteroid = Asteroid.init()
             asteroid.name = NodeNames.removable
             self.addChild(asteroid)
-            asteroid.lauch()
+            asteroid.lauch(scene: self)
         }
         
         if curTime > nextEnemySpawn {
-            nextEnemySpawn = Double(Utils.random(5, max: 10)) + curTime
+            nextEnemySpawn = Double(Utils.random(12, max: 20)) + curTime
             let xPosition = Utils.random(0, max: self.frame.maxX)
             let enemy = EnemyShip(scene:self)
             enemy.name = NodeNames.removable
@@ -247,6 +247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if !gameOver {
             self.multiplier = self.spaceship.getSpeed()
             self.hud?.setMultiplerValue(value: self.multiplier)
+            DificultyManager.sharedInstance.multiplier = CGFloat(self.multiplier)
         }
     }
     

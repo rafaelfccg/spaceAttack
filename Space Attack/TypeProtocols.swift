@@ -11,7 +11,7 @@ import SpriteKit
 
 
 protocol Lauchable {
-    func lauch()
+    func lauch(scene: SKScene)
 }
 
 protocol Explodable {

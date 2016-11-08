@@ -37,14 +37,12 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
     }
     
     
-    init(scene: SKScene) {
+    init() {
         let texture = SKTexture(imageNamed: Assets.rock1)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         self.xScale = Asteroid.scale
         self.yScale = Asteroid.scale
         
-        let posX = CGFloat(Utils.random(0, max: scene.frame.size.width))
-        self.position = CGPoint(x: posX, y: scene.frame.maxY)
         self.isHidden = false
         self.zPosition = 10;
         
@@ -55,18 +53,23 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
         self.physicsBody?.collisionBitMask = PhysicsCategory.spaceship | PhysicsCategory.asteroid
         self.physicsBody?.allowsRotation = false;
         self.physicsBody?.restitution = 0.4
+        self.physicsBody?.friction = 0;
+        self.physicsBody?.linearDamping = 0;
+        self.physicsBody?.angularDamping = 0;
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func lauch(){
-        let speedY = CGFloat(Utils.random(3,max: 9))
-        let speedX = CGFloat(Utils.random(-0.8,max: 0.8))
+    func lauch(scene: SKScene){
+        let posX = CGFloat(Utils.random(0, max: scene.frame.size.width))
+        self.position = CGPoint(x: posX, y: scene.frame.maxY)
+        let speedTuple = DificultyManager.sharedInstance.getAsteroidSpeed()
         self.run(Utils.removeAfter(15))
         self.run(Asteroid.asteroidAnimation, withKey: "asteriodAnima")
-        self.physicsBody?.applyImpulse(CGVector(dx: speedX, dy: -speedY))
+        let horizontalImpulse = self.position.x > scene.frame.midX ? -speedTuple.0 : speedTuple.0
+        self.physicsBody?.applyImpulse(CGVector(dx: horizontalImpulse, dy: -speedTuple.1))
     }
     
     func explode(_ scene:GameScene) {

@@ -173,9 +173,8 @@
 		00C3E3DD1DA673A600A04020 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				493D30DB1D71B4A700FD5293 /* Utils.swift */,
 				493D30C71D6FC6E100FD5293 /* Constants.swift */,
-				002CDF901DC1477C001AE131 /* SKAction+Extention.swift */,
+				493D30DB1D71B4A700FD5293 /* Utils.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -261,6 +260,7 @@
 				49B27F741D75C84700889F2F /* Audios */,
 				00E527391DAD077200648B08 /* Components */,
 				00C3E3DC1DA6739C00A04020 /* Controllers */,
+				49C8BE3E1DD383E400EED543 /* Extensions */,
 				00C3E3DF1DA6741000A04020 /* Managers */,
 				493D30CB1D6FCE0500FD5293 /* Nodes */,
 				493D30CE1D6FCFD000FD5293 /* Scenes */,
@@ -274,8 +274,8 @@
 		493D30C61D6FC06B00FD5293 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				493D309C1D6FC05500FD5293 /* Main.storyboard */,
 				493D30A11D6FC05500FD5293 /* LaunchScreen.storyboard */,
+				493D309C1D6FC05500FD5293 /* Main.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -288,7 +288,6 @@
 				0004C9AD1DA158C600C85C09 /* HUD */,
 				0083C7041D8EB13E00F27958 /* Spaceship */,
 				00D92B131D89683B000F1A8E /* PowerUps */,
-				00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -297,7 +296,6 @@
 			isa = PBXGroup;
 			children = (
 				493D30981D6FC05500FD5293 /* GameScene.swift */,
-				00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -314,6 +312,16 @@
 				49B27F7B1D75C84700889F2F /* weapon_player.wav */,
 			);
 			path = Audios;
+			sourceTree = "<group>";
+		};
+		49C8BE3E1DD383E400EED543 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */,
+				002CDF901DC1477C001AE131 /* SKAction+Extention.swift */,
+				00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

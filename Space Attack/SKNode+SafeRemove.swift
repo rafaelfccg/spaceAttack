@@ -10,7 +10,6 @@ import Foundation
 import SpriteKit
 
 extension SKNode {
-
     func safeRemoveFromParent(){
         self.removeAllActions()
         self.physicsBody?.categoryBitMask = 0;

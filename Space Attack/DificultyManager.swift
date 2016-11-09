@@ -11,34 +11,32 @@ import Darwin
 import SpriteKit
 
 class DificultyManager: AnyObject {
-    
     static let sharedInstance = DificultyManager()
-    static func getInstance() -> DificultyManager {
-        return sharedInstance
-    }
     
-    let Cspeed:CGFloat = 0.99
+    let Cspeed: CGFloat = 0.99
     
     //Asteroid
-    let asteroidLauchMinImpulse:CGFloat = 11
-    let asteroidLauchMaxImpulse:CGFloat = 30
-    let asteroidHorizontalImpulse:CGFloat = 4
-    let asteroidTopImpulse:CGFloat = 12
-    let asteroidMinImpulse:CGFloat = 2
-    
-    let asteroidTimeIntervalMin:CGFloat = 0.1
-    let asteroidTimeIntervalMax:CGFloat = 0.3
-    let maximumAsteroidInterval:CGFloat = 1.3
-    let minimumAsteroidInterval:CGFloat = 0.6
-    
-    var multiplier:CGFloat
+    let asteroidLauchMinImpulse: CGFloat = 11
+    let asteroidLauchMaxImpulse: CGFloat = 30
+    let asteroidHorizontalImpulse: CGFloat = 4
+    let asteroidTopImpulse: CGFloat = 12
+    let asteroidMinImpulse: CGFloat = 2
+    let asteroidTimeIntervalMin: CGFloat = 0.1
+    let asteroidTimeIntervalMax: CGFloat = 0.3
+    let maximumAsteroidInterval: CGFloat = 1.3
+    let minimumAsteroidInterval: CGFloat = 0.6
+    var multiplier: CGFloat
     
     init() {
         multiplier = 1;
     }
     
+    static func getInstance() -> DificultyManager {
+        return sharedInstance
+    }
+    
     func dificultyForMultiplier(multiplier: CGFloat) -> CGFloat {
-        return multiplier/2 + 1.5 * sin(multiplier/3)
+        return multiplier / 2 + 1.5 * sin(multiplier / 3)
     }
     
     func speedForMultiplier(multiplier: CGFloat) -> CGFloat {
@@ -69,6 +67,4 @@ class DificultyManager: AnyObject {
 
         return Double(Utils.random(mini, max: maxi)) + curTime
     }
-    
-    
 }

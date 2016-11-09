@@ -24,6 +24,7 @@ class BackgroundMusicSingleton {
     func playMusic(_ name: String, withFormat format:String) {
         let audioPath = Bundle.main.path(forResource: name, ofType:format)
         let path = URL.init(fileURLWithPath: audioPath!)
+        
         do{
             self.backgroundAudioPlayer = try AVAudioPlayer.init(contentsOf: path)
             self.backgroundAudioPlayer.prepareToPlay()

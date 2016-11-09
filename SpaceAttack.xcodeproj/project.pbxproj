@@ -48,7 +48,6 @@
 		49B27F801D75C84700889F2F /* gameplay_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F791D75C84700889F2F /* gameplay_music.mp3 */; };
 		49B27F811D75C84700889F2F /* weapon_enemy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F7A1D75C84700889F2F /* weapon_enemy.wav */; };
 		49B27F821D75C84700889F2F /* weapon_player.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49B27F7B1D75C84700889F2F /* weapon_player.wav */; };
-		49B27F841D76069300889F2F /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B27F831D76069300889F2F /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,7 +94,6 @@
 		49B27F791D75C84700889F2F /* gameplay_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameplay_music.mp3; sourceTree = "<group>"; };
 		49B27F7A1D75C84700889F2F /* weapon_enemy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_enemy.wav; sourceTree = "<group>"; };
 		49B27F7B1D75C84700889F2F /* weapon_player.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_player.wav; sourceTree = "<group>"; };
-		49B27F831D76069300889F2F /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,14 +218,14 @@
 			name = sks;
 			sourceTree = "<group>";
 		};
-		00E527391DAD077200648B08 /* GameComponents */ = {
+		00E527391DAD077200648B08 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				00E5273A1DAD07AF00648B08 /* MovementPatterns */,
 				00D92B161D8969E5000F1A8E /* Protocols */,
 				0083C7051D8EB14F00F27958 /* Shots */,
 			);
-			name = GameComponents;
+			name = Components;
 			sourceTree = "<group>";
 		};
 		00E5273A1DAD07AF00648B08 /* MovementPatterns */ = {
@@ -261,8 +259,8 @@
 				493D30941D6FC05500FD5293 /* AppDelegate.swift */,
 				493D309F1D6FC05500FD5293 /* Assets.xcassets */,
 				49B27F741D75C84700889F2F /* Audios */,
+				00E527391DAD077200648B08 /* Components */,
 				00C3E3DC1DA6739C00A04020 /* Controllers */,
-				00E527391DAD077200648B08 /* GameComponents */,
 				00C3E3DF1DA6741000A04020 /* Managers */,
 				493D30CB1D6FCE0500FD5293 /* Nodes */,
 				493D30CE1D6FCFD000FD5293 /* Scenes */,
@@ -298,7 +296,6 @@
 		493D30CE1D6FCFD000FD5293 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				49B27F831D76069300889F2F /* GameOverScene.swift */,
 				493D30981D6FC05500FD5293 /* GameScene.swift */,
 				00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */,
 			);
@@ -429,7 +426,6 @@
 				493D30C81D6FC6E100FD5293 /* Constants.swift in Sources */,
 				493D30CD1D6FCE1F00FD5293 /* Asteroid.swift in Sources */,
 				0083C7091D8EB3A800F27958 /* TrilaseShot.swift in Sources */,
-				49B27F841D76069300889F2F /* GameOverScene.swift in Sources */,
 				493D30CA1D6FCE0200FD5293 /* Spaceship.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

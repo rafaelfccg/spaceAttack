@@ -6,7 +6,6 @@
 //  Copyright (c) 2016 Miguel Araújo. All rights reserved.
 //
 
-import AVFoundation
 import SpriteKit
 import Darwin
 
@@ -16,38 +15,37 @@ enum EndReason {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
     var gameOver = Bool()
     var lives = 0
     var score = 0
-    var last_hit:Double = 0
+    var multiplier = 1
+    var lastHit: Double = 0
     var nextAsteroidSpawn = Double()
     var nextEnemySpawn = Double()
     var nextItemSpawn = Double()
     var gameOverTime = Double()
-    var asteroids:[Asteroid] = []
-    var multiplier = 1
-    
-    var spaceship = Spaceship()
-    var hud:HUD? = nil
-    var backgroundMusic = BackgroundMusicSingleton.getInstance()
     var animaAst = SKAction()
     var LabelScore = SKLabelNode()
     var restartLabel = SKLabelNode()
-    var parallaxNodeBackgrounds:Parallax?
+    var hud: HUD? = nil
+    var spaceship = Spaceship()
+    var asteroids: [Asteroid] = []
+    var parallaxNodeBackgrounds: Parallax?
+    var backgroundMusic = BackgroundMusicSingleton.getInstance()
     
-    static func sceneFromFileNamed(_ fileNamed:String!)->GameScene?{
-        let gameScene = GameScene.unarchiveFromFile(fileNamed) as? GameScene;
-        gameScene?.initialize()
-        return gameScene
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
-    func initialize() {
+    required override init(size: CGSize) {
+        super.init(size: size)
+        
         // setup background color
-        self.backgroundColor = SKColor.black
+        backgroundColor = SKColor.black
+        
         // setup physics world
-        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        self.physicsWorld.contactDelegate = self
+        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        physicsWorld.contactDelegate = self
         
         // setup label
         self.LabelScore = SKLabelNode.init(fontNamed: Assets.gameFont)
@@ -67,6 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let randSecs = Double(Utils.random(30, max: 45))
         nextItemSpawn = randSecs + CACurrentMediaTime()
         nextEnemySpawn = 0
+        
         // setup spaceship sprite
         spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
         self.addChild(spaceship)
@@ -76,7 +75,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.hud = HUD(scene: self)
         self.hud?.setUp()
         
-        startTheGame()
+        start()
+    }
+    
+    private func start() {
+        let cur = CACurrentMediaTime()
+        
+        nextAsteroidSpawn = 0
+        lives = 3
+        score = 0
+        gameOverTime = 180 + cur
+        gameOver = false
+        
+        restartLabel.isHidden = false
+        let randSecs = Double(Utils.random(10, max: 40))
+        nextItemSpawn = cur + randSecs
+        nextAsteroidSpawn = cur + 2.5
+        setScore()
+        
+        spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
+        spaceship.restrictMovement(toFrame: self.frame)
+        spaceship.isHidden = false
+        
+        self.hud?.setLives()
+        
+        self.addChild(LabelScore)
     }
     
     func setUpEmmitters() {
@@ -96,14 +119,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if star3Emitter != nil {
             self.addChild(star3Emitter!)
         }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    required override init(size: CGSize) {
-        super.init(size: size)
-        self.initialize()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -135,8 +150,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func restartGame(){
-        
+    func restartGame() {
         self.childNode(withName: NodeNames.callToActionLabel)?.safeRemoveFromParent()
         self.childNode(withName: NodeNames.endMessage)?.safeRemoveFromParent()
         self.childNode(withName: NodeNames.highScore)?.safeRemoveFromParent()
@@ -148,7 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.multiplier = 1
         self.spaceship.speed = 1
         
-        self.startTheGame()
+        self.start()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -171,30 +185,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          emitterNode?.particlePosition = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0);
          emitterNode?.particlePositionRange = CGVector(dx: self.size.width, dy: self.size.height + 150);
          return emitterNode
-    }
-    
-    func startTheGame() {
-        let cur = CACurrentMediaTime()
-        
-        nextAsteroidSpawn = 0
-        lives = 3
-        score = 0
-        gameOverTime = 180 + cur
-        gameOver = false
-        
-        restartLabel.isHidden = false
-        let randSecs = Double(Utils.random(10, max: 40))
-        nextItemSpawn = cur + randSecs
-        nextAsteroidSpawn = cur + 2.5
-        setScore()
-        
-        spaceship.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * 0.2)
-        spaceship.restrictMovement(toFrame: self.frame)
-        spaceship.isHidden = false
-        
-        self.hud?.setLives()
-        
-        self.addChild(LabelScore)
     }
     
     func doLauchables() {
@@ -234,11 +224,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if pointRet.x <= self.frame.minX + ScreenLimits.limitX {
             pointRet = CGPoint(x: self.frame.minX + ScreenLimits.limitX + 1 , y: pointRet.y)
         }
+        
         if pointRet.y >= self.frame.maxY - ScreenLimits.distTOP {
             pointRet = CGPoint(x: pointRet.x, y: self.frame.maxY - ScreenLimits.distTOP - 1)
         } else if pointRet.y <= self.frame.minY + ScreenLimits.limitY {
             pointRet = CGPoint(x: pointRet.x ,y: self.frame.minY + ScreenLimits.limitY + 1)
         }
+        
         return pointRet
         
     }

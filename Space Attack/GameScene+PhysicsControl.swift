@@ -26,8 +26,8 @@ extension GameScene {
         }
                 
         if ((secondBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid) &&
-            (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (self.last_hit + 1.0 < cur)) {
-            self.last_hit = cur
+            (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (self.lastHit + 1.0 < cur)) {
+            self.lastHit = cur
             secondBody.node?.safeRemoveFromParent()
             if self.spaceship.hittedBy(secondBody.node) {            
                 self.childNode(withName: String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
@@ -43,7 +43,7 @@ extension GameScene {
         } else if (((secondBody.categoryBitMask & PhysicsCategory.enemyLaser == PhysicsCategory.enemyLaser) &&
             (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship))) {
             secondBody.node?.safeRemoveFromParent()
-            self.last_hit = cur
+            self.lastHit = cur
             secondBody.node?.safeRemoveFromParent()
             if self.spaceship.hittedBy(secondBody.node) {
                 self.addScore(value: 100)

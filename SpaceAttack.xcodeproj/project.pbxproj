@@ -110,8 +110,8 @@
 		0004C9AD1DA158C600C85C09 /* HUD */ = {
 			isa = PBXGroup;
 			children = (
-				0004C9B11DA3E21A00C85C09 /* ModeButton.swift */,
 				0004C9AE1DA158D700C85C09 /* HUD.swift */,
+				0004C9B11DA3E21A00C85C09 /* ModeButton.swift */,
 			);
 			name = HUD;
 			sourceTree = "<group>";
@@ -283,11 +283,11 @@
 		493D30CB1D6FCE0500FD5293 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				00C3E3DB1DA66BA500A04020 /* Scenario */,
 				00C3E3DA1DA66B9600A04020 /* Enemies */,
 				0004C9AD1DA158C600C85C09 /* HUD */,
-				0083C7041D8EB13E00F27958 /* Spaceship */,
 				00D92B131D89683B000F1A8E /* PowerUps */,
+				00C3E3DB1DA66BA500A04020 /* Scenario */,
+				0083C7041D8EB13E00F27958 /* Spaceship */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";

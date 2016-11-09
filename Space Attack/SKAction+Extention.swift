@@ -9,14 +9,10 @@
 import Foundation
 import SpriteKit
 
-let pi = CGFloat(M_PI)
-
 extension SKAction {
-    
     static func oscillation(amplitude a: CGFloat, timePeriod t: CGFloat, midPoint: CGPoint) -> SKAction {
-        
         let action = SKAction.customAction(withDuration: Double(t)) { node, currentTime in
-            let displacement = a * sin(2 * pi * currentTime / t)
+            let displacement = a * sin(2 * CGFloat(M_PI) * currentTime / t)
             node.position.x = midPoint.x + displacement
         }
         

@@ -29,7 +29,6 @@ extension SKNode {
 }
 
 class GameViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let scene = GameScene.init(size: self.view.frame.size)
@@ -43,11 +42,11 @@ class GameViewController: UIViewController {
         
     }
 
-    override var shouldAutorotate : Bool {
+    override var shouldAutorotate: Bool {
         return true
     }
 
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
         } else {
@@ -55,12 +54,12 @@ class GameViewController: UIViewController {
         }
     }
 
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    
-    func clearScene(){
+    // TODO: unused method. remove later!
+    func clearScene() {
         let skView = self.view as? SKView
         if skView?.scene != nil {
             skView?.scene?.removeAllActions()

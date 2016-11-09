@@ -10,21 +10,18 @@ import Foundation
 import SpriteKit
 
 class SmoothMovement: AnyObject, MovementPattern {
+    var lastRotation: Double = 0
+    let minimumTimeAtDirection: Double = 5
     
-    let frontDirection: CGVector = CGVector(dx: 0, dy: 1)
-    
-    let minimumTimeAtDirection:Double = 5
-    
-    let defaultRotation:CGFloat = CGFloat(M_PI)
-    
+    let defaultRotation: CGFloat = CGFloat(M_PI)
     let speed: CGFloat = 20
     let forceNorm: CGFloat = 30
-    var aimPoint:CGPoint = CGPoint(x:0, y:0)
-    var yDistanceMax:CGFloat = 150
-    var yDistanceMin:CGFloat = 100
+    var yDistanceMax: CGFloat = 150
+    var yDistanceMin: CGFloat = 100
+    var aimPoint: CGPoint = CGPoint(x: 0, y: 0)
     
-    var lastRotation: Double = 0
-    var currDirection:CGVector = CGVector(dx: 0, dy: 1)
+    var currDirection: CGVector = CGVector(dx: 0, dy: 1)
+    let frontDirection: CGVector = CGVector(dx: 0, dy: 1)
     
     init() {}
     
@@ -58,7 +55,7 @@ class SmoothMovement: AnyObject, MovementPattern {
         }
     }
     func reflectAngle(angle:CGFloat) -> CGFloat {
-        return (2*pi - angle)
+        return (2 * CGFloat(M_PI) - angle)
     }
     func applyMovement(node:SKNode){
         let currTime = CACurrentMediaTime()

@@ -10,10 +10,10 @@ import Foundation
 import SpriteKit
 
 class HUD: AnyObject {
-    var shootModeButton:SKShapeNode;
-    var shieldModeButton:SKShapeNode;
-    var propulsorModeButton:SKShapeNode;
-    var multiplierLabel:SKLabelNode;
+    var shootModeButton:SKShapeNode
+    var shieldModeButton:SKShapeNode
+    var propulsorModeButton:SKShapeNode
+    var multiplierLabel:SKLabelNode
     var scene:SKScene
     let butHeight:CGFloat = 0.08
     let uiZPositon:CGFloat = 100
@@ -22,7 +22,7 @@ class HUD: AnyObject {
     
     init(scene:SKScene) {
         self.scene = scene
-        let butWidth = self.scene.size.width/3;
+        let butWidth = self.scene.size.width/3
         let butHeight = self.scene.size.height * self.butHeight
         let sizeBut = CGSize(width: butWidth, height: butHeight)
         shootModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shooter)

@@ -25,7 +25,7 @@ class ShieldMode: AnyObject, Mode {
         self.spaceship = spaceship
         self.shieldNode = SKShapeNode(circleOfRadius: self.spaceship.size.width)
         self.shieldNode.fillColor = SKColor(colorLiteralRed: 0.1, green: 0.15, blue: 0.9, alpha: 0.4)
-        self.shieldNode.zPosition = self.spaceship.zPosition+1;
+        self.shieldNode.zPosition = self.spaceship.zPosition+1
         shieldShot = RegularShot(shotInterval: 0.8)
         shieldShot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
         shieldShot.category = PhysicsCategory.laser

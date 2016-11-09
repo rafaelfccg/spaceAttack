@@ -58,8 +58,8 @@ class Spaceship: SKSpriteNode,Hitable {
     
     func applyMovement(_ direction:CGPoint, reposition:(CGPoint) -> CGPoint){
         let norm = Utils.norm(abs(direction.x - self.position.x), y: abs(direction.y - self.position.y))
-        let time = 0.05 +  0.05*(Double(norm)/Double(max(size.height,size.width)));
-        let pointFinal =  reposition(CGPoint(x: direction.x, y: direction.y + self.frame.size.width/2));
+        let time = 0.05 +  0.05*(Double(norm)/Double(max(size.height,size.width)))
+        let pointFinal =  reposition(CGPoint(x: direction.x, y: direction.y + self.frame.size.width/2))
         self.run(SKAction.move(to: pointFinal, duration: time))
     }
     
@@ -74,7 +74,7 @@ class Spaceship: SKSpriteNode,Hitable {
     func setMode(mode:ShipModes) -> Bool?{
         let deactivated = self.modeMap[self.mode]?.deactivate()
         if deactivated! {
-            self.mode = mode;
+            self.mode = mode
             self.modeMap[mode]?.activate()
         }
         return deactivated

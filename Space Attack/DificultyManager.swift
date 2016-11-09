@@ -28,7 +28,7 @@ class DificultyManager: AnyObject {
     var multiplier: CGFloat
     
     init() {
-        multiplier = 1;
+        multiplier = 1
     }
     
     static func getInstance() -> DificultyManager {
@@ -40,15 +40,15 @@ class DificultyManager: AnyObject {
     }
     
     func speedForMultiplier(multiplier: CGFloat) -> CGFloat {
-        return (1 - pow(Cspeed, multiplier));
+        return (1 - pow(Cspeed, multiplier))
     }
     
     func intervalForMultiplier(multiplier: CGFloat) -> CGFloat {
-        return pow(Cspeed, multiplier);
+        return pow(Cspeed, multiplier)
     }
     
     func getAsteroidSpeed() -> (CGFloat,CGFloat) {
-        let speedFactor = self.speedForMultiplier(multiplier: self.multiplier);
+        let speedFactor = self.speedForMultiplier(multiplier: self.multiplier)
         let topImpulse = min(Utils.random(asteroidLauchMinImpulse, max: asteroidLauchMaxImpulse) * speedFactor, self.asteroidTopImpulse)
         let impulse = max(topImpulse, asteroidMinImpulse)
         return (Utils.random(0, max: asteroidHorizontalImpulse) * speedFactor, impulse)

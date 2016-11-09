@@ -32,7 +32,7 @@ class TrilaserShot: AnyObject, ShotManager {
             for shipLaser in shots {
                 shipLaser.name = "laserShip"
                 shipLaser.position = shotPosition
-                shipLaser.zPosition = node.zPosition - 1;
+                shipLaser.zPosition = node.zPosition - 1
                 shipLaser.isHidden = false
                 shipLaser.removeAllActions()
                 shipLaser.xScale = BodyScales.laserScale

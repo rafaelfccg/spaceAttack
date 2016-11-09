@@ -18,7 +18,7 @@ class RegularShot: AnyObject, ShotManager {
     var target: UInt32 = 0
     var category: UInt32 = 0
     
-    var count = 0;
+    var count = 0
     
     init() {}
     init(shotInterval:Double) {
@@ -35,7 +35,7 @@ class RegularShot: AnyObject, ShotManager {
             shipLaser.position = shotPosition
             shipLaser.isHidden = false
             shipLaser.removeAllActions()
-            shipLaser.zPosition = node.zPosition - 1;
+            shipLaser.zPosition = node.zPosition - 1
             shipLaser.xScale = BodyScales.laserScale
             shipLaser.yScale = BodyScales.laserScale
             shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)

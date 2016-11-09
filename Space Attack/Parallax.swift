@@ -25,7 +25,7 @@ class Parallax: SKNode {
         self.frameSize = frameSize
         super.init()
         for i in 0...(imageRepetitions-1) {
-            let node = SKSpriteNode(imageNamed: withFile);
+            let node = SKSpriteNode(imageNamed: withFile)
             node.size = size
             node.anchorPoint = CGPoint.zero
             node.position = CGPoint(x: 0, y: size.height*CGFloat(i))
@@ -49,7 +49,7 @@ class Parallax: SKNode {
 
         let movement = CGPoint(x: 0, y: -self.parallaxSpeed * CGFloat(self.deltaTime))
         self.position = CGPoint(x: self.position.x + movement.x, y: self.position.y+movement.y)
-        let backgroundScreen = self.parent;
+        let backgroundScreen = self.parent
         for backgroundNode in self.backgrounds{
             let screenPos = self.convert(backgroundNode.position, to: backgroundScreen!)
             if screenPos.y <= -backgroundNode.size.height {

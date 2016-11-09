@@ -35,7 +35,7 @@ class IrregularCircularShot: AnyObject, ShotManager {
         }
         
         if (curTime > nextLaserSpawn && self.category > 0) {
-            self.shotsUntilReload -= 1;
+            self.shotsUntilReload -= 1
             self.shotInterval = Double(Utils.random(IrregularCircularShot.shotIntervalMin, max: IrregularCircularShot.shotIntervalMax))
             nextLaserSpawn = curTime + shotInterval
             let sceneNode = Utils.getRootNode(node: node)
@@ -47,7 +47,7 @@ class IrregularCircularShot: AnyObject, ShotManager {
             
             shipLaser.position = shotPosition
             shipLaser.removeAllActions()
-            shipLaser.zPosition = node.zPosition - 1;
+            shipLaser.zPosition = node.zPosition - 1
             shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
             shipLaser.physicsBody?.categoryBitMask = self.category
             shipLaser.physicsBody?.contactTestBitMask = self.target

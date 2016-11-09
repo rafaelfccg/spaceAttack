@@ -44,18 +44,18 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
         self.yScale = Asteroid.scale
         
         self.isHidden = false
-        self.zPosition = 10;
+        self.zPosition = 10
         
         // setup physics
         self.physicsBody = SKPhysicsBody.init(circleOfRadius: self.frame.size.width/4)
         self.physicsBody?.categoryBitMask = PhysicsCategory.asteroid
         self.physicsBody?.contactTestBitMask = PhysicsCategory.spaceship | PhysicsCategory.laser
         self.physicsBody?.collisionBitMask = PhysicsCategory.spaceship | PhysicsCategory.asteroid
-        self.physicsBody?.allowsRotation = false;
+        self.physicsBody?.allowsRotation = false
         self.physicsBody?.restitution = 0.4
-        self.physicsBody?.friction = 0;
-        self.physicsBody?.linearDamping = 0;
-        self.physicsBody?.angularDamping = 0;
+        self.physicsBody?.friction = 0
+        self.physicsBody?.linearDamping = 0
+        self.physicsBody?.angularDamping = 0
     }
 
     required init?(coder aDecoder: NSCoder) {

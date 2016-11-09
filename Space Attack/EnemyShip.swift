@@ -22,7 +22,7 @@ class EnemyShip: SKSpriteNode, Hitable {
         shoot.category = PhysicsCategory.enemyLaser
         movementController = SmoothMovement()
         hp = Int(round(Utils.random(3, max: 5)))
-        super.init(texture:texture, color:UIColor.clear , size:texture.size());
+        super.init(texture:texture, color:UIColor.clear , size:texture.size())
         self.physicsBody = SKPhysicsBody(circleOfRadius: texture.size().width/2)
         self.physicsBody?.categoryBitMask = PhysicsCategory.enemy
         self.physicsBody?.contactTestBitMask = PhysicsCategory.laser
@@ -59,7 +59,7 @@ class EnemyShip: SKSpriteNode, Hitable {
             if !rootNode.intersects(self) {
                 self.safeRemoveFromParent()
             }
-        });
+        })
         let actionInterval = SKAction.wait(forDuration: 0.1)
         self.run(SKAction.repeatForever(SKAction.sequence([actions,actionInterval])))
         
@@ -73,6 +73,6 @@ class EnemyShip: SKSpriteNode, Hitable {
         if hp <= 0 {
             self.safeRemoveFromParent()
         }
-        return true;
+        return true
     }
 }

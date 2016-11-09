@@ -204,7 +204,7 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
-		00D92B261D897525000F1A8E /* sks */ = {
+		00D92B261D897525000F1A8E /* Sks */ = {
 			isa = PBXGroup;
 			children = (
 				00D92B1E1D897509000F1A8E /* explosion.sks */,
@@ -214,7 +214,7 @@
 				00D92B221D897521000F1A8E /* stars2.sks */,
 				00D92B201D897521000F1A8E /* stars3.sks */,
 			);
-			name = sks;
+			name = Sks;
 			sourceTree = "<group>";
 		};
 		00E527391DAD077200648B08 /* Components */ = {
@@ -264,7 +264,7 @@
 				00C3E3DF1DA6741000A04020 /* Managers */,
 				493D30CB1D6FCE0500FD5293 /* Nodes */,
 				493D30CE1D6FCFD000FD5293 /* Scenes */,
-				00D92B261D897525000F1A8E /* sks */,
+				00D92B261D897525000F1A8E /* Sks */,
 				493D30C61D6FC06B00FD5293 /* Storyboards */,
 				00C3E3DD1DA673A600A04020 /* Utils */,
 			);
@@ -356,7 +356,6 @@
 				TargetAttributes = {
 					493D30901D6FC05500FD5293 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 46HQV8ZA5C;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -553,9 +552,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Space Attack/Info.plist";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "br.ufpe.cin.Space-Attack";
 				PRODUCT_NAME = SpaceAttack;
@@ -568,9 +568,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Space Attack/Info.plist";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "br.ufpe.cin.Space-Attack";
 				PRODUCT_NAME = SpaceAttack;

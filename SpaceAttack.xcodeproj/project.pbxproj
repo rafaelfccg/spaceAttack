@@ -121,8 +121,8 @@
 		0054C0841D957F99002E1720 /* Modes */ = {
 			isa = PBXGroup;
 			children = (
-				0054C0851D957FB9002E1720 /* ShieldMode.swift */,
 				0054C0871D958010002E1720 /* PropulsiveMode.swift */,
+				0054C0851D957FB9002E1720 /* ShieldMode.swift */,
 				0054C0891D95801B002E1720 /* ShooterMode.swift */,
 			);
 			name = Modes;
@@ -140,9 +140,9 @@
 		0083C7051D8EB14F00F27958 /* Shots */ = {
 			isa = PBXGroup;
 			children = (
+				00E089051DBB8925000A9A1F /* IrregularCircularShot.swift */,
 				0083C7061D8EB1BF00F27958 /* RegularShot.swift */,
 				0083C7081D8EB3A800F27958 /* TrilaseShot.swift */,
-				00E089051DBB8925000A9A1F /* IrregularCircularShot.swift */,
 			);
 			name = Shots;
 			sourceTree = "<group>";
@@ -210,12 +210,12 @@
 		00D92B261D897525000F1A8E /* sks */ = {
 			isa = PBXGroup;
 			children = (
-				493D30961D6FC05500FD5293 /* GameScene.sks */,
 				00D92B1E1D897509000F1A8E /* explosion.sks */,
+				493D30961D6FC05500FD5293 /* GameScene.sks */,
+				002CDF921DC24456001AE131 /* SpeedBoost.sks */,
 				00D92B211D897521000F1A8E /* stars1.sks */,
 				00D92B221D897521000F1A8E /* stars2.sks */,
 				00D92B201D897521000F1A8E /* stars3.sks */,
-				002CDF921DC24456001AE131 /* SpeedBoost.sks */,
 			);
 			name = sks;
 			sourceTree = "<group>";
@@ -257,18 +257,18 @@
 		493D30931D6FC05500FD5293 /* Space Attack */ = {
 			isa = PBXGroup;
 			children = (
-				00E527391DAD077200648B08 /* GameComponents */,
 				493D30A41D6FC05500FD5293 /* Info.plist */,
 				493D30941D6FC05500FD5293 /* AppDelegate.swift */,
 				493D309F1D6FC05500FD5293 /* Assets.xcassets */,
-				00C3E3DF1DA6741000A04020 /* Managers */,
-				00C3E3DD1DA673A600A04020 /* Utils */,
-				00C3E3DC1DA6739C00A04020 /* Controllers */,
-				00D92B261D897525000F1A8E /* sks */,
 				49B27F741D75C84700889F2F /* Audios */,
+				00C3E3DC1DA6739C00A04020 /* Controllers */,
+				00E527391DAD077200648B08 /* GameComponents */,
+				00C3E3DF1DA6741000A04020 /* Managers */,
 				493D30CB1D6FCE0500FD5293 /* Nodes */,
 				493D30CE1D6FCFD000FD5293 /* Scenes */,
+				00D92B261D897525000F1A8E /* sks */,
 				493D30C61D6FC06B00FD5293 /* Storyboards */,
+				00C3E3DD1DA673A600A04020 /* Utils */,
 			);
 			path = "Space Attack";
 			sourceTree = "<group>";
@@ -298,8 +298,8 @@
 		493D30CE1D6FCFD000FD5293 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				493D30981D6FC05500FD5293 /* GameScene.swift */,
 				49B27F831D76069300889F2F /* GameOverScene.swift */,
+				493D30981D6FC05500FD5293 /* GameScene.swift */,
 				00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */,
 			);
 			name = Scenes;
@@ -308,11 +308,11 @@
 		49B27F741D75C84700889F2F /* Audios */ = {
 			isa = PBXGroup;
 			children = (
+				49B27F791D75C84700889F2F /* gameplay_music.mp3 */,
 				49B27F751D75C84700889F2F /* background_music.wav */,
 				49B27F761D75C84700889F2F /* explosion_asteroid.wav */,
 				49B27F771D75C84700889F2F /* explosion_enemy.wav */,
 				49B27F781D75C84700889F2F /* explosion_player.wav */,
-				49B27F791D75C84700889F2F /* gameplay_music.mp3 */,
 				49B27F7A1D75C84700889F2F /* weapon_enemy.wav */,
 				49B27F7B1D75C84700889F2F /* weapon_player.wav */,
 			);

@@ -11,10 +11,10 @@ import SpriteKit
 
 open class Utils {
     static func random(_ min: CGFloat, max: CGFloat) -> CGFloat {
-        return  CGFloat(arc4random())/CGFloat(UINT32_MAX)*(max - min) + min;
+        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * (max - min) + min
     }
     
-    static func removeAfter(_ time:TimeInterval) -> SKAction {
+    static func removeAfter(_ time: TimeInterval) -> SKAction {
         return SKAction.sequence([SKAction.wait(forDuration: time), SKAction.removeFromParent()])
     }
     
@@ -22,26 +22,18 @@ open class Utils {
         return sqrt(x * x + y * y)
     }
     
-    static func getRootNode(node:SKNode)->SKNode{
+    static func getRootNode(node: SKNode) -> SKNode {
         var sceneNode = node
         while let parent = sceneNode.parent {
             sceneNode = parent
         }
+        
         return sceneNode
     }
-    static func countCharsForNumber(number:Int) -> Int{
-        var aux = number
-        var count = 1
-        while aux > 9 {
-            aux /= 10
-            count += 1
-        }
-        return count
-    }
     
-    static func rotateVector(vector:CGVector, byAngle angle:CGFloat) -> CGVector{
+    static func rotateVector(vector: CGVector, byAngle angle: CGFloat) -> CGVector {
         let x = CGFloat(vector.dx * cos(angle) - vector.dy * sin(angle))
         let y = CGFloat(vector.dy * cos(angle) + vector.dx * sin(angle))
-        return CGVector(dx:x,dy:y)
+        return CGVector(dx: x, dy: y)
     }
 }

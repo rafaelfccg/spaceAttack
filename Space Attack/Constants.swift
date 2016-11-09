@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 struct BodyScales {
-    static let laserScale:CGFloat = 0.8
+    static let laserScale: CGFloat = 0.8
 }
 
 struct PhysicsCategory {
@@ -23,9 +23,9 @@ struct PhysicsCategory {
 }
 
 struct ScreenLimits {
-    static let limitX:CGFloat = (15)
-    static let limitY:CGFloat = (10)
-    static let distTOP:CGFloat = (100)
+    static let limitX: CGFloat = (15)
+    static let limitY: CGFloat = (10)
+    static let distTOP: CGFloat = (100)
 }
 
 struct Resources {

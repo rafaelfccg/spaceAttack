@@ -310,7 +310,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setScore() {
-        let count = Utils.countCharsForNumber(number: score)
+        // count chars for number
+        let count = String(score).characters.count
+        
         let first = self.frame.maxX * 0.9 - CGFloat(count * 9)
         let second = self.frame.maxY * 0.95
         LabelScore.position = CGPoint(x: first, y: second);

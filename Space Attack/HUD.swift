@@ -49,7 +49,9 @@ class HUD: AnyObject {
     
     func setMultiplerValue(value:Int) {
         self.multiplierLabel.text = String(format:"x%d", value)
-        let count = Utils.countCharsForNumber(number: value)
+        
+        // count chars for value
+        let count = String(value).characters.count
         let currPos = self.multiplierLabel.position
         let x = scene.frame.midX - CGFloat(count/2 * charFont32Size)
         self.multiplierLabel.position = CGPoint(x: x, y: currPos.y)

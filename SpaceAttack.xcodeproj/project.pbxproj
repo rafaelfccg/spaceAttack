@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9AE1DA158D700C85C09 /* HUD.swift */; };
 		0004C9B21DA3E21A00C85C09 /* ModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0004C9B11DA3E21A00C85C09 /* ModeButton.swift */; };
-		002CDF911DC1477C001AE131 /* SKAction+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002CDF901DC1477C001AE131 /* SKAction+Extention.swift */; };
+		002CDF911DC1477C001AE131 /* SKAction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002CDF901DC1477C001AE131 /* SKAction+Extension.swift */; };
 		002CDF941DC24456001AE131 /* SpeedBoost.sks in Resources */ = {isa = PBXBuildFile; fileRef = 002CDF921DC24456001AE131 /* SpeedBoost.sks */; };
 		0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0851D957FB9002E1720 /* ShieldMode.swift */; };
 		0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054C0871D958010002E1720 /* PropulsiveMode.swift */; };
@@ -19,7 +19,7 @@
 		0083C7091D8EB3A800F27958 /* TrilaseShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0083C7081D8EB3A800F27958 /* TrilaseShot.swift */; };
 		00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */; };
 		00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B141D896869000F1A8E /* TrilaserItem.swift */; };
-		00D92B191D896A02000F1A8E /* TypeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B181D896A02000F1A8E /* TypeProtocols.swift */; };
+		00D92B191D896A02000F1A8E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B181D896A02000F1A8E /* Coordinator.swift */; };
 		00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */; };
 		00D92B1D1D897428000F1A8E /* SKNode+SafeRemove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */; };
 		00D92B1F1D897509000F1A8E /* explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00D92B1E1D897509000F1A8E /* explosion.sks */; };
@@ -53,7 +53,7 @@
 /* Begin PBXFileReference section */
 		0004C9AE1DA158D700C85C09 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		0004C9B11DA3E21A00C85C09 /* ModeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeButton.swift; sourceTree = "<group>"; };
-		002CDF901DC1477C001AE131 /* SKAction+Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKAction+Extention.swift"; sourceTree = "<group>"; };
+		002CDF901DC1477C001AE131 /* SKAction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKAction+Extension.swift"; sourceTree = "<group>"; };
 		002CDF921DC24456001AE131 /* SpeedBoost.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SpeedBoost.sks; sourceTree = "<group>"; };
 		0054C0851D957FB9002E1720 /* ShieldMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShieldMode.swift; sourceTree = "<group>"; };
 		0054C0871D958010002E1720 /* PropulsiveMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropulsiveMode.swift; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		0083C7081D8EB3A800F27958 /* TrilaseShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaseShot.swift; sourceTree = "<group>"; };
 		00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMusicManager.swift; sourceTree = "<group>"; };
 		00D92B141D896869000F1A8E /* TrilaserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaserItem.swift; sourceTree = "<group>"; };
-		00D92B181D896A02000F1A8E /* TypeProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeProtocols.swift; sourceTree = "<group>"; };
+		00D92B181D896A02000F1A8E /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameScene+PhysicsControl.swift"; sourceTree = "<group>"; };
 		00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKNode+SafeRemove.swift"; sourceTree = "<group>"; };
 		00D92B1E1D897509000F1A8E /* explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explosion.sks; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		00D92B161D8969E5000F1A8E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				00D92B181D896A02000F1A8E /* TypeProtocols.swift */,
+				00D92B181D896A02000F1A8E /* Coordinator.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -221,7 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				00E5273A1DAD07AF00648B08 /* MovementPatterns */,
-				00D92B161D8969E5000F1A8E /* Protocols */,
 				0083C7051D8EB14F00F27958 /* Shots */,
 			);
 			name = Components;
@@ -263,6 +262,7 @@
 				49C8BE3E1DD383E400EED543 /* Extensions */,
 				00C3E3DF1DA6741000A04020 /* Managers */,
 				493D30CB1D6FCE0500FD5293 /* Nodes */,
+				00D92B161D8969E5000F1A8E /* Protocols */,
 				493D30CE1D6FCFD000FD5293 /* Scenes */,
 				00D92B261D897525000F1A8E /* Sks */,
 				493D30C61D6FC06B00FD5293 /* Storyboards */,
@@ -318,7 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */,
-				002CDF901DC1477C001AE131 /* SKAction+Extention.swift */,
+				002CDF901DC1477C001AE131 /* SKAction+Extension.swift */,
 				00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */,
 			);
 			name = Extensions;
@@ -413,7 +413,7 @@
 				006347751DC8B37E00EE41F0 /* DificultyManager.swift in Sources */,
 				00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */,
 				0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */,
-				002CDF911DC1477C001AE131 /* SKAction+Extention.swift in Sources */,
+				002CDF911DC1477C001AE131 /* SKAction+Extension.swift in Sources */,
 				00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */,
 				00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */,
 				0054C0881D958010002E1720 /* PropulsiveMode.swift in Sources */,
@@ -429,7 +429,7 @@
 				493D309B1D6FC05500FD5293 /* GameViewController.swift in Sources */,
 				0054C0861D957FB9002E1720 /* ShieldMode.swift in Sources */,
 				493D30951D6FC05500FD5293 /* AppDelegate.swift in Sources */,
-				00D92B191D896A02000F1A8E /* TypeProtocols.swift in Sources */,
+				00D92B191D896A02000F1A8E /* Coordinator.swift in Sources */,
 				493D30C81D6FC6E100FD5293 /* Constants.swift in Sources */,
 				493D30CD1D6FCE1F00FD5293 /* Asteroid.swift in Sources */,
 				0083C7091D8EB3A800F27958 /* TrilaseShot.swift in Sources */,

@@ -1,12 +1,11 @@
 //
-//  Lauchable.swift
+//  Coordinator.swift
 //  SpaceAttack
 //
 //  Created by Rafael Gouveia on 9/14/16.
 //  Copyright © 2016 Miguel Araújo. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 
 protocol Lauchable {
@@ -14,16 +13,15 @@ protocol Lauchable {
 }
 
 protocol Explodable {
-    func explode(_ scene:GameScene)
+    func explode(_ scene: GameScene)
 }
 
 protocol Hitable {
-    func hittedBy(_ node: SKNode?)->Bool
+    func hittedBy(_ node: SKNode?) -> Bool
 }
 
 protocol Mode {
     var spaceship:Spaceship { get }
-    
     func shoot()
     func hit() -> Bool
     func powerUp()
@@ -33,16 +31,16 @@ protocol Mode {
 }
 
 protocol ShotManager {
-    var nextLaserSpawn: Double {get}
-    var shotInterval: Double {get}
-    var shootDirection: CGVector{get set}
-    var target: UInt32 {get set}
-    var category: UInt32 {get set}
+    var nextLaserSpawn: Double { get }
+    var shotInterval: Double { get }
+    var shootDirection: CGVector{ get set }
+    var target: UInt32 { get set }
+    var category: UInt32 { get set }
     func shot(_ node: SKNode)
 }
 
 protocol MovementPattern {
-    var currDirection: CGVector {get}
+    var currDirection: CGVector { get }
     func applyMovement(node: SKNode)
 }
 

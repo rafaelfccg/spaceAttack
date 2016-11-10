@@ -13,9 +13,9 @@ import SpriteKit
 class DificultyManager: AnyObject {
     static let sharedInstance = DificultyManager()
     
-    let Cspeed: CGFloat = 0.99
     
-    //Asteroid
+    // Asteroid
+    let cSpeed: CGFloat = 0.99
     let asteroidLauchMinImpulse: CGFloat = 11
     let asteroidLauchMaxImpulse: CGFloat = 30
     let asteroidHorizontalImpulse: CGFloat = 4
@@ -40,26 +40,26 @@ class DificultyManager: AnyObject {
     }
     
     func speedForMultiplier(multiplier: CGFloat) -> CGFloat {
-        return (1 - pow(Cspeed, multiplier))
+        return (1 - pow(cSpeed, multiplier))
     }
     
     func intervalForMultiplier(multiplier: CGFloat) -> CGFloat {
-        return pow(Cspeed, multiplier)
+        return pow(cSpeed, multiplier)
     }
     
-    func getAsteroidSpeed() -> (CGFloat,CGFloat) {
-        let speedFactor = self.speedForMultiplier(multiplier: self.multiplier)
-        let topImpulse = min(Utils.random(asteroidLauchMinImpulse, max: asteroidLauchMaxImpulse) * speedFactor, self.asteroidTopImpulse)
+    func getAsteroidSpeed() -> (CGFloat, CGFloat) {
+        let speedFactor = speedForMultiplier(multiplier: multiplier)
+        let topImpulse = min(Utils.random(asteroidLauchMinImpulse, max: asteroidLauchMaxImpulse) * speedFactor, asteroidTopImpulse)
         let impulse = max(topImpulse, asteroidMinImpulse)
         return (Utils.random(0, max: asteroidHorizontalImpulse) * speedFactor, impulse)
     }
     
     func getNextAsteroidSpawn() -> Double {
         let curTime = CACurrentMediaTime()
-        var speedFactor = intervalForMultiplier(multiplier: self.multiplier)
+        var speedFactor = intervalForMultiplier(multiplier: multiplier)
         speedFactor *= speedFactor
-        let maxi = self.maximumAsteroidInterval * speedFactor + self.asteroidTimeIntervalMax
-        var mini = self.minimumAsteroidInterval * speedFactor + self.asteroidTimeIntervalMin
+        let maxi = maximumAsteroidInterval * speedFactor + asteroidTimeIntervalMax
+        var mini = minimumAsteroidInterval * speedFactor + asteroidTimeIntervalMin
         
         if maxi - mini < 0.8 {
             mini = maxi - 0.8

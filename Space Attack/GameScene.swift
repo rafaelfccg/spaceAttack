@@ -72,9 +72,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // setup stars
         setUpEmmitters()
-        hud = HUD(scene: self)
-        hud?.setup()
         
+        hud = HUD(scene: self)
+    
         start()
     }
     
@@ -178,7 +178,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func loadEmitterNode(_ emitterFileName: String) -> SKEmitterNode? {
         let emitterPath = Bundle.main.path(forResource: emitterFileName, ofType: "sks")
-        let emitterNode:SKEmitterNode? = NSKeyedUnarchiver.unarchiveObject(withFile: emitterPath!) as? SKEmitterNode
+        let emitterNode: SKEmitterNode? = NSKeyedUnarchiver.unarchiveObject(withFile: emitterPath!) as? SKEmitterNode
         emitterNode?.particlePosition = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
         emitterNode?.particlePositionRange = CGVector(dx: size.width, dy: size.height + 150)
         return emitterNode

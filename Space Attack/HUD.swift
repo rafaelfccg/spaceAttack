@@ -8,6 +8,11 @@
 
 import SpriteKit
 
+/*
+ HUD (head-up display) or Status Bar is the method by which information is 
+ visually relayed to the player as part of a game's user interface.
+ */
+
 class HUD: AnyObject {
     let charFont32Size = 9
     let butHeight: CGFloat = 0.08
@@ -17,7 +22,8 @@ class HUD: AnyObject {
     var shootModeButton: SKShapeNode
     var shieldModeButton: SKShapeNode
     var propulsorModeButton: SKShapeNode
-    var multiplierLabel: SKLabelNode
+    var multiplierLabel = SKLabelNode()
+    var labelScore = SKLabelNode()
     var scene: SKScene
     
     init(scene: SKScene) {
@@ -30,16 +36,14 @@ class HUD: AnyObject {
         shieldModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shield)
         propulsorModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.propulsor)
         multiplierLabel = SKLabelNode(fontNamed: Assets.gameFont)
+        
+        setModeButtons()
+        setLives()
+        setMultiplierNode()
     }
     
     func checkHUDTouch() -> Bool {
         return false
-    }
-    
-    func setup() {
-        setModeButtons()
-        setLives()
-        setMultiplierNode()
     }
     
     func setMultiplierNode() {

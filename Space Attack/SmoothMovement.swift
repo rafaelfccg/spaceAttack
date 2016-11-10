@@ -6,7 +6,6 @@
 //  Copyright © 2016 Miguel Araújo. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 
 class SmoothMovement: AnyObject {

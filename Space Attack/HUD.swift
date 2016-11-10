@@ -6,32 +6,37 @@
 //  Copyright © 2016 Miguel Araújo. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 
 class HUD: AnyObject {
-    var shootModeButton:SKShapeNode
-    var shieldModeButton:SKShapeNode
-    var propulsorModeButton:SKShapeNode
-    var multiplierLabel:SKLabelNode
-    var scene:SKScene
-    let butHeight:CGFloat = 0.08
-    let uiZPositon:CGFloat = 100
-    let topPosition:CGFloat = 0.95
     let charFont32Size = 9
+    let butHeight: CGFloat = 0.08
+    let uiZPositon: CGFloat = 100
+    let topPosition: CGFloat = 0.95
     
-    init(scene:SKScene) {
+    var shootModeButton: SKShapeNode
+    var shieldModeButton: SKShapeNode
+    var propulsorModeButton: SKShapeNode
+    var multiplierLabel: SKLabelNode
+    var scene: SKScene
+    
+    init(scene: SKScene) {
         self.scene = scene
-        let butWidth = self.scene.size.width/3
+        let butWidth = self.scene.size.width / 3
         let butHeight = self.scene.size.height * self.butHeight
         let sizeBut = CGSize(width: butWidth, height: butHeight)
+        
         shootModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shooter)
         shieldModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shield)
         propulsorModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.propulsor)
         multiplierLabel = SKLabelNode(fontNamed: Assets.gameFont)
     }
     
-    func setUp() {
+    func checkHUDTouch() -> Bool {
+        return false
+    }
+    
+    func setup() {
         setModeButtons()
         setLives()
         setMultiplierNode()
@@ -83,6 +88,7 @@ class HUD: AnyObject {
             SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed),
             SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed)
         ]
+        
         var count = 0
         let x = scene.frame.minX
         let y = scene.frame.maxY
@@ -97,9 +103,5 @@ class HUD: AnyObject {
             scene.addChild(i)
             count += 1
         }
-    }
-    
-    func checkHUDTouch() -> Bool {
-        return false
     }
 }

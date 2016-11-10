@@ -73,7 +73,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // setup stars
         setUpEmmitters()
         hud = HUD(scene: self)
-        hud?.setUp()
+        hud?.setup()
         
         start()
     }

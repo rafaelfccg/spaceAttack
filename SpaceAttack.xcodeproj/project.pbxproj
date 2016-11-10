@@ -129,8 +129,8 @@
 		0083C7041D8EB13E00F27958 /* Spaceship */ = {
 			isa = PBXGroup;
 			children = (
-				0054C0841D957F99002E1720 /* Modes */,
 				493D30C91D6FCE0200FD5293 /* Spaceship.swift */,
+				0054C0841D957F99002E1720 /* Modes */,
 			);
 			name = Spaceship;
 			sourceTree = "<group>";

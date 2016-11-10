@@ -9,6 +9,31 @@
 import UIKit
 import SpriteKit
 
+class GameViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let scene = GameScene.init(size: view.frame.size)
+        let skView = view as! SKView
+        skView.showsPhysics = true
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.ignoresSiblingOrder = true
+        scene.scaleMode = .aspectFill
+        skView.presentScene(scene)
+        
+    }
+    
+    // TODO: unused method. remove later!
+    func clearScene() {
+        let skView = self.view as? SKView
+        if skView?.scene != nil {
+            skView?.scene?.removeAllActions()
+            skView?.scene?.removeAllChildren()
+            skView?.presentScene(nil)
+        }
+    }
+}
+
 extension SKNode {
     class func unarchiveFromFile(_ file: String) -> SKNode? {
         let path = Bundle.main.path(forResource: file, ofType: "sks")
@@ -25,46 +50,5 @@ extension SKNode {
         let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! GameScene
         archiver.finishDecoding()
         return scene
-    }
-}
-
-class GameViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let scene = GameScene.init(size: self.view.frame.size)
-        let skView = self.view as! SKView
-        skView.showsPhysics = true
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.ignoresSiblingOrder = true
-        scene.scaleMode = .aspectFill
-        skView.presentScene(scene)
-        
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
-    }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-    
-    // TODO: unused method. remove later!
-    func clearScene() {
-        let skView = self.view as? SKView
-        if skView?.scene != nil {
-            skView?.scene?.removeAllActions()
-            skView?.scene?.removeAllChildren()
-            skView?.presentScene(nil)
-        }
     }
 }

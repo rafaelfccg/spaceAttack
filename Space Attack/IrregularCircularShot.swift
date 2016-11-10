@@ -9,28 +9,27 @@
 import Foundation
 import SpriteKit
 
-class IrregularCircularShot: AnyObject, ShotManager {
+class IrregularCircularShot: AnyObject {
     static let shotIntervalMax: CGFloat = 0.3
     static let shotIntervalMin: CGFloat = 0.7
     
     var shotsUntilReload = 10
     var target: UInt32 = 0
     var category: UInt32 = 0
-    
     var nextLaserSpawn: Double = 0.0
     var shotInterval: Double = 0.5
-    
     var maximumRotation: CGFloat = CGFloat(M_PI) / 6
     var impulseNorm: CGFloat = 3
-    
     var shootDirection:CGVector = CGVector(dx: 0, dy: 1)
     
     init() {}
-    
+}
+
+extension IrregularCircularShot: ShotManager {
     func shot(_ node: SKNode) {
         let curTime = CACurrentMediaTime()
-        if self.shotsUntilReload <= 0 {
-            self.shotsUntilReload = 10
+        if shotsUntilReload <= 0 {
+            shotsUntilReload = 10
             nextLaserSpawn = curTime + 3
         }
         
@@ -48,6 +47,8 @@ class IrregularCircularShot: AnyObject, ShotManager {
             shipLaser.position = shotPosition
             shipLaser.removeAllActions()
             shipLaser.zPosition = node.zPosition - 1
+            
+            // setup physics body
             shipLaser.physicsBody = SKPhysicsBody.init(texture: shipLaser.texture!, size: (shipLaser.texture?.size())!)
             shipLaser.physicsBody?.categoryBitMask = self.category
             shipLaser.physicsBody?.contactTestBitMask = self.target

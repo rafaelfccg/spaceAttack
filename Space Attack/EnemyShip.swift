@@ -6,10 +6,9 @@
 //  Copyright © 2016 Miguel Araújo. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 
-class EnemyShip: SKSpriteNode, Hitable {
+class EnemyShip: SKSpriteNode {
     var shoot:ShotManager
     var movementController:MovementPattern
     var hp:Int
@@ -64,15 +63,19 @@ class EnemyShip: SKSpriteNode, Hitable {
         self.run(SKAction.repeatForever(SKAction.sequence([actions,actionInterval])))
         
     }
-    
+}
+
+extension EnemyShip: Hitable {
     func hittedBy(_ node: SKNode?) -> Bool {
-        if (node == nil){
+        if (node == nil) {
             return false
         }
+        
         hp -= 1
         if hp <= 0 {
-            self.safeRemoveFromParent()
+            safeRemoveFromParent()
         }
+        
         return true
     }
 }

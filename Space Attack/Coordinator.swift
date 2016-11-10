@@ -40,7 +40,7 @@ protocol ShotManager {
 }
 
 protocol MovementPattern {
-    var currDirection: CGVector { get }
+    var currDirection: CGVector { get set }
     func applyMovement(node: SKNode)
 }
 

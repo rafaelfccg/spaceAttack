@@ -20,7 +20,6 @@
 		00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */; };
 		00D92B151D896869000F1A8E /* TrilaserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B141D896869000F1A8E /* TrilaserItem.swift */; };
 		00D92B191D896A02000F1A8E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B181D896A02000F1A8E /* Coordinator.swift */; };
-		00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */; };
 		00D92B1D1D897428000F1A8E /* SKNode+SafeRemove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */; };
 		00D92B1F1D897509000F1A8E /* explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00D92B1E1D897509000F1A8E /* explosion.sks */; };
 		00D92B231D897521000F1A8E /* stars3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00D92B201D897521000F1A8E /* stars3.sks */; };
@@ -64,7 +63,6 @@
 		00C3E3E31DA6748D00A04020 /* BackgroundMusicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMusicManager.swift; sourceTree = "<group>"; };
 		00D92B141D896869000F1A8E /* TrilaserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrilaserItem.swift; sourceTree = "<group>"; };
 		00D92B181D896A02000F1A8E /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameScene+PhysicsControl.swift"; sourceTree = "<group>"; };
 		00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKNode+SafeRemove.swift"; sourceTree = "<group>"; };
 		00D92B1E1D897509000F1A8E /* explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explosion.sks; sourceTree = "<group>"; };
 		00D92B201D897521000F1A8E /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars3.sks; sourceTree = "<group>"; };
@@ -317,7 +315,6 @@
 		49C8BE3E1DD383E400EED543 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				00D92B1A1D896F61000F1A8E /* GameScene+PhysicsControl.swift */,
 				002CDF901DC1477C001AE131 /* SKAction+Extension.swift */,
 				00D92B1C1D897428000F1A8E /* SKNode+SafeRemove.swift */,
 			);
@@ -411,7 +408,6 @@
 			files = (
 				0004C9AF1DA158D700C85C09 /* HUD.swift in Sources */,
 				006347751DC8B37E00EE41F0 /* DificultyManager.swift in Sources */,
-				00D92B1B1D896F61000F1A8E /* GameScene+PhysicsControl.swift in Sources */,
 				0054C08A1D95801B002E1720 /* ShooterMode.swift in Sources */,
 				002CDF911DC1477C001AE131 /* SKAction+Extension.swift in Sources */,
 				00C3E3E41DA6748D00A04020 /* BackgroundMusicManager.swift in Sources */,

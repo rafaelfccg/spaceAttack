@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Asteroid: SKSpriteNode, Lauchable, Explodable {
+class Asteroid: SKSpriteNode {
     static let scale: CGFloat = 0.8
     static let asteroidAnimation: SKAction = Asteroid.createAsteroidAnimation()
     static var nextAsteroidSpawn = Double()
@@ -38,17 +38,6 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
         physicsBody?.angularDamping = 0
     }
     
-    func explode(_ scene: GameScene) {
-        let emitterPath = Bundle.main.path(forResource: "explosion", ofType: "sks")
-        let emitterNode = NSKeyedUnarchiver.unarchiveObject(withFile: emitterPath!) as? SKEmitterNode
-        emitterNode?.position = position
-        safeRemoveFromParent()
-        if (emitterNode != nil) {
-            scene.addChild(emitterNode!)
-            emitterNode?.run(Utils.removeAfter(1))
-        }
-    }
-    
     static func createAsteroidAnimation() -> SKAction {
         let animaAstTexture = [
             SKTexture.init(imageNamed: Assets.rock1),
@@ -72,7 +61,22 @@ class Asteroid: SKSpriteNode, Lauchable, Explodable {
         let animaAst = SKAction.repeatForever(anima)
         return animaAst
     }
-    
+}
+
+extension Asteroid: Explodable {
+    func explode(_ scene: GameScene) {
+        let emitterPath = Bundle.main.path(forResource: "explosion", ofType: "sks")
+        let emitterNode = NSKeyedUnarchiver.unarchiveObject(withFile: emitterPath!) as? SKEmitterNode
+        emitterNode?.position = position
+        safeRemoveFromParent()
+        if (emitterNode != nil) {
+            scene.addChild(emitterNode!)
+            emitterNode?.run(Utils.removeAfter(1))
+        }
+    }
+}
+
+extension Asteroid: Lauchable {
     func lauch(scene: SKScene) {
         let posX = CGFloat(Utils.random(0, max: scene.frame.size.width))
         let speedTuple = DificultyManager.sharedInstance.getAsteroidSpeed()

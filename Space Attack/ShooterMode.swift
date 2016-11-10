@@ -8,17 +8,16 @@
 
 import Foundation
 
-class ShooterMode: AnyObject, Mode {
-
+class ShooterMode: AnyObject {
+    let powerUpTime = 15.0
+    let speed = 0.1
+    
+    var isPowerUped = false
     var spaceship: Spaceship
-    var regularShot:ShotManager
-    var powerUpShoot:ShotManager
-    var isPowerUped:Bool = false
+    var regularShot: ShotManager
+    var powerUpShoot: ShotManager
     
-    let powerUpTime:Double = 15
-    let speed:Double = 0.1
-    
-    init(spaceship:Spaceship) {
+    init(spaceship: Spaceship) {
         self.spaceship = spaceship
         regularShot = RegularShot()
         powerUpShoot = TrilaserShot()
@@ -27,29 +26,34 @@ class ShooterMode: AnyObject, Mode {
         regularShot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
         regularShot.category = PhysicsCategory.laser
     }
-    func shoot(){
-        if(self.isPowerUped){
+}
+
+extension ShooterMode: Mode {
+    func shoot() {
+        if isPowerUped {
             powerUpShoot.shot(spaceship)
-        }else {
+        } else {
             regularShot.shot(spaceship)
         }
     }
     
     func activate() {}
     
-    func deactivate() -> Bool{
+    func deactivate() -> Bool {
         return true
     }
     
-    func hit()->Bool{
+    func hit() -> Bool {
         return true
     }
-    func powerUp(){
-        self.isPowerUped = true
+    
+    func powerUp() {
+        isPowerUped = true
         DispatchQueue.main.asyncAfter(deadline: .now() + self.powerUpTime) {
             self.isPowerUped = false
         }
     }
+    
     func getSpeedBonus() -> Double {
         return speed
     }

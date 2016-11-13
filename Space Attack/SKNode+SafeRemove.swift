@@ -9,15 +9,15 @@
 import SpriteKit
 
 extension SKNode {
-    func safeRemoveFromParent() {
-        removeAllActions()
-        physicsBody?.categoryBitMask = 0
-        physicsBody?.collisionBitMask = 0
-        
-        for child in children {
-            child.safeRemoveFromParent()
-        }
-        
-        removeFromParent()
+  func safeRemoveFromParent() {
+    removeAllActions()
+    physicsBody?.categoryBitMask = 0
+    physicsBody?.collisionBitMask = 0
+    
+    for child in children {
+      child.safeRemoveFromParent()
     }
+    
+    removeFromParent()
+  }
 }

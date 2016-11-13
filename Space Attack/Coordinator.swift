@@ -9,41 +9,41 @@
 import SpriteKit
 
 protocol Explodable {
-    func explode(_ scene: GameScene)
+  func explode(_ scene: GameScene)
 }
 
 protocol Hitable {
-    func hittedBy(_ node: SKNode?) -> Bool
+  func hittedBy(_ node: SKNode?) -> Bool
 }
 
 protocol Lauchable {
-    func lauch(scene: SKScene)
+  func lauch(scene: SKScene)
 }
 
 protocol Mode {
-    var spaceship: Spaceship { get }
-    func shoot()
-    func hit() -> Bool
-    func powerUp()
-    func getSpeedBonus() -> Double
-    func deactivate() -> Bool
-    func activate()
+  var spaceship: Spaceship { get }
+  func shoot()
+  func hit() -> Bool
+  func powerUp()
+  func getSpeedBonus() -> Double
+  func deactivate() -> Bool
+  func activate()
 }
 
 protocol MovementPattern {
-    var currentDirection: CGVector { get set }
-    func applyMovement(node: SKNode)
+  var currentDirection: CGVector { get set }
+  func applyMovement(node: SKNode)
 }
 
 protocol PowerUp {
-    func poweUp(_ ship: Spaceship)
+  func poweUp(_ ship: Spaceship)
 }
 
 protocol ShotManager {
-    var nextLaserSpawn: Double { get }
-    var shotInterval: Double { get }
-    var shootDirection: CGVector{ get set }
-    var target: UInt32 { get set }
-    var category: UInt32 { get set }
-    func shot(_ node: SKNode)
+  var nextLaserSpawn: Double { get }
+  var shotInterval: Double { get }
+  var shootDirection: CGVector{ get set }
+  var target: UInt32 { get set }
+  var category: UInt32 { get set }
+  func shot(_ node: SKNode)
 }

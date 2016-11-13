@@ -8,17 +8,13 @@
 
 import SpriteKit
 
-/*
- HUD (head-up display) or Status Bar is the method by which information is 
- visually relayed to the player as part of a game's user interface.
- */
-
 class HUD: AnyObject {
     let charFont32Size = 9
     let butHeight: CGFloat = 0.08
     let uiZPositon: CGFloat = 100
     let topPosition: CGFloat = 0.95
     
+    var score = 0
     var shootModeButton: SKShapeNode
     var shieldModeButton: SKShapeNode
     var propulsorModeButton: SKShapeNode
@@ -36,6 +32,15 @@ class HUD: AnyObject {
         shieldModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shield)
         propulsorModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.propulsor)
         multiplierLabel = SKLabelNode(fontNamed: Assets.gameFont)
+        
+        // setup label
+        labelScore = SKLabelNode.init(fontNamed: Assets.gameFont)
+        labelScore.name = "scoreLabel"
+        labelScore.text = String(format: "Score: %@", arguments: [score])
+        labelScore.position = CGPoint(x: scene.frame.maxX * 0.9 - 25, y: scene.frame.maxY * 0.95 - 5)
+        labelScore.fontColor = UIColor.white
+        labelScore.zPosition = 100
+        scene.addChild(labelScore)
         
         setModeButtons()
         setLives()
@@ -64,6 +69,27 @@ class HUD: AnyObject {
         let currPos = self.multiplierLabel.position
         let x = scene.frame.midX - CGFloat(count/2 * charFont32Size)
         self.multiplierLabel.position = CGPoint(x: x, y: currPos.y)
+    }
+    
+    func setScore() {
+        // count chars for number
+        let count = String(score).characters.count
+        
+        let first = scene.frame.maxX * 0.9 - CGFloat(count * 9)
+        let second = scene.frame.maxY * 0.95
+        labelScore.position = CGPoint(x: first, y: second)
+        labelScore.text = "Score: \(score)"
+    }
+    
+    func addScore(value: Int, multiplier: Int) {
+        score += value * multiplier
+        setScore()
+    }
+    
+    private func updateScore(val: Int) {
+        if score > val {
+            
+        }
     }
     
     func setModeButtons() {

@@ -14,10 +14,10 @@ enum EndReason {
     case lose
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene {
     var gameOver = Bool()
     var lives = 0
-    var score = 0
+    // var score = 0
     var multiplier = 1
     var lastHit: Double = 0
     var nextAsteroidSpawn = Double()
@@ -25,7 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var nextItemSpawn = Double()
     var gameOverTime = Double()
     var animaAst = SKAction()
-    var labelScore = SKLabelNode()
+    // var labelScore = SKLabelNode()
     var restartLabel = SKLabelNode()
     var hud: HUD? = nil
     var spaceship = Spaceship()
@@ -48,12 +48,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         // setup label
-        labelScore = SKLabelNode.init(fontNamed: Assets.gameFont)
-        labelScore.name = "scoreLabel"
-        labelScore.text = String(format: "Score: %@", arguments: [score])
-        labelScore.position = CGPoint(x: frame.maxX * 0.9 - 25, y: frame.maxY * 0.95 - 5)
-        labelScore.fontColor = UIColor.white
-        labelScore.zPosition = 100
+        // labelScore = SKLabelNode.init(fontNamed: Assets.gameFont)
+        // labelScore.name = "scoreLabel"
+        // labelScore.text = String(format: "Score: %@", arguments: [score])
+        // labelScore.position = CGPoint(x: frame.maxX * 0.9 - 25, y: frame.maxY * 0.95 - 5)
+        // labelScore.fontColor = UIColor.white
+        // labelScore.zPosition = 100
         
         // game background
         parallaxNodeBackgrounds = Parallax.init(withFile: Assets.space, imageRepetitions: 2, size: size, speed: 30, frameSize: size)
@@ -123,14 +123,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         nextAsteroidSpawn = 0
         lives = 3
-        score = 0
+        // score = 0
+        hud?.score = 0
         gameOverTime = 180 + cur
         gameOver = false
         
         restartLabel.isHidden = false
         nextItemSpawn = cur + randSecs
         nextAsteroidSpawn = cur + 2.5
-        setScore()
+        // setScore()
+        hud?.setScore()
         
         spaceship.position = CGPoint(x: frame.midX, y: frame.maxY * 0.2)
         spaceship.restrictMovement(toFrame: frame)
@@ -138,7 +140,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         hud?.setLives()
         
-        addChild(labelScore)
+        // addChild(labelScore)
     }
     
     func setUpEmmitters() {
@@ -166,7 +168,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         childNode(withName: NodeNames.callToActionLabel)?.safeRemoveFromParent()
         childNode(withName: NodeNames.endMessage)?.safeRemoveFromParent()
         childNode(withName: NodeNames.highScore)?.safeRemoveFromParent()
-        labelScore.safeRemoveFromParent()
+        // labelScore.safeRemoveFromParent()
+        hud?.labelScore.safeRemoveFromParent()
         enumerateChildNodes(withName: NodeNames.removable) { (node, stop) in
             node.safeRemoveFromParent()
         }
@@ -241,7 +244,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func endTheScene(_ endReason: EndReason) {
-        if (gameOver) {
+        guard gameOver else {
             return
         }
         
@@ -263,9 +266,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let n = UserDefaults.standard
         var val = n.integer(forKey: "HS")
         
-        if (score > val) {
-            n.set(score, forKey: "HS")
-            val = score
+        let localScore = hud?.score
+        if (localScore! > val) {
+            n.set(localScore, forKey: "HS")
+            val = localScore!
         }
         
         labelH.text = String.init(format: "High Score: %ld", arguments: [val])
@@ -297,20 +301,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         labelH.run(labelScaleAction)
     }
     
-    func setScore() {
-        // count chars for number
-        let count = String(score).characters.count
-        
-        let first = frame.maxX * 0.9 - CGFloat(count * 9)
-        let second = frame.maxY * 0.95
-        labelScore.position = CGPoint(x: first, y: second)
-        labelScore.text = "Score: \(self.score)"
-    }
+//    func setScore() {
+//        // count chars for number
+//        let count = String(score).characters.count
+//        
+//        let first = frame.maxX * 0.9 - CGFloat(count * 9)
+//        let second = frame.maxY * 0.95
+//        labelScore.position = CGPoint(x: first, y: second)
+//        labelScore.text = "Score: \(self.score)"
+//    }
     
-    func addScore(value:Int) {
-        score += value * multiplier
-        setScore()
-    }
+//    func addScore(value:Int) {
+//        score += value * multiplier
+//        setScore()
+//    }
     
     func checkEndGame() {
         let cur = CACurrentMediaTime()
@@ -323,7 +327,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 }
 
-extension GameScene {
+extension GameScene: SKPhysicsContactDelegate {
     @objc(didBeginContact:) func didBegin(_ contact: SKPhysicsContact) {
         let cur = CACurrentMediaTime()
         
@@ -349,7 +353,8 @@ extension GameScene {
         } else if (((secondBody.categoryBitMask & PhysicsCategory.laser == PhysicsCategory.laser) &&
             (firstBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid))) {
             secondBody.node?.safeRemoveFromParent()
-            self.addScore(value: 50)
+            // self.addScore(value: 50)
+            hud?.addScore(value: 50, multiplier: multiplier)
             if let explodable = firstBody.node as? Explodable {
                 explodable.explode(self)
             }
@@ -359,7 +364,8 @@ extension GameScene {
             self.lastHit = cur
             secondBody.node?.safeRemoveFromParent()
             if self.spaceship.hittedBy(secondBody.node) {
-                self.addScore(value: 100)
+                // self.addScore(value: 100)
+                hud?.addScore(value: 100, multiplier: multiplier)
                 self.childNode(withName: String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
                 lives -= 1
             }

@@ -17,15 +17,13 @@ enum EndReason {
 class GameScene: SKScene {
     var gameOver = Bool()
     var lives = 0
-    // var score = 0
     var multiplier = 1
-    var lastHit: Double = 0
+    var lastHit = 0.0
     var nextAsteroidSpawn = Double()
     var nextEnemySpawn = Double()
     var nextItemSpawn = Double()
     var gameOverTime = Double()
     var animaAst = SKAction()
-    // var labelScore = SKLabelNode()
     var restartLabel = SKLabelNode()
     var hud: HUD? = nil
     var spaceship = Spaceship()
@@ -46,14 +44,6 @@ class GameScene: SKScene {
         // setup physics world
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
-        
-        // setup label
-        // labelScore = SKLabelNode.init(fontNamed: Assets.gameFont)
-        // labelScore.name = "scoreLabel"
-        // labelScore.text = String(format: "Score: %@", arguments: [score])
-        // labelScore.position = CGPoint(x: frame.maxX * 0.9 - 25, y: frame.maxY * 0.95 - 5)
-        // labelScore.fontColor = UIColor.white
-        // labelScore.zPosition = 100
         
         // game background
         parallaxNodeBackgrounds = Parallax.init(withFile: Assets.space, imageRepetitions: 2, size: size, speed: 30, frameSize: size)
@@ -123,15 +113,12 @@ class GameScene: SKScene {
         
         nextAsteroidSpawn = 0
         lives = 3
-        // score = 0
-        hud?.score = 0
         gameOverTime = 180 + cur
         gameOver = false
         
         restartLabel.isHidden = false
         nextItemSpawn = cur + randSecs
         nextAsteroidSpawn = cur + 2.5
-        // setScore()
         hud?.setScore()
         
         spaceship.position = CGPoint(x: frame.midX, y: frame.maxY * 0.2)
@@ -139,8 +126,6 @@ class GameScene: SKScene {
         spaceship.isHidden = false
         
         hud?.setLives()
-        
-        // addChild(labelScore)
     }
     
     func setUpEmmitters() {
@@ -168,7 +153,6 @@ class GameScene: SKScene {
         childNode(withName: NodeNames.callToActionLabel)?.safeRemoveFromParent()
         childNode(withName: NodeNames.endMessage)?.safeRemoveFromParent()
         childNode(withName: NodeNames.highScore)?.safeRemoveFromParent()
-        // labelScore.safeRemoveFromParent()
         hud?.labelScore.safeRemoveFromParent()
         enumerateChildNodes(withName: NodeNames.removable) { (node, stop) in
             node.safeRemoveFromParent()
@@ -300,21 +284,6 @@ class GameScene: SKScene {
         label.run(labelScaleAction)
         labelH.run(labelScaleAction)
     }
-    
-//    func setScore() {
-//        // count chars for number
-//        let count = String(score).characters.count
-//        
-//        let first = frame.maxX * 0.9 - CGFloat(count * 9)
-//        let second = frame.maxY * 0.95
-//        labelScore.position = CGPoint(x: first, y: second)
-//        labelScore.text = "Score: \(self.score)"
-//    }
-    
-//    func addScore(value:Int) {
-//        score += value * multiplier
-//        setScore()
-//    }
     
     func checkEndGame() {
         let cur = CACurrentMediaTime()

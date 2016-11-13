@@ -27,6 +27,7 @@ class HUD: AnyObject {
         let butWidth = self.scene.size.width / 3
         let butHeight = self.scene.size.height * self.butHeight
         let sizeBut = CGSize(width: butWidth, height: butHeight)
+        score = 0
         
         shootModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shooter)
         shieldModeButton = ModeButton(rectOfSize: sizeBut, mode:ShipModes.shield)
@@ -55,20 +56,20 @@ class HUD: AnyObject {
         let x = scene.frame.midX
         let y = scene.frame.maxY
         
-        scene.addChild(self.multiplierLabel)
-        self.multiplierLabel.position = CGPoint(x: x, y: y * self.topPosition)
-        self.multiplierLabel.zPosition = self.uiZPositon
+        scene.addChild(multiplierLabel)
+        multiplierLabel.position = CGPoint(x: x, y: y * topPosition)
+        multiplierLabel.zPosition = uiZPositon
         setMultiplerValue(value: 1)
     }
     
     func setMultiplerValue(value:Int) {
-        self.multiplierLabel.text = String(format:"x%d", value)
+        multiplierLabel.text = String(format:"x%d", value)
         
         // count chars for value
         let count = String(value).characters.count
-        let currPos = self.multiplierLabel.position
+        let currPos = multiplierLabel.position
         let x = scene.frame.midX - CGFloat(count/2 * charFont32Size)
-        self.multiplierLabel.position = CGPoint(x: x, y: currPos.y)
+        multiplierLabel.position = CGPoint(x: x, y: currPos.y)
     }
     
     func setScore() {
@@ -86,25 +87,19 @@ class HUD: AnyObject {
         setScore()
     }
     
-    private func updateScore(val: Int) {
-        if score > val {
-            
-        }
-    }
-    
     func setModeButtons() {
-        var offSetX = self.shootModeButton.frame.width/2
-        let offSetY = self.shootModeButton.frame.height/2
+        var offSetX = shootModeButton.frame.width / 2
+        let offSetY = shootModeButton.frame.height / 2
         
-        self.scene.addChild(shootModeButton)
+        scene.addChild(shootModeButton)
         shootModeButton.position = CGPoint(x: offSetX, y: offSetY)
-        offSetX += self.shootModeButton.frame.width
+        offSetX += shootModeButton.frame.width
         
-        self.scene.addChild(shieldModeButton)
+        scene.addChild(shieldModeButton)
         shieldModeButton.position = CGPoint(x: offSetX, y: offSetY)
-        offSetX += self.shieldModeButton.frame.width
+        offSetX += shieldModeButton.frame.width
         
-        self.scene.addChild(propulsorModeButton)
+        scene.addChild(propulsorModeButton)
         propulsorModeButton.position = CGPoint(x: offSetX, y: offSetY)
         
         shootModeButton.fillColor = UIColor.red
@@ -126,7 +121,7 @@ class HUD: AnyObject {
         for i in livesArr {
             i.xScale = 0.20
             i.yScale = 0.20
-            let xL = CGFloat((x + CGFloat(2 * (count + 1)) * i.size.width)/2)
+            let xL = CGFloat((x + CGFloat(2 * (count + 1)) * i.size.width) / 2)
             let yL = CGFloat(y - i.size.height)
             i.position = CGPoint(x: xL, y: yL)
             i.name = String(format: "L%d", arguments: [count])

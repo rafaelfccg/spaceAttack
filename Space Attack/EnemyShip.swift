@@ -36,7 +36,7 @@ class EnemyShip: SKSpriteNode {
         self.zPosition = scene.zPosition + 10
         restrictMovement(toFrame: scene.frame)
         self.startActionPooling()
-        shoot.shootDirection = self.movementController.currDirection
+        shoot.shootDirection = self.movementController.currentDirection
     }
     
     func restrictMovement(toFrame frame:CGRect) {
@@ -53,7 +53,7 @@ class EnemyShip: SKSpriteNode {
         let actions = SKAction.run({
             self.shoot.shot(self)
             self.movementController.applyMovement(node: self)
-            self.shoot.shootDirection = self.movementController.currDirection
+            self.shoot.shootDirection = self.movementController.currentDirection
             let rootNode = Utils.getRootNode(node: self)
             if !rootNode.intersects(self) {
                 self.safeRemoveFromParent()

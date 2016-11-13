@@ -18,7 +18,7 @@ class SmoothMovement: AnyObject {
     var yDistanceMax: CGFloat = 150
     var yDistanceMin: CGFloat = 100
     var aimPoint: CGPoint = CGPoint(x: 0, y: 0)
-    var currDirection: CGVector = CGVector(dx: 0, dy: 1)
+    var currentDirection: CGVector = CGVector(dx: 0, dy: 1)
     
     init() {}
     
@@ -44,7 +44,7 @@ class SmoothMovement: AnyObject {
             let normXSpeed = velocity!.dx / norm
             let normYSpeed = velocity!.dy / norm
             node.physicsBody?.velocity = CGVector(dx:  normXSpeed * speed, dy:  normYSpeed * speed)
-            currDirection = CGVector(dx: normXSpeed, dy: normYSpeed)
+            currentDirection = CGVector(dx: normXSpeed, dy: normYSpeed)
         }
     }
     

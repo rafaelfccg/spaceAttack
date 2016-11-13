@@ -31,7 +31,7 @@ protocol Mode {
 }
 
 protocol MovementPattern {
-    var currDirection: CGVector { get set }
+    var currentDirection: CGVector { get set }
     func applyMovement(node: SKNode)
 }
 

@@ -228,7 +228,7 @@ class GameScene: SKScene {
   }
   
   func endTheScene(_ endReason: EndReason) {
-    guard gameOver else {
+    if gameOver {
       return
     }
     

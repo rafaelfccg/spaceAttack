@@ -70,7 +70,7 @@ class EnemyShip: SKSpriteNode {
 
 extension EnemyShip: Hitable {
   func hittedBy(_ node: SKNode?) -> Bool {
-    guard node == nil else {
+    if node == nil {
       return false
     }
     

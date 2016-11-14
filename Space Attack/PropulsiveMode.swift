@@ -9,48 +9,57 @@
 import Foundation
 import SpriteKit
 
-class PropulsiveMode: AnyObject, Mode {
-    var spaceship: Spaceship
-    var propulsiveShot:ShotManager
-    var isPowerUped:Bool = false
-    let powerUpTime:UInt64 = 15
-    let speed:Double = 0.5
-    let powerUpSpeed:Double = 0.4
-    let speedParticle:SKEmitterNode? = SKEmitterNode(fileNamed: "SpeedBoost")
-    
-    init(spaceship:Spaceship) {
-        self.spaceship = spaceship
-        propulsiveShot = RegularShot(shotInterval: 0.5)
-        propulsiveShot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
-        propulsiveShot.category = PhysicsCategory.laser
-        
+class PropulsiveMode: AnyObject {
+  let speed = 0.5
+  let powerUpSpeed = 0.4
+  let powerUpTime: UInt64 = 15
+  let speedParticle: SKEmitterNode? = SKEmitterNode(fileNamed: "SpeedBoost")
+  
+  var isPowerUped = false
+  var spaceship: Spaceship
+  var propulsiveShot: ShotManager
+  
+  init(spaceship: Spaceship) {
+    self.spaceship = spaceship
+    propulsiveShot = RegularShot(shotInterval: 0.5)
+    propulsiveShot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
+    propulsiveShot.category = PhysicsCategory.laser
+  }
+}
+
+extension PropulsiveMode: Mode {
+  func shoot() {
+    propulsiveShot.shot(spaceship)
+  }
+  
+  func hit() -> Bool {
+    return true
+  }
+  
+  func powerUp() {
+    isPowerUped = true
+    let delayTime = DispatchTime.init(uptimeNanoseconds: powerUpTime * NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter(deadline: delayTime) {
+      self.isPowerUped = false
     }
-    func shoot(){
-        propulsiveShot.shot(spaceship)
+  }
+  
+  func getSpeedBonus() -> Double {
+    if isPowerUped {
+      return powerUpSpeed
+    } else {
+      return speed
     }
-    func hit()->Bool{
-        return true
-    }
-    func activate(){
-        let rootNode = Utils.getRootNode(node: spaceship)
-        rootNode.addChild(speedParticle!)
-        speedParticle?.position = CGPoint(x: rootNode.frame.midX, y: rootNode.frame.minY)
-    }
-    func deactivate() -> Bool{
-        speedParticle?.removeFromParent()
-        return true
-    }
-    func powerUp(){
-        self.isPowerUped = true
-        let delayTime = DispatchTime.init(uptimeNanoseconds: self.powerUpTime * NSEC_PER_SEC)
-        DispatchQueue.main.asyncAfter(deadline: delayTime) {
-            self.isPowerUped = false
-        }
-    }
-    func getSpeedBonus() -> Double {
-        if isPowerUped {
-            return powerUpSpeed
-        }
-        return speed
-    }
+  }
+  
+  func activate() {
+    let rootNode = Utils.getRootNode(node: spaceship)
+    rootNode.addChild(speedParticle!)
+    speedParticle?.position = CGPoint(x: rootNode.frame.midX, y: rootNode.frame.minY)
+  }
+  
+  func deactivate() -> Bool {
+    speedParticle?.removeFromParent()
+    return true
+  }
 }

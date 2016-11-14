@@ -6,73 +6,79 @@
 //  Copyright © 2016 Miguel Araújo. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 
-class EnemyShip: SKSpriteNode, Hitable {
-    var shoot:ShotManager
-    var movementController:MovementPattern
-    var hp:Int
-    static let margin:CGFloat = 30
+class EnemyShip: SKSpriteNode {
+  static let margin: CGFloat = 30
+  var shoot: ShotManager
+  var movementController: MovementPattern
+  var hp: Int
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  init(scene: SKScene) {
+    let texture = SKTexture(imageNamed: Assets.spaceshipDrakir1)
+    shoot = IrregularCircularShot()
+    shoot.target = PhysicsCategory.spaceship
+    shoot.category = PhysicsCategory.enemyLaser
+    movementController = SmoothMovement()
+    hp = Int(round(Utils.random(3, max: 5)))
+    super.init(texture:texture, color:UIColor.clear , size:texture.size())
     
-    init(scene:SKScene) {
-        let texture = SKTexture(imageNamed: Assets.spaceshipDrakir1)
-        shoot = IrregularCircularShot()
-        shoot.target = PhysicsCategory.spaceship
-        shoot.category = PhysicsCategory.enemyLaser
-        movementController = SmoothMovement()
-        hp = Int(round(Utils.random(3, max: 5)))
-        super.init(texture:texture, color:UIColor.clear , size:texture.size());
-        self.physicsBody = SKPhysicsBody(circleOfRadius: texture.size().width/2)
-        self.physicsBody?.categoryBitMask = PhysicsCategory.enemy
-        self.physicsBody?.contactTestBitMask = PhysicsCategory.laser
-        self.physicsBody?.collisionBitMask = 0
-        self.physicsBody?.friction = 0
-        self.physicsBody?.linearDamping = 0
-        
-        self.xScale = 0.6
-        self.yScale = 0.6
-        
-        self.run(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 0))
-        self.zPosition = scene.zPosition + 10
-        restrictMovement(toFrame: scene.frame)
-        self.startActionPooling()
-        shoot.shootDirection = self.movementController.currDirection
+    // setup physics body
+    physicsBody = SKPhysicsBody(circleOfRadius: texture.size().width/2)
+    physicsBody?.categoryBitMask = PhysicsCategory.enemy
+    physicsBody?.contactTestBitMask = PhysicsCategory.laser
+    physicsBody?.collisionBitMask = 0
+    physicsBody?.friction = 0
+    physicsBody?.linearDamping = 0
+    
+    xScale = 0.6
+    yScale = 0.6
+    
+    run(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 0))
+    zPosition = scene.zPosition + 10
+    restrictMovement(toFrame: scene.frame)
+    startActionPooling()
+    shoot.shootDirection = movementController.currentDirection
+  }
+  
+  func restrictMovement(toFrame frame: CGRect) {
+    let xRange = SKRange(lowerLimit: -EnemyShip.margin, upperLimit:frame.size.width + EnemyShip.margin)
+    let yRange = SKRange(lowerLimit: -EnemyShip.margin, upperLimit:frame.size.height + EnemyShip.margin)
+    constraints = [SKConstraint.positionX(xRange,y:yRange)]
+  }
+  
+  func startActionPooling() {
+    let actions = SKAction.run({
+      self.shoot.shot(self)
+      self.movementController.applyMovement(node: self)
+      self.shoot.shootDirection = self.movementController.currentDirection
+      let rootNode = Utils.getRootNode(node: self)
+      if !rootNode.intersects(self) {
+        self.safeRemoveFromParent()
+      }
+    })
+    
+    let actionInterval = SKAction.wait(forDuration: 0.1)
+    run(SKAction.repeatForever(SKAction.sequence([actions,actionInterval])))
+    
+  }
+}
+
+extension EnemyShip: Hitable {
+  func hittedBy(_ node: SKNode?) -> Bool {
+    if node == nil {
+      return false
     }
     
-    func restrictMovement(toFrame frame:CGRect) {
-        let xRange = SKRange(lowerLimit: -EnemyShip.margin, upperLimit:frame.size.width + EnemyShip.margin)
-        let yRange = SKRange(lowerLimit: -EnemyShip.margin, upperLimit:frame.size.height + EnemyShip.margin)
-        self.constraints = [SKConstraint.positionX(xRange,y:yRange)]
+    hp -= 1
+    if hp <= 0 {
+      safeRemoveFromParent()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func startActionPooling() {
-        let actions = SKAction.run({
-            self.shoot.shot(self)
-            self.movementController.applyMovement(node: self)
-            self.shoot.shootDirection = self.movementController.currDirection
-            let rootNode = Utils.getRootNode(node: self)
-            if !rootNode.intersects(self) {
-                self.safeRemoveFromParent()
-            }
-        });
-        let actionInterval = SKAction.wait(forDuration: 0.1)
-        self.run(SKAction.repeatForever(SKAction.sequence([actions,actionInterval])))
-        
-    }
-    
-    func hittedBy(_ node: SKNode?) -> Bool {
-        if (node == nil){
-            return false
-        }
-        hp -= 1
-        if hp <= 0 {
-            self.safeRemoveFromParent()
-        }
-        return true;
-    }
+    return true
+  }
 }

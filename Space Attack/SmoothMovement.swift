@@ -15,8 +15,8 @@ class SmoothMovement: AnyObject {
   let frontDirection: CGVector = CGVector(dx: 0, dy: 1)
   
   var lastRotation = 0.0
-  var yDistanceMax: CGFloat = 150
-  var yDistanceMin: CGFloat = 100
+  var yDistanceMax: CGFloat = 400
+  var yDistanceMin: CGFloat = 200
   var aimPoint: CGPoint = CGPoint(x: 0, y: 0)
   var currentDirection: CGVector = CGVector(dx: 0, dy: 1)
   

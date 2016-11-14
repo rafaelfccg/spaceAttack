@@ -125,7 +125,6 @@ class GameScene: SKScene {
     spaceship.restrictMovement(toFrame: frame)
     spaceship.isHidden = false
     
-    hud?.setLives()
   }
   
   func setUpEmmitters() {
@@ -153,13 +152,17 @@ class GameScene: SKScene {
     childNode(withName: NodeNames.callToActionLabel)?.safeRemoveFromParent()
     childNode(withName: NodeNames.endMessage)?.safeRemoveFromParent()
     childNode(withName: NodeNames.highScore)?.safeRemoveFromParent()
-    hud?.labelScore.safeRemoveFromParent()
+    hud?.resetScore()
     enumerateChildNodes(withName: NodeNames.removable) { (node, stop) in
       node.safeRemoveFromParent()
     }
     
     multiplier = 1
+    DificultyManager.sharedInstance.multiplier = 1
+    hud?.setMultiplerValue(value: 1)
+    
     spaceship.speed = 1
+    hud?.setLives()
     start()
   }
   
@@ -175,7 +178,7 @@ class GameScene: SKScene {
     let curTime = CACurrentMediaTime()
     
     if curTime > nextItemSpawn {
-      let randSecs = Utils.random(15, max: 45)
+      let randSecs = Utils.random(30, max: 45)
       nextItemSpawn = curTime + Double(randSecs)
       let triLaserItem = TrilaserItem(scene: self)
       triLaserItem.name = NodeNames.removable
@@ -315,10 +318,11 @@ extension GameScene: SKPhysicsContactDelegate {
       (firstBody.categoryBitMask & PhysicsCategory.spaceship == PhysicsCategory.spaceship) && (self.lastHit + 1.0 < cur)) {
       self.lastHit = cur
       secondBody.node?.safeRemoveFromParent()
+        
       if self.spaceship.hittedBy(secondBody.node) {
-        self.childNode(withName: String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
-        lives -= 1
+        self.hud?.removeLive()
       }
+        
     } else if (((secondBody.categoryBitMask & PhysicsCategory.laser == PhysicsCategory.laser) &&
       (firstBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid))) {
       secondBody.node?.safeRemoveFromParent()

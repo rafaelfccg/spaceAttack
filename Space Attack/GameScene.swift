@@ -73,10 +73,10 @@ class GameScene: SKScene {
     for touch in touches {
       let pos = touch.location(in: self)
       let node = self.atPoint(pos)
-      if node.name == NodeNames.callToActionLabel {
-        restartGame()
-      } else if let modeBut = node as? ModeButton{
+      if let modeBut = node as? ModeButton{
         _ = self.spaceship.setMode(mode: modeBut.mode)
+      } else if node.name == NodeNames.callToActionLabel {
+        restartGame()
       } else if !gameOver{
         self.spaceship.applyMovement(cropPositionPoint(pos), reposition: cropPositionPoint)
       }
@@ -157,9 +157,8 @@ class GameScene: SKScene {
       node.safeRemoveFromParent()
     }
     
-    multiplier = 1
     DificultyManager.sharedInstance.multiplier = 1
-    hud?.setMultiplerValue(value: 1)
+    self.spaceship.reset()
     
     spaceship.speed = 1
     hud?.setLives()
@@ -194,14 +193,7 @@ class GameScene: SKScene {
       asteroid.lauch(scene: self)
     }
     
-    if curTime > nextEnemySpawn {
-      nextEnemySpawn = Double(Utils.random(12, max: 20)) + curTime
-      let xPosition = Utils.random(0, max: frame.maxX)
-      let enemy = EnemyShip(scene: self)
-      enemy.name = NodeNames.removable
-      enemy.position = CGPoint(x: xPosition, y: frame.maxY)
-      addChild(enemy)
-    }
+    DificultyManager.sharedInstance.trySpamSimpleEnemy(scene: self)
   }
   
   func cropPositionPoint(_ point: CGPoint) -> CGPoint {
@@ -320,13 +312,13 @@ extension GameScene: SKPhysicsContactDelegate {
       secondBody.node?.safeRemoveFromParent()
         
       if self.spaceship.hittedBy(secondBody.node) {
-        self.hud?.removeLive()
+        self.lives = self.hud!.removeLive()
       }
         
     } else if (((secondBody.categoryBitMask & PhysicsCategory.laser == PhysicsCategory.laser) &&
       (firstBody.categoryBitMask & PhysicsCategory.asteroid == PhysicsCategory.asteroid))) {
       secondBody.node?.safeRemoveFromParent()
-      hud?.addScore(value: 50, multiplier: multiplier)
+      hud?.addScore(value: 5, multiplier: multiplier)
       if let explodable = firstBody.node as? Explodable {
         explodable.explode(self)
       }
@@ -336,9 +328,7 @@ extension GameScene: SKPhysicsContactDelegate {
       self.lastHit = cur
       secondBody.node?.safeRemoveFromParent()
       if self.spaceship.hittedBy(secondBody.node) {
-        hud?.addScore(value: 100, multiplier: multiplier)
-        self.childNode(withName: String(format: "L%d", arguments: [self.lives - 1]))?.removeFromParent()
-        lives -= 1
+        self.lives = self.hud!.removeLive()
       }
       
     } else if (((secondBody.categoryBitMask & PhysicsCategory.enemy == PhysicsCategory.enemy) &&
@@ -347,6 +337,7 @@ extension GameScene: SKPhysicsContactDelegate {
       
       if let hitable = secondBody.node as? Hitable {
         _ = hitable.hittedBy(node)
+        hud?.addScore(value: 10, multiplier: multiplier)
       }
       node?.safeRemoveFromParent()
     } else if ((secondBody.categoryBitMask == PhysicsCategory.trilaser) &&

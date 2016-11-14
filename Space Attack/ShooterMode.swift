@@ -10,7 +10,7 @@ import Foundation
 
 class ShooterMode: AnyObject {
   let powerUpTime = 15.0
-  let speed = 0.1
+  let speed = 0.075
   
   var isPowerUped = false
   var spaceship: Spaceship
@@ -56,5 +56,8 @@ extension ShooterMode: Mode {
   
   func getSpeedBonus() -> Double {
     return speed
+  }
+  func reset(){
+    isPowerUped = false
   }
 }

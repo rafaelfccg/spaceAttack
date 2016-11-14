@@ -10,10 +10,11 @@ import SpriteKit
 
 class ShieldMode: AnyObject {
   let powerUpTime = 20.0
-  let regenerationTime = 20.0
+  let regenerationTime = 18.0
+  let shieldStartHp = 3
   
   var isActive = false
-  var shieldHP = 3
+  var shieldHP = 0
   var powerUpHP = 0
   var spaceship: Spaceship
   var shieldShot: ShotManager
@@ -27,6 +28,7 @@ class ShieldMode: AnyObject {
     shieldShot = RegularShot(shotInterval: 0.8)
     shieldShot.target = PhysicsCategory.asteroid | PhysicsCategory.enemy
     shieldShot.category = PhysicsCategory.laser
+    shieldHP = shieldStartHp
   }
 }
 
@@ -87,6 +89,10 @@ extension ShieldMode: Mode {
   }
   
   func getSpeedBonus() -> Double {
-    return 0.1
+    return 0.075
+  }
+  func reset() {
+    shieldHP = shieldStartHp
+    powerUpHP = 0
   }
 }

@@ -11,8 +11,9 @@ import SpriteKit
 class IrregularCircularShot: AnyObject {
   static let shotIntervalMax: CGFloat = 0.3
   static let shotIntervalMin: CGFloat = 0.7
+  let reloadNumberOfShoots = 8
   
-  var shotsUntilReload = 10
+  var shotsUntilReload = 8
   var target: UInt32 = 0
   var category: UInt32 = 0
   var nextLaserSpawn: Double = 0.0
@@ -28,7 +29,7 @@ extension IrregularCircularShot: ShotManager {
   func shot(_ node: SKNode) {
     let curTime = CACurrentMediaTime()
     if shotsUntilReload <= 0 {
-      shotsUntilReload = 10
+      shotsUntilReload = reloadNumberOfShoots
       nextLaserSpawn = curTime + 3
     }
     

@@ -24,7 +24,7 @@ class EnemyShip: SKSpriteNode {
     shoot.target = PhysicsCategory.spaceship
     shoot.category = PhysicsCategory.enemyLaser
     movementController = SmoothMovement()
-    hp = Int(round(Utils.random(3, max: 5)))
+    hp = Int(round(Utils.random(4, max: 6)))
     super.init(texture:texture, color:UIColor.clear , size:texture.size())
     
     // setup physics body
@@ -77,6 +77,7 @@ extension EnemyShip: Hitable {
     hp -= 1
     if hp <= 0 {
       safeRemoveFromParent()
+      DificultyManager.sharedInstance.countSimpleEnemies -= 1
     }
     
     return true

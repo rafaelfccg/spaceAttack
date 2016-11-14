@@ -11,9 +11,14 @@ import SpriteKit
 
 class DificultyManager: AnyObject {
   static let sharedInstance = DificultyManager()
+  let cSpeed: CGFloat = 0.99
+  var multiplier: CGFloat{
+    didSet {
+      self.numberOfMultipleSimpleEnemies = max(1, min(5, (Int(self.multiplier) + 9) / 6))
+    }
+  }
   
   // Asteroid
-  let cSpeed: CGFloat = 0.99
   let asteroidLauchMinImpulse: CGFloat = 11
   let asteroidLauchMaxImpulse: CGFloat = 30
   let asteroidHorizontalImpulse: CGFloat = 4
@@ -23,7 +28,14 @@ class DificultyManager: AnyObject {
   let asteroidTimeIntervalMax: CGFloat = 0.3
   let maximumAsteroidInterval: CGFloat = 1.3
   let minimumAsteroidInterval: CGFloat = 0.6
-  var multiplier: CGFloat
+  
+  // Enemy
+  let enemyTimeIntervalMin: CGFloat = 9
+  let enemyTimeIntervalMax: CGFloat = 15
+  
+  var numberOfMultipleSimpleEnemies = 1
+  var countSimpleEnemies = 0
+  var nextEnemySpawn:Double = 0
   
   init() {
     multiplier = 1
@@ -65,4 +77,27 @@ class DificultyManager: AnyObject {
     
     return Double(Utils.random(mini, max: maxi)) + curTime
   }
+  func getNextSimpleEnemySpawn() -> Double {
+    return Double(Utils.random(self.enemyTimeIntervalMin, max: self.enemyTimeIntervalMax))
+  }
+  func trySpamSimpleEnemy(scene:SKScene) {
+    let curTime = CACurrentMediaTime()
+    if self.nextEnemySpawn < curTime {
+      nextEnemySpawn = getNextSimpleEnemySpawn() + curTime
+      let enemiesToSpawn = min(self.numberOfMultipleSimpleEnemies,max(1,self.numberOfMultipleSimpleEnemies - countSimpleEnemies + 1));
+      for _ in 1...enemiesToSpawn {
+        countSimpleEnemies += 1
+        scene.addChild(self.spawnSimpleEnemy(scene: scene))
+      }
+      
+    }
+  }
+  func spawnSimpleEnemy(scene:SKScene) -> SKNode {
+    let xPosition = Utils.random(0, max: scene.frame.maxX)
+    let enemy = EnemyShip(scene: scene)
+    enemy.name = NodeNames.removable
+    enemy.position = CGPoint(x: xPosition, y: scene.frame.maxY)
+    return enemy
+  }
+  
 }

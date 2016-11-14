@@ -28,6 +28,7 @@ protocol Mode {
   func getSpeedBonus() -> Double
   func deactivate() -> Bool
   func activate()
+  func reset()
 }
 
 protocol MovementPattern {

@@ -353,6 +353,7 @@
 				TargetAttributes = {
 					493D30901D6FC05500FD5293 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 46HQV8ZA5C;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -548,7 +549,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 46HQV8ZA5C;
 				INFOPLIST_FILE = "Space Attack/Info.plist";
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -564,7 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 46HQV8ZA5C;
 				INFOPLIST_FILE = "Space Attack/Info.plist";
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

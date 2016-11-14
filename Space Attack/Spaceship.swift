@@ -18,9 +18,12 @@ class Spaceship: SKSpriteNode {
   private var speedMultiplier = 1.0
   private var lastSpeedBonus: TimeInterval = 0
   private let speedBonusInterval: TimeInterval = 1
+  let hitMinimumInterval = 0.2
   
   var mode = ShipModes.shooter
   var specialShot: ShotManager? = nil
+  var lastInterval:Double = 0
+  
   private var modeMap: [ShipModes: Mode] = [:]
   
   required init?(coder aDecoder: NSCoder) {
@@ -80,7 +83,7 @@ class Spaceship: SKSpriteNode {
   }
   
   func setMode(mode: ShipModes) -> Bool? {
-    let deactivated = modeMap[mode]?.deactivate()
+    let deactivated = modeMap[self.mode]?.deactivate()
     if deactivated! {
       self.mode = mode
       modeMap[mode]?.activate()
@@ -102,18 +105,28 @@ class Spaceship: SKSpriteNode {
     
     return Int(floor(speedMultiplier))
   }
+  func reset(){
+    self.speedMultiplier = 1
+    for mode in self.modeMap.values {
+      mode.reset()
+    }
+  }
 }
 
 extension Spaceship: Hitable {
   func hittedBy(_ node: SKNode?) -> Bool {
-    let hitted = getMode().hit()
+    let curr = CACurrentMediaTime()
+    if curr >= lastInterval {
+      let hitted = getMode().hit()
+
+      if hitted {
+        let blink = SKAction.sequence([SKAction.fadeOut(withDuration: 0.1), SKAction.fadeIn(withDuration: 0.1)])
+        let blinkForTime = SKAction.repeat(blink, count: 5)
+        run(blinkForTime)
+      }
     
-    if hitted {
-      let blink = SKAction.sequence([SKAction.fadeOut(withDuration: 0.1), SKAction.fadeIn(withDuration: 0.1)])
-      let blinkForTime = SKAction.repeat(blink, count: 5)
-      run(blinkForTime)
+      return hitted
     }
-    
-    return hitted
+    return false
   }
 }

@@ -10,8 +10,8 @@ import Foundation
 import SpriteKit
 
 class PropulsiveMode: AnyObject {
-  let speed = 0.5
-  let powerUpSpeed = 0.4
+  let speed = 0.3
+  let powerUpSpeed = 0.6
   let powerUpTime: UInt64 = 15
   let speedParticle: SKEmitterNode? = SKEmitterNode(fileNamed: "SpeedBoost")
   
@@ -56,10 +56,14 @@ extension PropulsiveMode: Mode {
     let rootNode = Utils.getRootNode(node: spaceship)
     rootNode.addChild(speedParticle!)
     speedParticle?.position = CGPoint(x: rootNode.frame.midX, y: rootNode.frame.minY)
+    speedParticle?.zPosition = 1;
   }
   
   func deactivate() -> Bool {
     speedParticle?.removeFromParent()
     return true
+  }
+  func reset() {
+   isPowerUped = false
   }
 }

@@ -176,8 +176,8 @@ class GameScene: SKScene {
   func doLauchables() {
     let curTime = CACurrentMediaTime()
     
-    if curTime > nextItemSpawn {
-      let randSecs = Utils.random(30, max: 45)
+    if curTime > nextItemSpawn && self.multiplier > 10 {
+      let randSecs = Utils.random(40, max: 60)
       nextItemSpawn = curTime + Double(randSecs)
       let triLaserItem = TrilaserItem(scene: self)
       triLaserItem.name = NodeNames.removable

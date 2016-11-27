@@ -32,6 +32,7 @@ class DificultyManager: AnyObject {
   // Enemy
   let enemyTimeIntervalMin: CGFloat = 9
   let enemyTimeIntervalMax: CGFloat = 15
+  let circularProbability:CGFloat = 0.7
   
   var numberOfMultipleSimpleEnemies = 1
   var countSimpleEnemies = 0
@@ -92,9 +93,21 @@ class DificultyManager: AnyObject {
       
     }
   }
+  
+  func chooseEnemyType() -> EnemyType {
+    let rand = Utils.random(0, max: 1)
+    if rand > circularProbability {
+      return EnemyType.IrregularEnemy
+    } else {
+      return EnemyType.CircularEnemy
+    }
+  }
+  
   func spawnSimpleEnemy(scene:SKScene) -> SKNode {
+    
+    let enemyType = chooseEnemyType()
     let xPosition = Utils.random(0, max: scene.frame.maxX)
-    let enemy = EnemyShip(scene: scene)
+    let enemy = EnemyShip(scene: scene, type:enemyType)
     enemy.name = NodeNames.removable
     enemy.position = CGPoint(x: xPosition, y: scene.frame.maxY)
     return enemy

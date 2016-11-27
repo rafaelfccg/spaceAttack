@@ -8,6 +8,11 @@
 
 import SpriteKit
 
+enum EnemyType {
+  case CircularEnemy
+  case IrregularEnemy
+}
+
 class EnemyShip: SKSpriteNode {
   static let margin: CGFloat = 30
   var shoot: ShotManager
@@ -18,9 +23,31 @@ class EnemyShip: SKSpriteNode {
     fatalError("init(coder:) has not been implemented")
   }
   
-  init(scene: SKScene) {
+  static func shipTypeIrregular() -> (SKTexture, ShotManager) {
     let texture = SKTexture(imageNamed: Assets.spaceshipDrakir1)
-    shoot = IrregularCircularShot()
+    let shoot = IrregularCircularShot()
+    return (texture,shoot)
+  }
+  
+  static func shipTypeCicurlar() -> (SKTexture, ShotManager) {
+    let texture = SKTexture(imageNamed: Assets.spaceshipDrakir6)
+    let shoot = CircularShot()
+    return (texture, shoot)
+  }
+  
+  static func tupleForType(type:EnemyType) -> (SKTexture, ShotManager) {
+    switch type {
+    case .CircularEnemy:
+        return EnemyShip.shipTypeCicurlar()
+    case .IrregularEnemy:
+        return EnemyShip.shipTypeIrregular()
+    }
+  }
+  
+  init(scene: SKScene, type:EnemyType) {
+    let tuple = EnemyShip.tupleForType(type: type)
+    let texture = tuple.0
+    self.shoot = tuple.1
     shoot.target = PhysicsCategory.spaceship
     shoot.category = PhysicsCategory.enemyLaser
     movementController = SmoothMovement()

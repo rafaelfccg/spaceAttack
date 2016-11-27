@@ -11,9 +11,9 @@ import SpriteKit
 class IrregularCircularShot: AnyObject {
   static let shotIntervalMax: CGFloat = 0.3
   static let shotIntervalMin: CGFloat = 0.7
-  let reloadNumberOfShoots = 8
+  let reloadNumberOfShoots = 6
   
-  var shotsUntilReload = 8
+  var shotsUntilReload = 6
   var target: UInt32 = 0
   var category: UInt32 = 0
   var nextLaserSpawn: Double = 0.0
@@ -54,9 +54,9 @@ extension IrregularCircularShot: ShotManager {
       shipLaser.physicsBody?.contactTestBitMask = self.target
       shipLaser.physicsBody?.collisionBitMask = 0
       shipLaser.physicsBody?.allowsRotation = false
+      shipLaser.physicsBody?.linearDamping = 0
       
-      let remove = SKAction.removeFromParent()
-      let seq = SKAction.sequence([SKAction.wait(forDuration: 5), remove])
+      let seq = Utils.removeAfter(7)
       let rotation = Utils.random(-self.maximumRotation, max: self.maximumRotation)
       let direction = Utils.rotateVector(vector: self.shootDirection, byAngle: rotation)
       let impulseVector = CGVector(dx: direction.dx * self.impulseNorm, dy: direction.dy * self.impulseNorm)

@@ -36,4 +36,8 @@ open class Utils {
     let y = CGFloat(vector.dy * cos(angle) + vector.dx * sin(angle))
     return CGVector(dx: x, dy: y)
   }
+  
+  static func scaleVector(vector: CGVector, byScale scale: CGFloat) -> CGVector {
+    return CGVector(dx: vector.dx * scale, dy: vector.dy * scale)
+  }
 }

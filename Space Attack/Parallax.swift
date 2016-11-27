@@ -11,7 +11,8 @@ import SpriteKit
 class Parallax: SKNode {
   var lastUpdatedTime: TimeInterval = 0
   var deltaTime: TimeInterval = 0
-  var parallaxSpeed: CGFloat
+  let parallaxSpeedMax: CGFloat = 100
+  let parallaxSpeedMin: CGFloat = 25
   var imageCount: CGFloat
   var backgrounds: [SKSpriteNode]
   var frameSize: CGSize
@@ -20,8 +21,7 @@ class Parallax: SKNode {
     fatalError("init(coder:) has not been implemented")
   }
   
-  init(withFile: String, imageRepetitions: Int, size: CGSize, speed: CGFloat, frameSize: CGSize) {
-    parallaxSpeed = speed
+  init(withFile: String, imageRepetitions: Int, size: CGSize, frameSize: CGSize) {
     imageCount = CGFloat(imageRepetitions)
     backgrounds = []
     self.frameSize = frameSize
@@ -38,7 +38,11 @@ class Parallax: SKNode {
     }
   }
   
-  func update(_ currentTime: TimeInterval) {
+  func speedForMultiplier(multiplier:CGFloat) -> CGFloat {
+    return self.parallaxSpeedMin + multiplier/100.0 * parallaxSpeedMax
+  }
+  
+  func update(_ currentTime: TimeInterval, multiplier:Int) {
     if lastUpdatedTime <= 0 {
       deltaTime = 0
     } else {
@@ -46,7 +50,7 @@ class Parallax: SKNode {
     }
     
     lastUpdatedTime = currentTime
-    
+    let parallaxSpeed = speedForMultiplier(multiplier: CGFloat(multiplier))
     let movement = CGPoint(x: 0, y: -parallaxSpeed * CGFloat(deltaTime))
     position = CGPoint(x: position.x + movement.x, y: position.y+movement.y)
     let backgroundScreen = parent

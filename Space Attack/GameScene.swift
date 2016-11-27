@@ -46,7 +46,7 @@ class GameScene: SKScene {
     physicsWorld.contactDelegate = self
     
     // game background
-    parallaxNodeBackgrounds = Parallax.init(withFile: Assets.space, imageRepetitions: 2, size: size, speed: 30, frameSize: size)
+    parallaxNodeBackgrounds = Parallax.init(withFile: Assets.space, imageRepetitions: 2, size: size, frameSize: size)
     parallaxNodeBackgrounds?.position = CGPoint(x: 0, y: 0)
     parallaxNodeBackgrounds?.zPosition = -10
     parallaxNodeBackgrounds?.name = "parallaxNode"
@@ -98,7 +98,7 @@ class GameScene: SKScene {
   
   override func update(_ currentTime: TimeInterval) {
     /* Called before each frame is rendered */
-    parallaxNodeBackgrounds?.update(currentTime)
+    parallaxNodeBackgrounds?.update(currentTime, multiplier: self.multiplier)
     checkShip()
     if !gameOver {
       doLauchables()

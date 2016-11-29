@@ -281,12 +281,9 @@ class GameScene: SKScene {
   }
   
   func checkEndGame() {
-    let cur = CACurrentMediaTime()
     
     if lives <= 0 {
       endTheScene(EndReason.lose)
-    } else if (cur >= gameOverTime) {
-      endTheScene(EndReason.win)
     }
   }
 }

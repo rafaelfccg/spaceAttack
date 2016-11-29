@@ -8,6 +8,7 @@
 
 import Darwin
 import SpriteKit
+import GameplayKit
 
 class DificultyManager: AnyObject {
   static let sharedInstance = DificultyManager()
@@ -21,7 +22,7 @@ class DificultyManager: AnyObject {
   // Asteroid
   let asteroidLauchMinImpulse: CGFloat = 11
   let asteroidLauchMaxImpulse: CGFloat = 35
-  let asteroidHorizontalImpulse: CGFloat = 4
+  let asteroidHorizontalImpulse: CGFloat = 3
   let asteroidTopImpulse: CGFloat = 12
   let asteroidMinImpulse: CGFloat = 2
   let asteroidTimeIntervalMin: CGFloat = 0.1
@@ -32,7 +33,7 @@ class DificultyManager: AnyObject {
   // Enemy
   let enemyTimeIntervalMin: CGFloat = 8
   let enemyTimeIntervalMax: CGFloat = 15
-  let circularProbability:CGFloat = 0.7
+  let circularProbability:CGFloat = 0.6
   
   var numberOfMultipleSimpleEnemies = 1
   var countSimpleEnemies = 0
@@ -63,7 +64,11 @@ class DificultyManager: AnyObject {
     let speedFactor = max(speedForMultiplier(multiplier: multiplier),0.05)
     let topImpulse = min(Utils.random(asteroidLauchMinImpulse, max: asteroidLauchMaxImpulse) * speedFactor, asteroidTopImpulse)
     let impulse = topImpulse + asteroidMinImpulse
-    return (Utils.random(0, max: asteroidHorizontalImpulse) * speedFactor, impulse)
+    let random = GKRandomSource()
+    let gaussian = GKGaussianDistribution(randomSource: random, mean: 0, deviation: 100)
+    // Roll the dice...
+    let value = CGFloat(gaussian.nextInt())/100
+    return (fabs(value), impulse)
   }
   
   func getNextAsteroidSpawn() -> Double {

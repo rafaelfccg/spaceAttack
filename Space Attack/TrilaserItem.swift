@@ -14,7 +14,7 @@ class TrilaserItem: SKSpriteNode {
   }
   
   init(scene: SKScene) {
-    let texture = SKTexture(imageNamed: Assets.shotRed)
+    let texture = SKTexture(imageNamed: Assets.shotBlue)
     super.init(texture: texture, color: UIColor.clear, size: texture.size())
     
     let randX = Utils.random(0, max: scene.frame.size.width)

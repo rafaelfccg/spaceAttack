@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 class CircularShot: AnyObject {
-  let reloadNumberOfShoots = 4
+  let reloadNumberOfShoots = 3
   let shotInterval = 0.15
   
   var nextLaserSpawn = 0.0
@@ -19,7 +19,11 @@ class CircularShot: AnyObject {
   var verticalStr: CGFloat = 3
   var shootDirection: CGVector = CGVector(dx: 0, dy: 1)
   var numberOfShots = 10
-  var shotsUntilReload = 4
+  var shotsUntilReload = 3
+  
+  init() {
+    nextLaserSpawn = CACurrentMediaTime() +  Double(Utils.random(0.2, max: 0.5))
+  }
 		
 }
 
@@ -30,7 +34,7 @@ extension CircularShot : ShotManager {
     
     if shotsUntilReload <= 0 {
       shotsUntilReload = reloadNumberOfShoots
-      nextLaserSpawn = curTime + 5
+      nextLaserSpawn = curTime + 4.8 + Double(Utils.random(0.3, max: 0.5))
     }
     
     if (curTime < nextLaserSpawn || self.category <= 0) {

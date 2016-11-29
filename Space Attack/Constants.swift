@@ -100,4 +100,6 @@ struct Assets {
   static let star1 = "stars1"
   static let star2 = "stars2"
   static let star3 = "stars3"
+  
+  static let bts = "bts"
 }

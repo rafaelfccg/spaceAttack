@@ -103,6 +103,8 @@ class HUD: AnyObject {
     var offSetX = shootModeButton.frame.width / 2
     let offSetY = shootModeButton.frame.height / 2
     
+    
+    
     scene.addChild(shootModeButton)
     shootModeButton.position = CGPoint(x: offSetX, y: offSetY)
     offSetX += shootModeButton.frame.width
@@ -114,10 +116,16 @@ class HUD: AnyObject {
     scene.addChild(propulsorModeButton)
     propulsorModeButton.position = CGPoint(x: offSetX, y: offSetY)
     
-    shootModeButton.fillColor = UIColor.red
-    propulsorModeButton.fillColor = UIColor.yellow
-    shieldModeButton.fillColor = UIColor.blue
+    shootModeButton.fillColor = UIColor.clear
+    propulsorModeButton.fillColor = UIColor.clear
+    shieldModeButton.fillColor = UIColor.clear
     
+    let texture = SKTexture(imageNamed: Assets.bts)
+    let node = SKSpriteNode(texture: texture, color: UIColor.clear, size: CGSize(width: shootModeButton.frame.size.width * 3, height: shootModeButton.frame.size.height))
+    
+    node.position = shieldModeButton.position
+    scene.addChild(node)
+    node.zPosition = 99
     shootModeButton.zPosition = 100
     propulsorModeButton.zPosition = 100
     shieldModeButton.zPosition = 100

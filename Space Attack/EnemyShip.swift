@@ -93,6 +93,11 @@ class EnemyShip: SKSpriteNode {
     run(SKAction.repeatForever(SKAction.sequence([actions,actionInterval])))
     
   }
+  
+  override func removeFromParent() {
+    super.removeFromParent()
+    DificultyManager.sharedInstance.countSimpleEnemies -= 1
+  }
 }
 
 extension EnemyShip: Hitable {
@@ -104,7 +109,6 @@ extension EnemyShip: Hitable {
     hp -= 1
     if hp <= 0 {
       safeRemoveFromParent()
-      DificultyManager.sharedInstance.countSimpleEnemies -= 1
     }
     
     return true

@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 class PropulsiveMode: AnyObject {
-  let speed = 0.3
+  let speed = 0.35
   let powerUpSpeed = 0.6
   let powerUpTime: UInt64 = 15
   let speedParticle: SKEmitterNode? = SKEmitterNode(fileNamed: "SpeedBoost")

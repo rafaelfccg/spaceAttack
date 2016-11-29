@@ -89,7 +89,7 @@ extension ShieldMode: Mode {
   }
   
   func getSpeedBonus() -> Double {
-    return 0.075
+    return 0.08
   }
   func reset() {
     shieldHP = shieldStartHp

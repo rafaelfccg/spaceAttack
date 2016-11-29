@@ -137,6 +137,8 @@ class HUD: AnyObject {
       SKSpriteNode.init(imageNamed: Assets.spaceshipBgspeed)
     ]
     
+    self.lives = livesArr.count
+    
     var count = 0
     let x = scene.frame.minX
     let y = scene.frame.maxY

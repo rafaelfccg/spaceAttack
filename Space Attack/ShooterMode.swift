@@ -10,7 +10,7 @@ import Foundation
 
 class ShooterMode: AnyObject {
   let powerUpTime = 15.0
-  let speed = 0.075
+  let speed = 0.08
   
   var isPowerUped = false
   var spaceship: Spaceship
